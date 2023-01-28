@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+using ArPaint.Infrastructure.SceneManagement;
 
-namespace ArPaint.Infrastructure
+namespace ArPaint.Infrastructure.GameStates
 {
-    public class GameState : IGameState
+    public class GameStateMachineMachine : IGameStateMachine
     {
         private readonly ISceneLoader _sceneLoader;
         private Dictionary<Type, IState> _states;
@@ -13,7 +12,7 @@ namespace ArPaint.Infrastructure
         private IState _currentState;
 
         [Zenject.Inject]
-        public GameState(ISceneLoader sceneLoader)
+        public GameStateMachineMachine(ISceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
 

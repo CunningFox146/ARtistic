@@ -1,7 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 
-namespace ArPaint.Infrastructure
+namespace ArPaint.Infrastructure.SceneManagement
 {
     public interface ISceneLoader
     {

@@ -1,5 +1,5 @@
-using System;
-using UnityEngine;
+using ArPaint.Infrastructure.GameStates;
+using ArPaint.Infrastructure.SceneManagement;
 using Zenject;
 
 namespace ArPaint.Infrastructure
@@ -9,7 +9,7 @@ namespace ArPaint.Infrastructure
         public override void InstallBindings()
         {
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
-            Container.Bind<IGameState>().To<GameState>().AsSingle().NonLazy();
+            Container.Bind<IGameStateMachine>().To<GameStateMachineMachine>().AsSingle().NonLazy();
         }
     }
 }

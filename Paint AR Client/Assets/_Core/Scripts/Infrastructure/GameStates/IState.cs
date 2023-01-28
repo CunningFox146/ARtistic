@@ -1,4 +1,4 @@
-namespace ArPaint.Infrastructure
+namespace ArPaint.Infrastructure.GameStates
 {
     public interface IState
     {

@@ -1,6 +1,6 @@
-using UnityEngine;
+using ArPaint.Infrastructure.SceneManagement;
 
-namespace ArPaint.Infrastructure
+namespace ArPaint.Infrastructure.GameStates
 {
     public class BootstrapState : IState
     {
@@ -10,15 +10,14 @@ namespace ArPaint.Infrastructure
         {
             _sceneLoader = sceneLoader;
         }
-        
-        public void OnExit()
-        {
-            
-        }
 
         public void OnEnter()
         {
-            Debug.Log("WOW!");
+            _sceneLoader.LoadScene(SceneIndex.Draw);
+        }
+
+        public void OnExit()
+        {
         }
     }
 }
