@@ -1,5 +1,6 @@
 ﻿using ArPaint.Infrastructure.GameLoop;
 using UnityEngine;
+using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
 {
@@ -25,7 +26,11 @@ namespace ArPaint.Infrastructure.GameStates
 
         public void OnUpdate()
         {
-            Debug.Log("Updating!");
+            Debug.Log("Wow works!");
+        }
+
+        public class Factory : PlaceholderFactory<DrawState>
+        {
         }
     }
 }
