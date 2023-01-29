@@ -1,5 +1,4 @@
 ﻿using System;
-using ArPaint.Infrastructure.GameStates;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 

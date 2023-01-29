@@ -1,29 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArPaint.Infrastructure.SceneManagement;
+using ArPaint.Infrastructure.GameLoop;
+using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
 {
     public class GameStateMachineMachine : IGameStateMachine
     {
         private readonly ISceneLoader _sceneLoader;
-        private Dictionary<Type, IState> _states;
-        
-        private IState _currentState;
+        private readonly IUpdateLoop _updateLoop;
 
-        [Zenject.Inject]
-        public GameStateMachineMachine(ISceneLoader sceneLoader)
+        private IState _currentState;
+        private readonly Dictionary<Type, IState> _states;
+
+        [Inject]
+        public GameStateMachineMachine(ISceneLoader sceneLoader, IUpdateLoop updateLoop)
         {
             _sceneLoader = sceneLoader;
+            _updateLoop = updateLoop;
 
-            InitStates();
-        }
-
-        private void InitStates()
-        {
-            _states = new()
+            _states = new Dictionary<Type, IState>
             {
-                [typeof(BootstrapState)] = new BootstrapState(_sceneLoader),
+                [typeof(BootstrapState)] = new BootstrapState(this, _sceneLoader),
+                [typeof(DrawState)] = new DrawState(_updateLoop)
             };
 
             EnterState<BootstrapState>();
