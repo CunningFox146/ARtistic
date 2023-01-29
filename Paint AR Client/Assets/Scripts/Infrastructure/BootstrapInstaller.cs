@@ -10,8 +10,10 @@ namespace ArPaint.Infrastructure
         public override void InstallBindings()
         {
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
+            Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<IGameStateMachine>().To<GameStateMachineMachine>().AsSingle().NonLazy();
+            Container.BindFactory<BootstrapState, BootstrapState.Factory>();
+            Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle().NonLazy();
         }
     }
 }

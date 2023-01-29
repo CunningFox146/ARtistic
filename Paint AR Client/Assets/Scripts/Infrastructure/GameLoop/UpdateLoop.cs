@@ -9,15 +9,6 @@ namespace ArPaint.Infrastructure.GameLoop
         private readonly List<ILateUpdateable> _lateUpdateObjects = new();
         private readonly List<IUpdateable> _updateObjects = new();
 
-        public void RegisterUpdate(IUpdateable updateable) => _updateObjects.Add(updateable);
-        public void UnregisterUpdate(IUpdateable updateable) => _updateObjects.Remove(updateable);
-
-        public void RegisterFixedUpdate(IFixedUpdateable updateable) => _fixUpdateObjects.Add(updateable);
-        public void UnregisterFixedUpdate(IFixedUpdateable updateable) => _fixUpdateObjects.Remove(updateable);
-
-        public void RegisterLateUpdate(ILateUpdateable updateable) => _lateUpdateObjects.Add(updateable);
-        public void UnregisterLateUpdate(ILateUpdateable updateable) => _lateUpdateObjects.Remove(updateable);
-
         private void Update()
         {
             foreach (var updateable in _updateObjects) updateable.OnUpdate();
@@ -31,6 +22,36 @@ namespace ArPaint.Infrastructure.GameLoop
         private void LateUpdate()
         {
             foreach (var updateable in _lateUpdateObjects) updateable.OnLateUpdate();
+        }
+
+        public void RegisterFixedUpdate(IFixedUpdateable updateable)
+        {
+            _fixUpdateObjects.Add(updateable);
+        }
+
+        public void UnregisterFixedUpdate(IFixedUpdateable updateable)
+        {
+            _fixUpdateObjects.Remove(updateable);
+        }
+
+        public void RegisterLateUpdate(ILateUpdateable updateable)
+        {
+            _lateUpdateObjects.Add(updateable);
+        }
+
+        public void UnregisterLateUpdate(ILateUpdateable updateable)
+        {
+            _lateUpdateObjects.Remove(updateable);
+        }
+
+        public void RegisterUpdate(IUpdateable updateable)
+        {
+            _updateObjects.Add(updateable);
+        }
+
+        public void UnregisterUpdate(IUpdateable updateable)
+        {
+            _updateObjects.Remove(updateable);
         }
     }
 }

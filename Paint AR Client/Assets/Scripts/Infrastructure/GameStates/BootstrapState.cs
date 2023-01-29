@@ -1,5 +1,6 @@
 using ArPaint.Infrastructure.SceneManagement;
 using UnityEngine;
+using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
 {
@@ -8,7 +9,7 @@ namespace ArPaint.Infrastructure.GameStates
         private readonly IGameStateMachine _gameState;
         private readonly ISceneLoader _sceneLoader;
 
-        public BootstrapState(IGameStateMachine gameState,  ISceneLoader sceneLoader)
+        public BootstrapState(ISceneLoader sceneLoader, IGameStateMachine gameState)
         {
             _gameState = gameState;
             _sceneLoader = sceneLoader;
@@ -18,12 +19,15 @@ namespace ArPaint.Infrastructure.GameStates
         {
             Application.targetFrameRate = 300;
             _sceneLoader.LoadScene(SceneIndex.Draw);
-            _gameState.EnterState<DrawState>();
+            // _gameState.EnterState();
         }
 
         public void OnExit()
         {
-            
+        }
+
+        public class Factory : PlaceholderFactory<BootstrapState>
+        {
         }
     }
 }

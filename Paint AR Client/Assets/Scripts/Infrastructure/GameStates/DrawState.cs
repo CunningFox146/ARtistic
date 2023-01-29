@@ -12,7 +12,7 @@ namespace ArPaint.Infrastructure.GameStates
         {
             _loop = loop;
         }
-        
+
         public void OnExit()
         {
             _loop.RegisterUpdate(this);

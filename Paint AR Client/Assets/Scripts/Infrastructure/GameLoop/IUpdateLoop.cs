@@ -3,6 +3,6 @@
     public interface IUpdateLoop
     {
         void RegisterUpdate(IUpdateable updateable);
-        void UnregisterUpdate(IUpdateable updateable);   
+        void UnregisterUpdate(IUpdateable updateable);
     }
 }
