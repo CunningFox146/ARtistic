@@ -19,7 +19,6 @@ namespace ArPaint.Infrastructure.GameStates
         {
             Application.targetFrameRate = 300;
             _sceneLoader.LoadScene(SceneIndex.Draw);
-            // _gameState.EnterState();
         }
 
         public void OnExit()
