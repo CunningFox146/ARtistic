@@ -5,12 +5,12 @@ namespace ArPaint.Infrastructure.GameStates
 {
     public class ArInitState : IState
     {
-        private readonly ARPlaneManager _planeManager;
-        private readonly IGameStateMachine _gameState;
         private readonly DrawState.Factory _drawStateFactory;
+        private readonly IGameStateMachine _gameState;
+        private readonly ARPlaneManager _planeManager;
 
         [Inject]
-        public ArInitState(ARPlaneManager planeManager, IGameStateMachine gameState,  DrawState.Factory drawStateFactory)
+        public ArInitState(ARPlaneManager planeManager, IGameStateMachine gameState, DrawState.Factory drawStateFactory)
         {
             _planeManager = planeManager;
             _gameState = gameState;
