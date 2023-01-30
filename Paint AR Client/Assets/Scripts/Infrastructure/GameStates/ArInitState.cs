@@ -3,7 +3,7 @@ using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
 {
-    public class ArInitState : IState
+    public class ArInitState : IEnterState, IExitState
     {
         private readonly DrawState.Factory _drawStateFactory;
         private readonly IGameStateMachine _gameState;

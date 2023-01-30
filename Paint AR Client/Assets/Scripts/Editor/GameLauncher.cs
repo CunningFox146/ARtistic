@@ -8,9 +8,10 @@ namespace Editor
     {
         public void OnGUI()
         {
-            EditorSceneManager.playModeStartScene = (SceneAsset)EditorGUILayout.ObjectField(new GUIContent("Start Scene"), EditorSceneManager.playModeStartScene, typeof(SceneAsset), false);
+            EditorSceneManager.playModeStartScene = (SceneAsset)EditorGUILayout.ObjectField(
+                new GUIContent("Start Scene"), EditorSceneManager.playModeStartScene, typeof(SceneAsset), false);
         }
-        
+
         [MenuItem("Tools/Startup scene")]
         private static void Open()
         {

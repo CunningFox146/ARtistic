@@ -1,8 +1,7 @@
 namespace ArPaint.Infrastructure.GameStates
 {
-    public interface IState
+    public interface IEnterState
     {
         void OnEnter();
-        void OnExit();
     }
 }

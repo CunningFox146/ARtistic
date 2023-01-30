@@ -2,12 +2,12 @@
 {
     public class GameStateMachine : IGameStateMachine
     {
-        private IState _currentState;
+        private IEnterState _currentState;
 
-        public void EnterState(IState state)
+        public void EnterState(IEnterState stateEnter)
         {
-            _currentState?.OnExit();
-            _currentState = state;
+            (_currentState as IExitState)?.OnExit();
+            _currentState = stateEnter;
             _currentState?.OnEnter();
         }
     }

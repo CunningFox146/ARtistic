@@ -3,7 +3,7 @@ using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
 {
-    public class DrawState : IState, IUpdateable
+    public class DrawState : IEnterState, IExitState, IUpdateable
     {
         private readonly IUpdateLoop _loop;
         private bool _isUpdating;
