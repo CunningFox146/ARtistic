@@ -13,6 +13,8 @@ namespace ArPaint.Infrastructure
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
             Container.BindFactory<BootstrapState, BootstrapState.Factory>();
+            Container.BindFactory<ArInitState, ArInitState.Factory>();
+            Container.BindFactory<DrawState, DrawState.Factory>();
             Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle().NonLazy();
         }
     }

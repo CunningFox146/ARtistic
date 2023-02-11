@@ -1,1 +1,65 @@
-{}
+{
+    "name": "DrawActions",
+    "maps": [
+        {
+            "name": "Touch",
+            "id": "8cf2aa07-123e-4be0-af35-43f7c8f99993",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "c82afefe-0221-4066-a6f1-15ce6ecbb69a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AllTouches",
+                    "type": "PassThrough",
+                    "id": "3be65ee0-6ba0-4973-adca-7e9c880f9846",
+                    "expectedControlType": "Touch",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f00deab0-4c64-4358-a717-8a4c55f6fa38",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99b046b3-5e39-40f9-bddb-45de902eda7d",
+                    "path": "<Touchscreen>/touch*/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f9af046-2ca7-49e4-922b-ba35847b12cb",
+                    "path": "<Touchscreen>/touch*/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AllTouches",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

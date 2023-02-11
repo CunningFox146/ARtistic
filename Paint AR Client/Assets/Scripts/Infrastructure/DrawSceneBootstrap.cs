@@ -4,9 +4,9 @@ namespace ArPaint.Infrastructure
 {
     public class DrawSceneBootstrap
     {
-        public DrawSceneBootstrap(IGameStateMachine stateMachine, ArInitState.Factory arInitStateFactory)
+        public DrawSceneBootstrap(IGameStateMachine stateMachine)
         {
-            stateMachine.EnterState(arInitStateFactory.Create());
+            stateMachine.EnterState<DrawState>();
         }
     }
 }

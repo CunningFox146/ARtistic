@@ -2,6 +2,6 @@ namespace ArPaint.Infrastructure.GameStates
 {
     public interface IGameStateMachine
     {
-        void EnterState(IEnterState stateEnter);
+        void EnterState<TState>() where TState : IEnterState;
     }
 }

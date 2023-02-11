@@ -1,4 +1,5 @@
 ﻿using ArPaint.Infrastructure.GameStates;
+using ArPaint.Input;
 using UnityEngine.XR.ARFoundation;
 using Zenject;
 
@@ -10,8 +11,6 @@ namespace ArPaint.Infrastructure
         {
             Container.Bind<ARPlaneManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ARAnchorManager>().FromComponentInHierarchy().AsSingle();
-            Container.BindFactory<ArInitState, ArInitState.Factory>();
-            Container.BindFactory<DrawState, DrawState.Factory>();
             Container.BindInterfacesAndSelfTo<DrawSceneBootstrap>().AsSingle().NonLazy();
         }
     }

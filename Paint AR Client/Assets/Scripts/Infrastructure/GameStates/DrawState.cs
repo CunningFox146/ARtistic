@@ -1,5 +1,9 @@
 ﻿using ArPaint.Infrastructure.GameLoop;
+using ArPaint.Input;
+using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 using Zenject;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace ArPaint.Infrastructure.GameStates
 {
@@ -15,7 +19,7 @@ namespace ArPaint.Infrastructure.GameStates
 
         public void OnExit()
         {
-            _loop.RegisterUpdate(this);
+            _loop.UnregisterUpdate(this);
         }
 
         public void OnEnter()
@@ -25,6 +29,15 @@ namespace ArPaint.Infrastructure.GameStates
 
         public void OnUpdate()
         {
+            foreach (var touch in Touch.activeTouches)
+            {
+                
+            }
+        }
+
+        private void OnFingerDone(Finger obj)
+        {
+            
         }
 
         public class Factory : PlaceholderFactory<DrawState>
