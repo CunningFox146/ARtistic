@@ -1,43 +1,39 @@
-﻿using ArPaint.Infrastructure.GameLoop;
-using ArPaint.Input;
-using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
+﻿using ArPaint.Input;
+using UnityEngine.InputSystem;
 using Zenject;
-using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace ArPaint.Infrastructure.GameStates
 {
-    public class DrawState : IEnterState, IExitState, IUpdateable
+    public class DrawState : IEnterState, IExitState
     {
-        private readonly IUpdateLoop _loop;
+        private readonly DrawActions _drawActions;
         private bool _isUpdating;
 
-        public DrawState(IUpdateLoop loop)
+        public DrawState(DrawActions drawActions)
         {
-            _loop = loop;
-        }
-
-        public void OnExit()
-        {
-            _loop.UnregisterUpdate(this);
+            _drawActions = drawActions;
         }
 
         public void OnEnter()
         {
-            _loop.RegisterUpdate(this);
+            _drawActions.Touch.Enable();
+            _drawActions.Touch.Click.performed += ClickPerformed;
+            _drawActions.Touch.Click.canceled += ClickCancelled;
         }
 
-        public void OnUpdate()
+        public void OnExit()
         {
-            foreach (var touch in Touch.activeTouches)
-            {
-                
-            }
+            _drawActions.Touch.Disable();
+            _drawActions.Touch.Click.performed -= ClickPerformed;
+            _drawActions.Touch.Click.canceled -= ClickCancelled;
         }
 
-        private void OnFingerDone(Finger obj)
+        private void ClickPerformed(InputAction.CallbackContext _)
         {
-            
+        }
+
+        private void ClickCancelled(InputAction.CallbackContext _)
+        {
         }
 
         public class Factory : PlaceholderFactory<DrawState>

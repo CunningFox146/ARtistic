@@ -1,31 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
 {
     public class GameStateMachine : IGameStateMachine
     {
-        private IEnterState _currentState;
         private readonly Dictionary<Type, IFactory<IEnterState>> _stateFactories;
+        public IEnterState CurrentState { get; private set; }
 
-        public GameStateMachine(BootstrapState.Factory bootstrapFactory, ArInitState.Factory arInitStateFactory, DrawState.Factory drawStateFactory)
+        public GameStateMachine(BootstrapState.Factory bootstrapFactory)
         {
-            _stateFactories = new()
+            _stateFactories = new Dictionary<Type, IFactory<IEnterState>>
             {
                 [typeof(BootstrapState)] = bootstrapFactory,
-                [typeof(ArInitState)] = arInitStateFactory,
-                [typeof(DrawState)] = drawStateFactory,
             };
+        }
+
+        public void RegisterFactory(Type state, IFactory<IEnterState> factory)
+        {
+            if (_stateFactories.ContainsKey(state))
+            {
+                _stateFactories[state] = factory;
+                return;
+            }
+            _stateFactories.Add(state, factory);
         }
 
         public void EnterState<TState>() where TState : IEnterState
         {
+            UnityEngine.Debug.Log($"Enter State: {typeof(TState).Name}");
             var factory = _stateFactories[typeof(TState)];
-            (_currentState as IExitState)?.OnExit();
-            _currentState = factory.Create();
-            _currentState?.OnEnter();
+            (CurrentState as IExitState)?.OnExit();
+            CurrentState = factory.Create();
+            CurrentState?.OnEnter();
         }
     }
 }

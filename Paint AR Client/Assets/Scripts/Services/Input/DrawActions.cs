@@ -39,10 +39,10 @@ namespace ArPaint.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""AllTouches"",
+                    ""name"": ""ClickPosition"",
                     ""type"": ""PassThrough"",
-                    ""id"": ""3be65ee0-6ba0-4973-adca-7e9c880f9846"",
-                    ""expectedControlType"": ""Touch"",
+                    ""id"": ""1428aea9-62d7-4a1b-8899-bcaec35528d1"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -73,12 +73,23 @@ namespace ArPaint.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1f9af046-2ca7-49e4-922b-ba35847b12cb"",
-                    ""path"": ""<Touchscreen>/touch*/Press"",
+                    ""id"": ""855d96dc-9fe0-4d67-8744-3b686bb1bdc3"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AllTouches"",
+                    ""action"": ""ClickPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""986aaa08-ac2e-4d0b-aedc-d5e3ea116850"",
+                    ""path"": ""<Touchscreen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClickPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -90,7 +101,7 @@ namespace ArPaint.Input
             // Touch
             m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
             m_Touch_Click = m_Touch.FindAction("Click", throwIfNotFound: true);
-            m_Touch_AllTouches = m_Touch.FindAction("AllTouches", throwIfNotFound: true);
+            m_Touch_ClickPosition = m_Touch.FindAction("ClickPosition", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -151,13 +162,13 @@ namespace ArPaint.Input
         private readonly InputActionMap m_Touch;
         private ITouchActions m_TouchActionsCallbackInterface;
         private readonly InputAction m_Touch_Click;
-        private readonly InputAction m_Touch_AllTouches;
+        private readonly InputAction m_Touch_ClickPosition;
         public struct TouchActions
         {
             private @DrawActions m_Wrapper;
             public TouchActions(@DrawActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Click => m_Wrapper.m_Touch_Click;
-            public InputAction @AllTouches => m_Wrapper.m_Touch_AllTouches;
+            public InputAction @ClickPosition => m_Wrapper.m_Touch_ClickPosition;
             public InputActionMap Get() { return m_Wrapper.m_Touch; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -170,9 +181,9 @@ namespace ArPaint.Input
                     @Click.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnClick;
                     @Click.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnClick;
                     @Click.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnClick;
-                    @AllTouches.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnAllTouches;
-                    @AllTouches.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnAllTouches;
-                    @AllTouches.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnAllTouches;
+                    @ClickPosition.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnClickPosition;
+                    @ClickPosition.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnClickPosition;
+                    @ClickPosition.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnClickPosition;
                 }
                 m_Wrapper.m_TouchActionsCallbackInterface = instance;
                 if (instance != null)
@@ -180,9 +191,9 @@ namespace ArPaint.Input
                     @Click.started += instance.OnClick;
                     @Click.performed += instance.OnClick;
                     @Click.canceled += instance.OnClick;
-                    @AllTouches.started += instance.OnAllTouches;
-                    @AllTouches.performed += instance.OnAllTouches;
-                    @AllTouches.canceled += instance.OnAllTouches;
+                    @ClickPosition.started += instance.OnClickPosition;
+                    @ClickPosition.performed += instance.OnClickPosition;
+                    @ClickPosition.canceled += instance.OnClickPosition;
                 }
             }
         }
@@ -190,7 +201,7 @@ namespace ArPaint.Input
         public interface ITouchActions
         {
             void OnClick(InputAction.CallbackContext context);
-            void OnAllTouches(InputAction.CallbackContext context);
+            void OnClickPosition(InputAction.CallbackContext context);
         }
     }
 }
