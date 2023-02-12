@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1883471450172056576}
   - component: {fileID: 6322945092374610687}
+  - component: {fileID: 7200960914939640171}
   m_Layer: 0
   m_Name: DrawLine
   m_TagString: Untagged
@@ -46,6 +47,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyOnRemoval: 1
+--- !u!114 &7200960914939640171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265692407700933561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d517bd74b7417eafd8be3b403ebcea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LineRenderer>k__BackingField: {fileID: 6620551147813589577}
 --- !u!1 &9128496328670326988
 GameObject:
   m_ObjectHideFlags: 0
