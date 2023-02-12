@@ -13,7 +13,7 @@ namespace ArPaint.Infrastructure.GameStates
         {
             _stateFactories = new Dictionary<Type, IFactory<IEnterState>>
             {
-                [typeof(BootstrapState)] = bootstrapFactory,
+                [typeof(BootstrapState)] = bootstrapFactory
             };
         }
 
@@ -24,6 +24,7 @@ namespace ArPaint.Infrastructure.GameStates
                 _stateFactories[state] = factory;
                 return;
             }
+
             _stateFactories.Add(state, factory);
         }
 

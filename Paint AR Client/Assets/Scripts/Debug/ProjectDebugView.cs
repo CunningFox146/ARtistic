@@ -6,7 +6,6 @@ namespace ArPaint.Debug
 {
     public class ProjectDebugView : MonoBehaviour
     {
-        
         private DiContainer _container;
 
         private void Awake()

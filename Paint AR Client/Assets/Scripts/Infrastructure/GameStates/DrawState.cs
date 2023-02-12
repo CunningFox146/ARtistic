@@ -1,39 +1,37 @@
-﻿using ArPaint.Input;
-using UnityEngine.InputSystem;
+﻿using ArPaint.Infrastructure.GameLoop;
+using ArPaint.Services.Input;
 using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
 {
-    public class DrawState : IEnterState, IExitState
+    public class DrawState : IEnterState, IExitState, IUpdateable
     {
-        private readonly DrawActions _drawActions;
+        private readonly IUpdateLoop _updateLoop;
+        private readonly IInputSource _inputSource;
         private bool _isUpdating;
 
-        public DrawState(DrawActions drawActions)
+        public DrawState(IUpdateLoop updateLoop, IInputSource inputSource)
         {
-            _drawActions = drawActions;
+            _updateLoop = updateLoop;
+            _inputSource = inputSource;
         }
 
         public void OnEnter()
         {
-            _drawActions.Touch.Enable();
-            _drawActions.Touch.Click.performed += ClickPerformed;
-            _drawActions.Touch.Click.canceled += ClickCancelled;
+            _updateLoop.RegisterUpdate(this);
         }
 
         public void OnExit()
         {
-            _drawActions.Touch.Disable();
-            _drawActions.Touch.Click.performed -= ClickPerformed;
-            _drawActions.Touch.Click.canceled -= ClickCancelled;
+            _updateLoop.UnregisterUpdate(this);
         }
 
-        private void ClickPerformed(InputAction.CallbackContext _)
+        public void OnUpdate()
         {
-        }
-
-        private void ClickCancelled(InputAction.CallbackContext _)
-        {
+            foreach (var touch in _inputSource.Touches)
+            {
+                touch.IsOverUI();
+            }
         }
 
         public class Factory : PlaceholderFactory<DrawState>

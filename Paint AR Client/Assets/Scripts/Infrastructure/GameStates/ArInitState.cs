@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using ArPaint.Input;
 using UnityEngine.XR.ARFoundation;
 using Zenject;
 
@@ -12,7 +11,7 @@ namespace ArPaint.Infrastructure.GameStates
         private readonly ARPlaneManager _planeManager;
 
         [Inject]
-        public ArInitState(ARPlaneManager planeManager, IGameStateMachine gameState, DrawActions drawActions)
+        public ArInitState(ARPlaneManager planeManager, IGameStateMachine gameState)
         {
             _planeManager = planeManager;
             _gameState = gameState;
@@ -21,6 +20,7 @@ namespace ArPaint.Infrastructure.GameStates
         public void OnEnter()
         {
             _planeManager.planesChanged += OnPlanesChanged;
+            _gameState.EnterState<DrawState>();
         }
 
         public void OnExit()
