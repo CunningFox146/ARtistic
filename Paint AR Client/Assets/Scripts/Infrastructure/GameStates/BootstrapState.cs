@@ -1,4 +1,6 @@
 using ArPaint.Infrastructure.SceneManagement;
+using Cysharp.Threading.Tasks;
+using Services.StaticData;
 using UnityEngine;
 using Zenject;
 
@@ -7,16 +9,19 @@ namespace ArPaint.Infrastructure.GameStates
     public class BootstrapState : IEnterState
     {
         private readonly ISceneLoader _sceneLoader;
+        private readonly IStaticDataService _staticData;
 
-        public BootstrapState(ISceneLoader sceneLoader)
+        public BootstrapState(ISceneLoader sceneLoader, IStaticDataService staticData)
         {
             _sceneLoader = sceneLoader;
+            _staticData = staticData;
         }
 
-        public void OnEnter()
+        public async void OnEnter()
         {
             Application.targetFrameRate = 300;
-            _sceneLoader.LoadScene(SceneIndex.Draw);
+            await _staticData.Load();
+            await _sceneLoader.LoadScene(SceneIndex.Draw);
         }
 
         public class Factory : PlaceholderFactory<BootstrapState>
