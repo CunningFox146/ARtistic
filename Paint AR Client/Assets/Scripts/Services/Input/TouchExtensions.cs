@@ -10,10 +10,10 @@ namespace ArPaint.Services.Input
     {
         private static readonly List<RaycastResult> RaycastResults = new();
 
-        public static Vector3 GetWorldPosition(this Touch touch, Camera camera)
+        public static Vector3 GetWorldPosition(this Touch touch, Camera camera, float offset = 0f)
         {
             return camera.ScreenToWorldPoint(new Vector3(touch.screenPosition.x, touch.screenPosition.y,
-                camera.nearClipPlane));
+                camera.nearClipPlane + offset));
         }
 
         public static bool IsOverUI(this Touch touch)
