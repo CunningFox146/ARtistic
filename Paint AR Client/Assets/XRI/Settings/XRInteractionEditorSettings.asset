@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2f528b98f844ed8b6b2d5fdf90b40e6, type: 3}
-  m_Name: XRSimulationPreferences
+  m_Script: {fileID: 11500000, guid: 2d38fb1463c5c804b8847c20e8873623, type: 3}
+  m_Name: XRInteractionEditorSettings
   m_EditorClassIdentifier: 
-  m_EnvironmentPrefab: {fileID: 8433440242579774579, guid: ce33304ac5536b94ca86d8957b047cea,
-    type: 3}
-  m_FallbackEnvironmentPrefab: {fileID: 0}
-  m_EnableNavigation: 1
+  m_InteractionLayerUpdaterShown: 1
+  m_ShowOldInteractionLayerMaskInInspector: 0

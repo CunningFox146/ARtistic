@@ -3,6 +3,7 @@ using ArPaint.Infrastructure.GameStates;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Input;
+using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using Zenject;
 
@@ -12,9 +13,12 @@ namespace ArPaint.Infrastructure
     {
         public override void InstallBindings()
         {
+            Container.Bind<Camera>().FromInstance(Camera.main).AsSingle();
             Container.Bind<ARPlaneManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ICommandBuffer>().To<CommandBuffer>().AsSingle();
-            Container.BindInterfacesAndSelfTo<InputSource>().AsSingle().NonLazy();
+            Container.Bind<ILineSource>().To<LineSource>().AsSingle();
+            Container.BindInterfacesAndSelfTo<InputSource>().AsSingle();
+            Container.BindInterfacesAndSelfTo<DrawService>().AsSingle();
             Container.BindFactory<ArInitState, ArInitState.Factory>();
             Container.BindFactory<DrawState, DrawState.Factory>();
             BindLineFactory();
@@ -24,8 +28,8 @@ namespace ArPaint.Infrastructure
         private void BindLineFactory()
         {
             var prefabsProvider = Container.Resolve<IPrefabsProvider>();
-            Container.BindFactory<Line, Line.Factory>().FromComponentInNewPrefab(prefabsProvider.LoadLinePrefab);
-            Container.Resolve<Line.Factory>().Create();
+            Container.BindFactory<Line, Line.Factory>()
+                .FromComponentInNewPrefab(prefabsProvider.LoadLinePrefab);
         }
     }
 }

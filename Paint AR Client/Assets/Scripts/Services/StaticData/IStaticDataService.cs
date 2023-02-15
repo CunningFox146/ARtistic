@@ -1,5 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
-using ArPaint.StaticData;
+﻿using ArPaint.StaticData;
+using Cysharp.Threading.Tasks;
 
 namespace Services.StaticData
 {

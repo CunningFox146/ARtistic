@@ -10,7 +10,7 @@ namespace ArPaint.Infrastructure.AssetProvider
         {
             return Resources.Load<T>(path);
         }
-        
+
         public async Task<T> LoadAssetAsync<T>(string path) where T : Object
         {
             return await Resources.LoadAsync<T>(path) as T;

@@ -6,8 +6,8 @@ namespace ArPaint.Infrastructure.GameStates
 {
     public class DrawState : IEnterState, IExitState, IUpdateable
     {
-        private readonly IUpdateLoop _updateLoop;
         private readonly IInputSource _inputSource;
+        private readonly IUpdateLoop _updateLoop;
         private bool _isUpdating;
 
         public DrawState(IUpdateLoop updateLoop, IInputSource inputSource)
@@ -28,10 +28,7 @@ namespace ArPaint.Infrastructure.GameStates
 
         public void OnUpdate()
         {
-            foreach (var touch in _inputSource.Touches)
-            {
-                touch.IsOverUI();
-            }
+            foreach (var touch in _inputSource.Touches) touch.IsOverUI();
         }
 
         public class Factory : PlaceholderFactory<DrawState>

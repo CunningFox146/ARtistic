@@ -20,7 +20,6 @@ namespace ArPaint.Infrastructure.GameStates
         public void OnEnter()
         {
             _planeManager.planesChanged += OnPlanesChanged;
-            _gameState.EnterState<DrawState>();
         }
 
         public void OnExit()

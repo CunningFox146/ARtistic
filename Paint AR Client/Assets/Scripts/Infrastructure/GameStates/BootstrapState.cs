@@ -1,5 +1,4 @@
 using ArPaint.Infrastructure.SceneManagement;
-using Cysharp.Threading.Tasks;
 using Services.StaticData;
 using UnityEngine;
 using Zenject;

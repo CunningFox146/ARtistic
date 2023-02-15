@@ -131,10 +131,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2917561400027739346, guid: 4e7dbc336abc92d46a28aae55e62ba7f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4606080559645399125, guid: 4e7dbc336abc92d46a28aae55e62ba7f,
+        type: 3}
+      propertyPath: m_text
+      value: Undo
+      objectReference: {fileID: 0}
     - target: {fileID: 8065601518419003895, guid: 4e7dbc336abc92d46a28aae55e62ba7f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8065601518419003895, guid: 4e7dbc336abc92d46a28aae55e62ba7f,
         type: 3}
@@ -190,6 +200,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ProjectDebug
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980219844390982666, guid: 4e7dbc336abc92d46a28aae55e62ba7f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -336,7 +351,7 @@ MonoBehaviour:
   m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
+  m_XRTrackingOrigin: {fileID: 2105936702}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
   m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018,
@@ -714,110 +729,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1773440202
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1773440204}
-  - component: {fileID: 1773440203}
-  m_Layer: 0
-  m_Name: Simulation Environment
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1773440203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773440202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a5f182b3f9a14fa153e9bee21a2c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CameraStartingPose:
-    position: {x: 0, y: 0.5, z: -0.5}
-    rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_CameraMovementBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.5, y: 0.5, z: 0.5}
-  m_DefaultViewPose:
-    position: {x: 0, y: 1.5, z: -1}
-    rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_DefaultViewPivot: {x: 0, y: 0, z: 0}
-  m_DefaultViewSize: 0
-  m_RenderSettings:
-    m_AmbientMode: 0
-    m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-    m_AmbientEquatorColor: {r: 0.115, g: 0.125, b: 0.135, a: 1}
-    m_AmbientGroundColor: {r: 0.047, g: 0.045, b: 0.035, a: 1}
-    m_AmbientIntensity: 1
-    m_AmbientLight: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-    m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-    m_ReflectionIntensity: 1
-    m_ReflectionBounces: 1
-    m_DefaultReflectionMode: 0
-    m_DefaultReflectionResolution: 128
-    m_HaloStrength: 0.5
-    m_FlareStrength: 1
-    m_FlareFadeSpeed: 3
-    m_Skybox: {fileID: 0}
-    m_CustomReflection: {fileID: 0}
-    m_UseSceneSun: 0
-    m_Sun: {fileID: 0}
-    m_AmbientProbe:
-      sh[ 0]: 0
-      sh[ 1]: 0
-      sh[ 2]: 0
-      sh[ 3]: 0
-      sh[ 4]: 0
-      sh[ 5]: 0
-      sh[ 6]: 0
-      sh[ 7]: 0
-      sh[ 8]: 0
-      sh[ 9]: 0
-      sh[10]: 0
-      sh[11]: 0
-      sh[12]: 0
-      sh[13]: 0
-      sh[14]: 0
-      sh[15]: 0
-      sh[16]: 0
-      sh[17]: 0
-      sh[18]: 0
-      sh[19]: 0
-      sh[20]: 0
-      sh[21]: 0
-      sh[22]: 0
-      sh[23]: 0
-      sh[24]: 0
-      sh[25]: 0
-      sh[26]: 0
-  m_PostProcessProfile: {fileID: 0}
-  m_ExcludeFromSelectionUI: 0
---- !u!4 &1773440204
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773440202}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1820241319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -951,6 +862,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ARDebugMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 6234637625423282858, guid: ef3886a9667424aedaa5b3b3e1285dbb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6234637625423282860, guid: ef3886a9667424aedaa5b3b3e1285dbb,
         type: 3}
       propertyPath: m_UiScaleMode
@@ -974,7 +890,7 @@ PrefabInstance:
     - target: {fileID: 6234637625423282862, guid: ef3886a9667424aedaa5b3b3e1285dbb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6234637625423282862, guid: ef3886a9667424aedaa5b3b3e1285dbb,
         type: 3}
