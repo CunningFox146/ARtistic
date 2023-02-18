@@ -19,7 +19,11 @@ namespace ArPaint.Infrastructure.GameStates
 
         public void OnEnter()
         {
+#if UNITY_EDITOR
+            _gameState.EnterState<DrawState>();
+#else
             _planeManager.planesChanged += OnPlanesChanged;
+#endif
         }
 
         public void OnExit()

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArPaint.Infrastructure.GameLoop;
+using ArPaint.Services.Draw.Drawables;
 using ArPaint.Services.Input;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
-using Object = UnityEngine.Object;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
@@ -12,20 +11,21 @@ namespace ArPaint.Services.Draw
 {
     public class DrawService : IUpdateable, IDisposable
     {
+        private readonly Dictionary<int, IDrawable> _activeLines;
+        private readonly IDrawableSource _drawableSource;
         private readonly IInputSource _inputSource;
-        private readonly ILineSource _lineSource;
         private readonly Camera _mainCamera;
         private readonly IUpdateLoop _updateLoop;
-        private readonly Dictionary<int, Line> _activeLines;
 
-        public DrawService(Camera mainCamera, IInputSource inputSource, ILineSource lineSource, IUpdateLoop updateLoop)
+        public DrawService(Camera mainCamera, IInputSource inputSource, IDrawableSource drawableSource,
+            IUpdateLoop updateLoop)
         {
             _mainCamera = mainCamera;
             _inputSource = inputSource;
-            _lineSource = lineSource;
+            _drawableSource = drawableSource;
             _updateLoop = updateLoop;
 
-            _activeLines = new();
+            _activeLines = new Dictionary<int, IDrawable>();
 
             _updateLoop.RegisterUpdate(this);
         }
@@ -58,21 +58,22 @@ namespace ArPaint.Services.Draw
 
         private void RegisterTouch(Touch touch)
         {
-            var line = _lineSource.Get();
+            var line = _drawableSource.Get(typeof(DrawBase));
             var worldPos = touch.GetWorldPosition(_mainCamera, 1f);
-            line.SetPosition(worldPos);
+            line.OnDrawStart(worldPos);
             _activeLines.Add(touch.touchId, line);
         }
 
         private void OnTouchMove(Touch touch)
         {
             if (!_activeLines.TryGetValue(touch.touchId, out var line)) return;
-            line.AppendPosition(touch.GetWorldPosition(_mainCamera, 1f));
+            line.OnDrawMove(touch.GetWorldPosition(_mainCamera, 1f));
         }
 
         private void UnregisterTouch(Touch touch)
         {
-            _activeLines.Remove(touch.touchId);
+            if (!_activeLines.Remove(touch.touchId, out var line)) return;
+            line.OnDrawEnd(touch.GetWorldPosition(_mainCamera, 1f));
         }
     }
 }

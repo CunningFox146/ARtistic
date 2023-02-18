@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.XR.ARFoundation;
 using Zenject;
 
-namespace ArPaint.Services.Draw
+namespace ArPaint.Services.Draw.Drawables
 {
-    public class Line : MonoBehaviour
+    public class DrawBase : MonoBehaviour, IDrawBase
     {
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private float _distance;
         private Vector3 _lastPosition;
 
-        public void SetPosition(Vector3 position) => SetPosition(0, position);
+        public void SetPosition(Vector3 position)
+        {
+            SetPosition(0, position);
+        }
 
         public void AppendPosition(Vector3 position)
         {
@@ -19,7 +20,8 @@ namespace ArPaint.Services.Draw
             SetPosition(_lineRenderer.positionCount, position);
             _lastPosition = position;
         }
-        private void SetPosition(int index, Vector3 position)
+
+        public void SetPosition(int index, Vector3 position)
         {
             _lineRenderer.positionCount = Mathf.Max(_lineRenderer.positionCount, index + 1);
             _lineRenderer.SetPosition(index, position);
@@ -30,7 +32,7 @@ namespace ArPaint.Services.Draw
             _lineRenderer.positionCount = 0;
         }
 
-        public class Factory : PlaceholderFactory<Line>
+        public class Factory : PlaceholderFactory<DrawBase>
         {
         }
     }

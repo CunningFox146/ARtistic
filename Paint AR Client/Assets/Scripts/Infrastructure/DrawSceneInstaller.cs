@@ -16,7 +16,7 @@ namespace ArPaint.Infrastructure
             Container.Bind<Camera>().FromInstance(Camera.main).AsSingle();
             Container.Bind<ARPlaneManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ICommandBuffer>().To<CommandBuffer>().AsSingle();
-            Container.Bind<ILineSource>().To<LineSource>().AsSingle();
+            // Container.Bind<IDrawableSource>().To<DrawableSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<InputSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<DrawService>().AsSingle();
             Container.BindFactory<ArInitState, ArInitState.Factory>();
