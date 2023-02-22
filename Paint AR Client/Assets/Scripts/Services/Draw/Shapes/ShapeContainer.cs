@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace ArPaint.Services.Draw.Drawables
+namespace ArPaint.Services.Draw.Shapes
 {
-    public class DrawBase : MonoBehaviour, IDrawBase
+    public class ShapeContainer : MonoBehaviour, IShapeContainer
     {
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private float _distance;
         private Vector3 _lastPosition;
 
-        public void SetPosition(Vector3 position)
+        public int Positions => _lineRenderer.positionCount;
+
+        public void SetPosition(int index, Vector3 position)
         {
-            SetPosition(0, position);
+            _lineRenderer.positionCount = Mathf.Max(_lineRenderer.positionCount, index + 1);
+            _lineRenderer.SetPosition(index, position);
         }
 
         public void AppendPosition(Vector3 position)
@@ -21,18 +24,12 @@ namespace ArPaint.Services.Draw.Drawables
             _lastPosition = position;
         }
 
-        public void SetPosition(int index, Vector3 position)
-        {
-            _lineRenderer.positionCount = Mathf.Max(_lineRenderer.positionCount, index + 1);
-            _lineRenderer.SetPosition(index, position);
-        }
-
         public void Clear()
         {
             _lineRenderer.positionCount = 0;
         }
 
-        public class Factory : PlaceholderFactory<DrawBase>
+        public class Factory : PlaceholderFactory<ShapeContainer>
         {
         }
     }

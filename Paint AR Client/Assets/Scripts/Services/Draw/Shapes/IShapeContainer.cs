@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace ArPaint.Services.Draw.Drawables
+namespace ArPaint.Services.Draw.Shapes
 {
-    public interface IDrawBase
+    public interface IShapeContainer
     {
-        void SetPosition(Vector3 position);
+        int Positions { get; }
         void SetPosition(int index, Vector3 position);
         void AppendPosition(Vector3 position);
         void Clear();

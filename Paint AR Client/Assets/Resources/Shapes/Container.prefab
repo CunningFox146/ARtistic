@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6322945092374610687}
   - component: {fileID: 7200960914939640171}
   m_Layer: 0
-  m_Name: DrawLine
+  m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 1678053161934318879}
   - component: {fileID: 6620551147813589577}
   m_Layer: 0
-  m_Name: Line
+  m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

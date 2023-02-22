@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32e48c025d147839bc3565f12b21159, type: 3}
   m_Name: AssetsPath
   m_EditorClassIdentifier: 
-  <DrawLinePath>k__BackingField: Drawable/Line
+  <DrawLinePath>k__BackingField: Shapes/Container

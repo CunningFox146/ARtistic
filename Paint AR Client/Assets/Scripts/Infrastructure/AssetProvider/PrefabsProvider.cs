@@ -8,7 +8,7 @@ namespace ArPaint.Infrastructure.AssetProvider
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticDataService;
 
-        public GameObject LoadLinePrefab =>
+        public GameObject ShapeContainerPrefab =>
             _assetProvider.LoadAsset<GameObject>(_staticDataService.AssetPath.DrawLinePath);
 
         public PrefabsProvider(IAssetProvider assetProvider, IStaticDataService staticDataService)
