@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ArPaint.Services.Draw.Shapes
 {
-    public class Circle : IShape
+    public class Oval : IShape
     {
         private readonly Dictionary<IShapeContainer, Vector3> _startPositions = new();
 
@@ -18,8 +18,7 @@ namespace ArPaint.Services.Draw.Shapes
             if (!_startPositions.TryGetValue(container, out var startPosition)) return;
             
             container.Clear();
-            var radius = Vector3.Distance(startPosition, position);
-            DrawCircle(container, startPosition, radius);
+            DrawCircle(container, startPosition, position);
         }
 
         public void OnDrawEnd(IShapeContainer container, Vector3 position)
@@ -27,12 +26,14 @@ namespace ArPaint.Services.Draw.Shapes
             _startPositions.Remove(container);
         }
 
-        private void DrawCircle(IShapeContainer container, Vector3 startPosition, float radius)
+        private void DrawCircle(IShapeContainer container, Vector3 startPosition, Vector3 currentPosition)
         {
+            var scale = currentPosition - startPosition;
+            
             for (var i = 0f; i < 360f; i++)
             {
                 var angle = i * Mathf.Deg2Rad;
-                var pointPos = startPosition + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                var pointPos = startPosition + new Vector3(Mathf.Cos(angle) * scale.x, Mathf.Sin(angle) * scale.y);
                 container.AppendPosition(pointPos);
             }
         }

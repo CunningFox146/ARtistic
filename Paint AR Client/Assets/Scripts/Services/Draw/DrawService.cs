@@ -18,7 +18,7 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
 
-        public IShape Shape { get; private set; } = new Circle();
+        public IShape Shape { get; private set; } = new Oval();
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop)
@@ -47,6 +47,7 @@ namespace ArPaint.Services.Draw
                     case TouchPhase.Began:
                         RegisterTouch(touch);
                         break;
+                    case TouchPhase.Ended:
                     case TouchPhase.Canceled:
                         UnregisterTouch(touch);
                         break;
