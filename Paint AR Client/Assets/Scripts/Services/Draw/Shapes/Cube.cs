@@ -3,38 +3,38 @@ using UnityEngine;
 
 namespace ArPaint.Services.Draw.Shapes
 {
-    public class Circle : IShape
+    public class Cube : IShape
     {
         private readonly Dictionary<IShapeContainer, Vector3> _startPositions = new();
-
+        
         public void OnDrawStart(IShapeContainer container, Vector3 position)
         {
-            container.IsLooping = true;
             _startPositions.Add(container, position);
+            container.IsLooping = true;
         }
 
         public void OnDrawMove(IShapeContainer container, Vector3 position)
         {
             if (!_startPositions.TryGetValue(container, out var startPosition)) return;
-            
             container.Clear();
-            DrawCircle(container, startPosition, position);
+            DrawRectangle(container, startPosition, position);
+        }
+
+        private void DrawRectangle(IShapeContainer container, Vector3 startPosition, Vector3 endPosition)
+        {
+            var radius = Vector3.Distance(startPosition, endPosition);
+            var offset = Mathf.PI / 4f;
+            for (var i = 0f; i < 4f; i++)
+            {
+                var angle = (i / 4f) * Mathf.PI * 2f + offset;
+                var pointPos = startPosition + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                container.AppendPosition(pointPos);
+            }
         }
 
         public void OnDrawEnd(IShapeContainer container, Vector3 position)
         {
             _startPositions.Remove(container);
-        }
-
-        private void DrawCircle(IShapeContainer container, Vector3 startPosition, Vector3 endPosition)
-        {
-            var radius = Vector3.Distance(startPosition, endPosition);
-            for (var i = 0f; i < 360f; i++)
-            {
-                var angle = i * Mathf.Deg2Rad;
-                var pointPos = startPosition + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
-                container.AppendPosition(pointPos);
-            }
         }
     }
 }

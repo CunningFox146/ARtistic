@@ -26,9 +26,9 @@ namespace ArPaint.Services.Draw.Shapes
             _startPositions.Remove(container);
         }
 
-        private void DrawCircle(IShapeContainer container, Vector3 startPosition, Vector3 currentPosition)
+        private void DrawCircle(IShapeContainer container, Vector3 startPosition, Vector3 endPosition)
         {
-            var scale = currentPosition - startPosition;
+            var scale = endPosition - startPosition;
             
             for (var i = 0f; i < 360f; i++)
             {
