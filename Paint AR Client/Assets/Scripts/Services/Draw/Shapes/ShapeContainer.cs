@@ -9,6 +9,12 @@ namespace ArPaint.Services.Draw.Shapes
         [SerializeField] private float _distance;
         private Vector3 _lastPosition;
 
+        public bool IsLooping
+        {
+            get => _lineRenderer.loop;
+            set => _lineRenderer.loop = value;
+        }
+
         public int Positions => _lineRenderer.positionCount;
 
         public void SetPosition(int index, Vector3 position)
