@@ -18,7 +18,7 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
 
-        public IShape Shape { get; private set; } = new Rectangle();
+        public IShape Shape { get; set; } = new Rectangle();
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop)
@@ -61,20 +61,28 @@ namespace ArPaint.Services.Draw
         private void RegisterTouch(Touch touch)
         {
             var container = _shapeContainerFactory.Create();
-            Shape.OnDrawStart(container, touch.GetWorldPosition(_mainCamera, 1f));
+            var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
+            
+            container.InitTransform(touchPosition, _mainCamera.transform.rotation);
+            Shape.OnDrawStart(container, container.TransformPoint(touchPosition));
+            
             _activeShapes.Add(touch.touchId, container);
         }
 
         private void OnTouchMove(Touch touch)
         {
             if (!_activeShapes.TryGetValue(touch.touchId, out var container)) return;
-            Shape.OnDrawMove(container, touch.GetWorldPosition(_mainCamera, 1f));
+            
+            var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
+            Shape.OnDrawMove(container, container.TransformPoint(touchPosition));
         }
 
         private void UnregisterTouch(Touch touch)
         {
             if (!_activeShapes.Remove(touch.touchId, out var container)) return;
-            Shape.OnDrawEnd(container, touch.GetWorldPosition(_mainCamera, 1f));
+            
+            var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
+            Shape.OnDrawEnd(container, container.TransformPoint(touchPosition));
         }
     }
 }

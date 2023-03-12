@@ -17,6 +17,17 @@ namespace ArPaint.Services.Draw.Shapes
 
         public int Positions => _lineRenderer.positionCount;
 
+        public Vector3 TransformPoint(Vector3 worldPosition)
+        {
+            return transform.InverseTransformPoint(worldPosition);
+        }
+
+        public void InitTransform(Vector3 position, Quaternion rotation)
+        {
+            transform.position = position;
+            transform.rotation = rotation;
+        }
+
         public void SetPosition(int index, Vector3 position)
         {
             _lineRenderer.positionCount = Mathf.Max(_lineRenderer.positionCount, index + 1);
