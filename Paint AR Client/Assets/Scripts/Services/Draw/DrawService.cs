@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.Input;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -18,7 +20,7 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
 
-        public IShape Shape { get; set; } = new Rectangle();
+        public IShape Shape { get; set; } = new Circle();
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop)
@@ -38,6 +40,7 @@ namespace ArPaint.Services.Draw
 
         public void OnUpdate()
         {
+            UnityEngine.Debug.Log("OnUpdate");
             foreach (var touch in _inputSource.Touches)
             {
                 if (touch.IsOverUI()) continue;
@@ -56,22 +59,33 @@ namespace ArPaint.Services.Draw
                         break;
                 }
             }
+
+            foreach (var shape in _activeShapes.Values)
+            {
+                ((MonoBehaviour)shape).transform.rotation = _mainCamera.transform.rotation;
+            }
         }
 
         private void RegisterTouch(Touch touch)
         {
+            UnityEngine.Debug.Log("RegisterTouch");
+            if (!IsTouchValid(touch)) return;
+            
             var container = _shapeContainerFactory.Create();
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             
             container.InitTransform(touchPosition, _mainCamera.transform.rotation);
-            Shape.OnDrawStart(container, container.TransformPoint(touchPosition));
+
+            var mo = container as MonoBehaviour;
+            UnityEngine.Debug.Log($"!!!!!!container {mo.transform.position} {mo.transform.eulerAngles}");
+            // Shape.OnDrawStart(container, container.TransformPoint(touchPosition));
             
             _activeShapes.Add(touch.touchId, container);
         }
 
         private void OnTouchMove(Touch touch)
         {
-            if (!_activeShapes.TryGetValue(touch.touchId, out var container)) return;
+            if (!touch.valid || !_activeShapes.TryGetValue(touch.touchId, out var container)) return;
             
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             Shape.OnDrawMove(container, container.TransformPoint(touchPosition));
@@ -79,10 +93,12 @@ namespace ArPaint.Services.Draw
 
         private void UnregisterTouch(Touch touch)
         {
-            if (!_activeShapes.Remove(touch.touchId, out var container)) return;
+            if (!touch.valid || !_activeShapes.Remove(touch.touchId, out var container)) return;
             
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             Shape.OnDrawEnd(container, container.TransformPoint(touchPosition));
         }
+        
+        private bool IsTouchValid(Touch touch) => touch.valid && !_activeShapes.ContainsKey(touch.touchId);
     }
 }

@@ -15,11 +15,7 @@ namespace ArPaint.Debug
 
         private void Awake()
         {
-#if UNITY_EDITOR
             DontDestroyOnLoad(gameObject);
-#else
-            Destroy(gameObject);
-#endif
         }
 
         [Inject]
