@@ -20,7 +20,7 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
 
-        public IShape Shape { get; set; } = new Circle();
+        public IShape Shape { get; set; } = new StraightLine();
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop)
@@ -40,7 +40,6 @@ namespace ArPaint.Services.Draw
 
         public void OnUpdate()
         {
-            UnityEngine.Debug.Log("OnUpdate");
             foreach (var touch in _inputSource.Touches)
             {
                 if (touch.IsOverUI()) continue;
@@ -68,7 +67,6 @@ namespace ArPaint.Services.Draw
 
         private void RegisterTouch(Touch touch)
         {
-            UnityEngine.Debug.Log("RegisterTouch");
             if (!IsTouchValid(touch)) return;
             
             var container = _shapeContainerFactory.Create();
@@ -76,8 +74,6 @@ namespace ArPaint.Services.Draw
             
             container.InitTransform(touchPosition, _mainCamera.transform.rotation);
 
-            var mo = container as MonoBehaviour;
-            UnityEngine.Debug.Log($"!!!!!!container {mo.transform.position} {mo.transform.eulerAngles}");
             // Shape.OnDrawStart(container, container.TransformPoint(touchPosition));
             
             _activeShapes.Add(touch.touchId, container);
