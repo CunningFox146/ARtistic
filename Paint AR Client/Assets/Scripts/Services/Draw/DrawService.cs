@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.Input;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -20,7 +18,7 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
 
-        public IShape Shape { get; set; } = new Circle();
+        public IShape Shape { get; set; } = new Oval();
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop)
@@ -60,29 +58,27 @@ namespace ArPaint.Services.Draw
             }
 
             foreach (var shape in _activeShapes.Values)
-            {
                 ((MonoBehaviour)shape).transform.rotation = _mainCamera.transform.rotation;
-            }
         }
 
         private void RegisterTouch(Touch touch)
         {
             if (!IsTouchValid(touch)) return;
-            
+
             var container = _shapeContainerFactory.Create();
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
-            
+
             container.InitTransform(touchPosition, _mainCamera.transform.rotation);
 
             (Shape as IShapeStart)?.OnDrawStart(container, container.TransformPoint(touchPosition));
-            
+
             _activeShapes.Add(touch.touchId, container);
         }
 
         private void OnTouchMove(Touch touch)
         {
             if (!touch.valid || !_activeShapes.TryGetValue(touch.touchId, out var container)) return;
-            
+
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             Shape.OnDrawMove(container, container.TransformPoint(touchPosition));
         }
@@ -90,11 +86,14 @@ namespace ArPaint.Services.Draw
         private void UnregisterTouch(Touch touch)
         {
             if (!touch.valid || !_activeShapes.Remove(touch.touchId, out var container)) return;
-            
+
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             (Shape as IShapeEnd)?.OnDrawEnd(container, container.TransformPoint(touchPosition));
         }
-        
-        private bool IsTouchValid(Touch touch) => touch.valid && !_activeShapes.ContainsKey(touch.touchId);
+
+        private bool IsTouchValid(Touch touch)
+        {
+            return touch.valid && !_activeShapes.ContainsKey(touch.touchId);
+        }
     }
 }

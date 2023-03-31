@@ -4,15 +4,15 @@ namespace ArPaint.Services.Draw.Shapes
 {
     public class Circle : IShape, IShapeStart
     {
-        public void OnDrawStart(IShapeContainer container, Vector3 position)
-        {
-            container.IsLooping = true;
-        }
-
         public void OnDrawMove(IShapeContainer container, Vector3 position)
         {
             container.Clear();
             DrawCircle(container, position);
+        }
+
+        public void OnDrawStart(IShapeContainer container, Vector3 position)
+        {
+            container.IsLooping = true;
         }
 
         private static void DrawCircle(IShapeContainer container, Vector3 position)

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace ArPaint.Services.Draw.Shapes
@@ -45,11 +44,6 @@ namespace ArPaint.Services.Draw.Shapes
         public void Clear()
         {
             _lineRenderer.positionCount = 0;
-        }
-
-        private void Update()
-        {
-            UnityEngine.Debug.Log($"{transform.position} {transform.eulerAngles}");
         }
 
         public class Factory : PlaceholderFactory<ShapeContainer>

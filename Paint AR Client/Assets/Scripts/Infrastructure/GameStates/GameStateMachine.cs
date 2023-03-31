@@ -7,6 +7,7 @@ namespace ArPaint.Infrastructure.GameStates
     public class GameStateMachine : IGameStateMachine
     {
         private readonly Dictionary<Type, IFactory<IEnterState>> _stateFactories;
+
         public IEnterState CurrentState { get; private set; }
 
         public GameStateMachine(BootstrapState.Factory bootstrapFactory)

@@ -4,7 +4,6 @@ using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace ArPaint.Debug
@@ -25,7 +24,7 @@ namespace ArPaint.Debug
                 new(nameof(Circle)),
                 new(nameof(Oval)),
                 new(nameof(Cube)),
-                new(nameof(Rectangle)),
+                new(nameof(Rectangle))
             };
         }
 
@@ -52,7 +51,7 @@ namespace ArPaint.Debug
                 nameof(Circle) => new Circle(),
                 nameof(Oval) => new Oval(),
                 nameof(Cube) => new Cube(),
-                nameof(Rectangle) => new Rectangle(),
+                nameof(Rectangle) => new Rectangle()
             };
         }
     }
