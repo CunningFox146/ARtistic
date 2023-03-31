@@ -1,4 +1,5 @@
-﻿using ArPaint.Services.Commands;
+﻿using System.Collections.Generic;
+using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
 using TMPro;
@@ -16,6 +17,16 @@ namespace ArPaint.Debug
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+
+            _dropdown.options = new List<TMP_Dropdown.OptionData>
+            {
+                new(nameof(Line)),
+                new(nameof(StraightLine)),
+                new(nameof(Circle)),
+                new(nameof(Oval)),
+                new(nameof(Cube)),
+                new(nameof(Rectangle)),
+            };
         }
 
         [Inject]

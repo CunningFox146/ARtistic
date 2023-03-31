@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ArPaint.Services.Draw.Shapes
 {
-    public class Circle : IShape
+    public class Circle : IShape, IShapeStart
     {
-        private readonly Dictionary<IShapeContainer, Vector3> _startPositions = new();
-        
         public void OnDrawStart(IShapeContainer container, Vector3 position)
         {
             container.IsLooping = true;
@@ -14,26 +11,17 @@ namespace ArPaint.Services.Draw.Shapes
 
         public void OnDrawMove(IShapeContainer container, Vector3 position)
         {
-            if (!_startPositions.ContainsKey(container))
-            {
-                _startPositions.Add(container, position);
-                return;
-            }
             container.Clear();
             DrawCircle(container, position);
         }
 
-        public void OnDrawEnd(IShapeContainer container, Vector3 position)
+        private static void DrawCircle(IShapeContainer container, Vector3 position)
         {
-        }
-
-        private void DrawCircle(IShapeContainer container, Vector3 position)
-        {
-            var radius = Vector2.Distance(_startPositions[container], position);
+            var radius = Vector2.Distance(Vector2.zero, position);
             for (var i = 0f; i < 360f; i++)
             {
                 var angle = i * Mathf.Deg2Rad;
-                var pointPos = _startPositions[container] + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+                var pointPos = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
                 container.AppendPosition(pointPos);
             }
         }

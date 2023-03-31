@@ -20,7 +20,7 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
 
-        public IShape Shape { get; set; } = new StraightLine();
+        public IShape Shape { get; set; } = new Circle();
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop)
@@ -74,7 +74,7 @@ namespace ArPaint.Services.Draw
             
             container.InitTransform(touchPosition, _mainCamera.transform.rotation);
 
-            // Shape.OnDrawStart(container, container.TransformPoint(touchPosition));
+            (Shape as IShapeStart)?.OnDrawStart(container, container.TransformPoint(touchPosition));
             
             _activeShapes.Add(touch.touchId, container);
         }
@@ -92,7 +92,7 @@ namespace ArPaint.Services.Draw
             if (!touch.valid || !_activeShapes.Remove(touch.touchId, out var container)) return;
             
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
-            Shape.OnDrawEnd(container, container.TransformPoint(touchPosition));
+            (Shape as IShapeEnd)?.OnDrawEnd(container, container.TransformPoint(touchPosition));
         }
         
         private bool IsTouchValid(Touch touch) => touch.valid && !_activeShapes.ContainsKey(touch.touchId);
