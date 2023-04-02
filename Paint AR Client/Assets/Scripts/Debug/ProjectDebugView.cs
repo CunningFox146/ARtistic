@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using ArPaint.Infrastructure.GameStates;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 using Zenject;
 
 namespace ArPaint.Debug
@@ -15,8 +18,6 @@ namespace ArPaint.Debug
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-
             _dropdown.options = new List<TMP_Dropdown.OptionData>
             {
                 new(nameof(Line)),
@@ -26,6 +27,11 @@ namespace ArPaint.Debug
                 new(nameof(Cube)),
                 new(nameof(Rectangle))
             };
+        }
+
+        private void OnDestroy()
+        {
+            UnityEngine.Debug.Log("!!!!!!!!!!!!!!!destroyed", this);
         }
 
         [Inject]
@@ -42,8 +48,8 @@ namespace ArPaint.Debug
 
         public void OnToolChanged(int idx)
         {
+            _container.Resolve<IGameStateMachine>();
             var draw = _container.Resolve<DrawService>();
-
             draw.Shape = _dropdown.options[idx].text switch
             {
                 nameof(Line) => new Line(),
@@ -51,7 +57,8 @@ namespace ArPaint.Debug
                 nameof(Circle) => new Circle(),
                 nameof(Oval) => new Oval(),
                 nameof(Cube) => new Cube(),
-                nameof(Rectangle) => new Rectangle()
+                nameof(Rectangle) => new Rectangle(),
+                _ => new Line()
             };
         }
     }

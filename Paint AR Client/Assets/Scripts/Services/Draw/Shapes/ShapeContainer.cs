@@ -15,8 +15,6 @@ namespace ArPaint.Services.Draw.Shapes
             set => _lineRenderer.loop = value;
         }
 
-        public int Positions => _lineRenderer.positionCount;
-
         public Vector3 TransformPoint(Vector3 worldPosition)
         {
             return transform.InverseTransformPoint(worldPosition);
@@ -41,10 +39,17 @@ namespace ArPaint.Services.Draw.Shapes
             _lastPosition = position;
         }
 
+        public void SetRotation(Quaternion rotation)
+        {
+            transform.rotation = rotation;
+        }
+
         public void Clear()
         {
             _lineRenderer.positionCount = 0;
         }
+
+        public void Destroy() => Destroy(gameObject);
 
         public class Factory : PlaceholderFactory<ShapeContainer>
         {

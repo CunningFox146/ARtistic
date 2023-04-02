@@ -4,12 +4,13 @@ namespace ArPaint.Services.Draw.Shapes
 {
     public interface IShapeContainer
     {
-        bool IsLooping { get; set; }
-        int Positions { get; }
         void InitTransform(Vector3 position, Quaternion rotation);
-        void SetPosition(int index, Vector3 position);
         void AppendPosition(Vector3 position);
+        void SetPosition(int index, Vector3 position);
+        void SetRotation(Quaternion rotation);
         void Clear();
+        void Destroy();
         Vector3 TransformPoint(Vector3 worldPoint);
+        bool IsLooping { get; set; }
     }
 }
