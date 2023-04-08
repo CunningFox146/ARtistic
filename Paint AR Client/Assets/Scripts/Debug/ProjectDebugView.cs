@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ArPaint.Infrastructure.GameStates;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
 using TMPro;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
 using Zenject;
 
 namespace ArPaint.Debug
@@ -29,11 +27,6 @@ namespace ArPaint.Debug
             };
         }
 
-        private void OnDestroy()
-        {
-            UnityEngine.Debug.Log("!!!!!!!!!!!!!!!destroyed", this);
-        }
-
         [Inject]
         private void Constructor(DiContainer container)
         {
@@ -44,6 +37,12 @@ namespace ArPaint.Debug
         {
             var commands = _container.Resolve<ICommandBuffer>();
             commands?.UndoLastCommand();
+        }
+        
+        public void RedoLastCommand()
+        {
+            var commands = _container.Resolve<ICommandBuffer>();
+            commands?.RedoLastCommand();
         }
 
         public void OnToolChanged(int idx)

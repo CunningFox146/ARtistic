@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using ArPaint.Services.SaveLoad;
+using UnityEngine;
 using Zenject;
 
 namespace ArPaint.Services.Draw.Shapes
 {
-    public class ShapeContainer : MonoBehaviour, IShapeContainer
+    public class ShapeContainer : MonoBehaviour, IShapeContainer, ISavable<ShapeData>, ILoadable<ShapeData>
     {
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private float _distance;
@@ -44,12 +45,38 @@ namespace ArPaint.Services.Draw.Shapes
             transform.rotation = rotation;
         }
 
+        public void Hide() => gameObject.SetActive(false);
+        public void Show() => gameObject.SetActive(true);
+        
         public void Clear()
         {
             _lineRenderer.positionCount = 0;
         }
+        
+        public ShapeData GetData()
+        {
+            var positions = new Vector3[_lineRenderer.positionCount];
+            UnityEngine.Debug.Log(_lineRenderer.GetPositions(positions));
+            return new ShapeData
+            {
+                Position = transform.position,
+                Rotation = transform.rotation,
+                IsLooping = IsLooping,
+                LinePositions = positions
+            };
+        }
 
-        public void Destroy() => Destroy(gameObject);
+        public void Load(ShapeData data)
+        {
+            transform.position = data.Position;
+            transform.rotation = data.Rotation;
+            // _lineRenderer.SetPositions(data.LinePositions);
+            foreach (var position in data.LinePositions)
+            {
+                AppendPosition(position);
+            }
+            _lineRenderer.loop = data.IsLooping;
+        }
 
         public class Factory : PlaceholderFactory<ShapeContainer>
         {

@@ -4,16 +4,14 @@ namespace ArPaint.Services.Commands
 {
     public class CommandBuffer : ICommandBuffer
     {
-        private readonly Stack<ICommand> _commands;
+        private readonly Stack<ICommand> _commands = new();
+        private readonly Stack<ICommand> _discardedCommands = new();
 
-        public CommandBuffer()
+        public void AddCommand(ICommand command, bool noPreform = false)
         {
-            _commands = new Stack<ICommand>();
-        }
-
-        public void AddCommand(ICommand command)
-        {
-            command.Perform();
+            if (!noPreform)
+                command.Perform();
+            
             _commands.Push(command);
         }
 
@@ -21,6 +19,13 @@ namespace ArPaint.Services.Commands
         {
             if (!_commands.TryPop(out var command)) return;
             command.Undo();
+            _discardedCommands.Push(command);
+        }
+
+        public void RedoLastCommand()
+        {
+            if (!_discardedCommands.TryPop(out var command)) return;
+            AddCommand(command);
         }
     }
 }

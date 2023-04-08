@@ -2,7 +2,8 @@
 {
     public interface ICommandBuffer
     {
-        void AddCommand(ICommand command);
+        void AddCommand(ICommand command, bool noPerform = false);
         void UndoLastCommand();
+        void RedoLastCommand();
     }
 }

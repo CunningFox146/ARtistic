@@ -9,7 +9,8 @@ namespace ArPaint.Services.Draw.Shapes
         void SetPosition(int index, Vector3 position);
         void SetRotation(Quaternion rotation);
         void Clear();
-        void Destroy();
+        void Hide();
+        void Show();
         Vector3 TransformPoint(Vector3 worldPoint);
         bool IsLooping { get; set; }
     }

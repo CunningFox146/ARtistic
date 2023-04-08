@@ -4,6 +4,7 @@ using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.Input;
+using ArPaint.Services.SaveLoad;
 using UnityEngine;
 using Zenject;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -92,9 +93,11 @@ namespace ArPaint.Services.Draw
 
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             (Shape as IShapeEnd)?.OnDrawEnd(container, container.TransformPoint(touchPosition));
-            _commandBuffer.AddCommand(new Command()
+            
+            _commandBuffer.AddCommand(new Command
             {
-                UndoAction = () => container.Destroy()
+                PerformAction = () => container.Show(),
+                UndoAction = () => container.Hide(),
             });
         }
 
