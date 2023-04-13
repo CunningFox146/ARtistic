@@ -8,7 +8,7 @@ namespace Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {
-        private const string AssetsResourcesPath = "StaticData/";
+        private const string AssetsResourcesPath = "StaticData";
         private readonly IAssetProvider _assetsProvider;
 
         public IAssetsPath AssetPath { get; private set; }
@@ -28,8 +28,7 @@ namespace Services.StaticData
 
         private async UniTask<T> LoadAssetAsync<T>() where T : Object
         {
-            var str = typeof(T).FullName;
-            return await _assetsProvider.LoadAssetAsync<T>($"{AssetsResourcesPath}/{str}");
+            return await _assetsProvider.LoadAssetAsync<T>($"{AssetsResourcesPath}/{typeof(T).Name}");
         }
     }
 }
