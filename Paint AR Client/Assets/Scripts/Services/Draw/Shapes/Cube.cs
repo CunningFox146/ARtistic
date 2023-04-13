@@ -2,20 +2,16 @@
 
 namespace ArPaint.Services.Draw.Shapes
 {
-    public class Cube : IShape, IShapeStart
+    [CreateAssetMenu(menuName = "Shapes/Cube")]
+    public class Cube : Shape
     {
-        public void OnDrawMove(IShapeContainer container, Vector3 position)
+        public override void OnDrawMove(IShapeContainer container, Vector3 position)
         {
             container.Clear();
             DrawRectangle(container, position);
         }
 
-        public void OnDrawStart(IShapeContainer container, Vector3 position)
-        {
-            container.IsLooping = true;
-        }
-
-        private void DrawRectangle(IShapeContainer container, Vector3 endPosition)
+        private static void DrawRectangle(IShapeContainer container, Vector3 endPosition)
         {
             var radius = Vector3.Distance(Vector3.zero, endPosition);
             const float startAngle = Mathf.PI / 4f;

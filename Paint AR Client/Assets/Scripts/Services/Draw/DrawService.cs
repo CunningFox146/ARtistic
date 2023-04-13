@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.Input;
 using ArPaint.Services.SaveLoad;
+using Services.StaticData;
 using UnityEngine;
 using Zenject;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -20,17 +22,21 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
         private readonly ICommandBuffer _commandBuffer;
+        private readonly List<IShape> _shapes;
 
-        public IShape Shape { get; set; } = new Oval();
+        public IShape Shape { get; set; }
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
-            IUpdateLoop updateLoop, ICommandBuffer commandBuffer)
+            IUpdateLoop updateLoop, ICommandBuffer commandBuffer, IStaticDataService staticData)
         {
             _mainCamera = mainCamera;
             _inputSource = inputSource;
             _shapeContainerFactory = shapeContainerFactory;
             _updateLoop = updateLoop;
             _commandBuffer = commandBuffer;
+            _shapes = staticData.Shapes.ShapesList.ToList<IShape>();
+
+            Shape = _shapes.First();
 
             _updateLoop.RegisterUpdate(this);
         }

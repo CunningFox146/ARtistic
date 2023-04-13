@@ -5,7 +5,8 @@ namespace Services.StaticData
 {
     public interface IStaticDataService
     {
-        AssetsPath AssetPath { get; }
+        IAssetsPath AssetPath { get; }
+        IShapes Shapes { get; }
         UniTask Load();
     }
 }
