@@ -6,5 +6,6 @@ namespace ArPaint.StaticData
     public class AssetsPath : ScriptableObject, IAssetsPath
     {
         [field: SerializeField] public string DrawLinePath { get; private set; }
+        [field: SerializeField] public string DrawViewPath { get; private set; }
     }
 }

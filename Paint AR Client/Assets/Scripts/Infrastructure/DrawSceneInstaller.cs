@@ -27,6 +27,7 @@ namespace ArPaint.Infrastructure
             Container.Bind<ICommandBuffer>().To<CommandBuffer>().AsSingle();
             Container.BindInterfacesAndSelfTo<InputSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<DrawService>().AsSingle();
+            
             Container.BindFactory<ArInitState, ArInitState.Factory>();
             Container.BindFactory<DrawState, DrawState.Factory>();
             Container.BindFactory<ShapeContainer, ShapeContainer.Factory>()
