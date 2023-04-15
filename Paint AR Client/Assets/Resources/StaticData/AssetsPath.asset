@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AssetsPath
   m_EditorClassIdentifier: 
   <DrawLinePath>k__BackingField: Shapes/Container
-  <DrawViewPath>k__BackingField: Views/Draw/DrawView
+  <DrawViewPath>k__BackingField: Views/DrawView
