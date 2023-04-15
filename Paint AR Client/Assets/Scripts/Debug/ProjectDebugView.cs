@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using ArPaint.Infrastructure.GameStates;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
+using Services.StaticData;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -13,18 +13,14 @@ namespace ArPaint.Debug
     {
         [SerializeField] private TMP_Dropdown _dropdown;
         private DiContainer _container;
+        private List<Shape> _shapes;
 
         private void Awake()
         {
-            _dropdown.options = new List<TMP_Dropdown.OptionData>
-            {
-                new(nameof(Line)),
-                new(nameof(StraightLine)),
-                new(nameof(Circle)),
-                new(nameof(Oval)),
-                new(nameof(Cube)),
-                new(nameof(Rectangle))
-            };
+            var data = _container.Resolve<IStaticDataService>();
+            _dropdown.options = new List<TMP_Dropdown.OptionData>();
+            _shapes = data.Shapes.ShapesList;
+            _shapes.ForEach(shape => _dropdown.options.Add(new(shape.Name)));
         }
 
         [Inject]
@@ -47,18 +43,8 @@ namespace ArPaint.Debug
 
         public void OnToolChanged(int idx)
         {
-            _container.Resolve<IGameStateMachine>();
             var draw = _container.Resolve<DrawService>();
-            draw.Shape = _dropdown.options[idx].text switch
-            {
-                nameof(Line) => new Line(),
-                nameof(StraightLine) => new StraightLine(),
-                nameof(Circle) => new Circle(),
-                nameof(Oval) => new Oval(),
-                nameof(Cube) => new Cube(),
-                nameof(Rectangle) => new Rectangle(),
-                _ => new Line()
-            };
+            draw.Shape = _shapes[idx];
         }
     }
 }

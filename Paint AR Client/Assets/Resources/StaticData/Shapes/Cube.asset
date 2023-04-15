@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907abd8ec2e74854b5c69be21d589c41, type: 3}
   m_Name: Cube
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Cube
   <IsLooping>k__BackingField: 1

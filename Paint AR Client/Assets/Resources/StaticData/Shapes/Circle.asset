@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4a5e7ebdc24d45ba9722c459904124, type: 3}
   m_Name: Circle
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Circle
   <IsLooping>k__BackingField: 1

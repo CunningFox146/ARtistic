@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819a4ffbc9da4dd6a0d87de09b165c59, type: 3}
   m_Name: Oval
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Oval
   <IsLooping>k__BackingField: 1

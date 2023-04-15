@@ -13,8 +13,7 @@ namespace ArPaint.Infrastructure.AssetProvider
 
         public GameObject DrawViewPrefab => 
             _assetProvider.LoadAsset<GameObject>(_staticDataService.AssetPath.DrawViewPath);
-
-
+        
         public PrefabsProvider(IAssetProvider assetProvider, IStaticDataService staticDataService)
         {
             _assetProvider = assetProvider;

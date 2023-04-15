@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0a00688fe14c41a38ba9feba8d05ec, type: 3}
   m_Name: Line
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Line
   <IsLooping>k__BackingField: 0

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f41741112824b15aeaf569ed1a727f1, type: 3}
   m_Name: Rectangle
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Rectangle
   <IsLooping>k__BackingField: 1
