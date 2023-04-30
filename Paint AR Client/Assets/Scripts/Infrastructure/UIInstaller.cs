@@ -1,6 +1,6 @@
 ﻿using ArPaint.Infrastructure.AssetProvider;
-using ArPaint.UI.ViewModels.Draw;
-using ArPaint.UI.Views.Draw;
+using ArPaint.UI.ViewModels.DrawOptions;
+using ArPaint.UI.Views.DrawOptions;
 using UI.Systems;
 using Zenject;
 
@@ -24,8 +24,8 @@ namespace ArPaint.Infrastructure
 
         private void InstallDrawView()
         {
-            Container.BindInterfacesAndSelfTo<DrawViewModel>().AsSingle();
-            Container.BindFactory<DrawView, DrawView.Factory>()
+            Container.BindInterfacesAndSelfTo<DrawOptionsViewModel>().AsSingle();
+            Container.BindFactory<DrawOptionsView, DrawOptionsView.Factory>()
                 .FromComponentInNewPrefab(_prefabsProvider.DrawViewPrefab);
         }
     }

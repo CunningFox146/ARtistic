@@ -1,11 +1,11 @@
-﻿using ArPaint.UI.ViewModels.Draw;
+﻿using ArPaint.UI.ViewModels.DrawOptions;
 using UnityEngine.UIElements;
 using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UITK.BindableUIElements;
 using UnityMvvmToolkit.UITK.BindableUIElementWrappers;
 using Utils;
 
-namespace ArPaint.UI.Views.Draw.Shapes
+namespace ArPaint.UI.Views.DrawOptions.Shapes
 {
     public class ShapeListViewWrapper : BindableListViewWrapper<ShapeViewController, ShapeViewData>
     {

@@ -1,6 +1,6 @@
 ﻿using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Input;
-using ArPaint.UI.Views.Draw;
+using ArPaint.UI.Views.DrawOptions;
 using UI.Systems;
 using Zenject;
 
@@ -16,7 +16,7 @@ namespace ArPaint.Infrastructure.GameStates
         {
             _updateLoop = updateLoop;
             _inputSource = inputSource;
-            viewStack.PushView<DrawView>();
+            viewStack.PushView<DrawOptionsView>();
         }
 
         public void OnEnter()

@@ -1,16 +1,16 @@
-﻿using ArPaint.UI.Views.Draw.Shapes;
+﻿using ArPaint.UI.Views.DrawOptions.Shapes;
 using UnityEngine.UIElements;
 using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UGUI;
 using UnityMvvmToolkit.UITK.BindableUIElements;
 
-namespace ArPaint.UI.Views.Draw
+namespace ArPaint.UI.Views.DrawOptions
 {
-    public class DrawViewBindableElementsFactory : BindableElementsFactory
+    public class DrawOptionsViewBindableElementsFactory : BindableElementsFactory
     {
         private readonly VisualTreeAsset _shapeViewAsset;
 
-        public DrawViewBindableElementsFactory(VisualTreeAsset shapeViewAsset)
+        public DrawOptionsViewBindableElementsFactory(VisualTreeAsset shapeViewAsset)
         {
             _shapeViewAsset = shapeViewAsset;
         }

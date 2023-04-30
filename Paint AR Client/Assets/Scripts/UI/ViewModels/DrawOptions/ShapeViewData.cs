@@ -1,6 +1,6 @@
 ﻿using ArPaint.Services.Draw.Shapes;
 
-namespace ArPaint.UI.ViewModels.Draw
+namespace ArPaint.UI.ViewModels.DrawOptions
 {
     public class ShapeViewData
     {

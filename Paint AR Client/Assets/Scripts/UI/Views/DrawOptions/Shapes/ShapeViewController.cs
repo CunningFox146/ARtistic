@@ -1,8 +1,8 @@
 ﻿using System;
-using ArPaint.UI.ViewModels.Draw;
+using ArPaint.UI.ViewModels.DrawOptions;
 using UnityEngine.UIElements;
 
-namespace ArPaint.UI.Views.Draw.Shapes
+namespace ArPaint.UI.Views.DrawOptions.Shapes
 {
     public class ShapeViewController : IDisposable
     {
