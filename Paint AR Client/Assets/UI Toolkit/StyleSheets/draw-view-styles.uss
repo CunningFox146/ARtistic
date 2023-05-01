@@ -1,0 +1,30 @@
+.tab-bar {
+    flex-grow: 0;
+    background-color: rgb(20, 20, 22);
+    height: 10%;
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.tab-bar__button {
+    flex-grow: 1;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.tab-bar__button__text {
+    color: rgb(255, 255, 255);
+}
+
+.tab-bar__button__icon {
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+}

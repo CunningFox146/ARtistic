@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ArPaint.UI.Views.DrawOptions;
 using Zenject;
 
-namespace UI.Systems
+namespace ArPaint.UI.Systems.Stack
 {
     public class ViewStack : IViewStack
     {

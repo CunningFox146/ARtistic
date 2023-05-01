@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/StyleSheets/draw-view-styles.uss?fileID=7433441132597879392&amp;guid=a0390d732eb46a44d9eb34dd88f1d7d1&amp;type=3#draw-view-styles" />
+    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="TabBarButton" class="tab-bar__button">
+        <ui:VisualElement class="tab-bar__button__icon" />
+        <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" class="caption-label tab-bar__button__text" />
+    </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+</ui:UXML>

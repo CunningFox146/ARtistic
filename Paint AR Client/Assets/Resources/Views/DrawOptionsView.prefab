@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 180742621951926002}
   - component: {fileID: 6300693803652688776}
-  - component: {fileID: 8404600444537534903}
+  - component: {fileID: 6707833747944161646}
   m_Layer: 0
-  m_Name: DrawView
+  m_Name: DrawOptionsView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   sourceAsset: {fileID: 9197481963319205126, guid: 436396d8bb426734590f47651fa5723e,
     type: 3}
   m_SortingOrder: 0
---- !u!114 &8404600444537534903
+--- !u!114 &6707833747944161646
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,6 +59,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3489873490210749136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56e3088fe0dd4893bcf17fe97890fd6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9112dac7fba3442aa352a6a58f0df53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shapeViewAsset: {fileID: 9197481963319205126, guid: b4b5f6f84305ca947a1272058742b08f,
+    type: 3}

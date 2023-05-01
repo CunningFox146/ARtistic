@@ -1,4 +1,4 @@
-﻿namespace UI.Systems
+﻿namespace ArPaint.UI.Systems.Stack
 {
     public interface IViewStack
     {

@@ -1,0 +1,6 @@
+.caption-label {
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Poppins-Regular.ttf?fileID=12800000&guid=c5973a18b44adae479ce54f5c571fd17&type=3#Poppins-Regular');
+    -unity-font-style: normal;
+    font-size: 36px;
+    white-space: normal;
+}

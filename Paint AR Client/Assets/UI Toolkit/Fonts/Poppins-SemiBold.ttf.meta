@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 332bd2695f00df44393c02385255a440
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Poppins SemiBold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3138f3042a7e9be40b579750a97e60bc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

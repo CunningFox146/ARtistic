@@ -1,6 +1,6 @@
 ﻿using UnityMvvmToolkit.Core;
 
-namespace UI.ViewModels.Draw
+namespace ArPaint.UI.ViewModels.Draw
 {
     public class DrawViewModel : ViewModel
     {
