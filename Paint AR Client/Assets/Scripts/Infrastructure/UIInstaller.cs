@@ -18,15 +18,15 @@ namespace ArPaint.Infrastructure
 
         public override void InstallBindings()
         {
-            InstallDrawView();
+            InstallDrawOptionsView();
             Container.Bind<IViewStack>().To<ViewStack>().AsSingle().NonLazy();
         }
 
-        private void InstallDrawView()
+        private void InstallDrawOptionsView()
         {
             Container.BindInterfacesAndSelfTo<DrawOptionsViewModel>().AsSingle();
             Container.BindFactory<DrawOptionsView, DrawOptionsView.Factory>()
-                .FromComponentInNewPrefab(_prefabsProvider.DrawViewPrefab);
+                .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(DrawOptionsView)));
         }
     }
 }

@@ -5,6 +5,6 @@ namespace ArPaint.Infrastructure.AssetProvider
     public interface IPrefabsProvider
     {
         GameObject ShapeContainerPrefab { get; }
-        GameObject DrawViewPrefab { get; }
+        GameObject LoadViewPrefab(string viewPath);
     }
 }

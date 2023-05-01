@@ -1,7 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="TabBarButton" src="project://database/Assets/UI%20Toolkit/UIDocuments/Draw/TabBarButton.uxml?fileID=9197481963319205126&amp;guid=f327db99e69b82a4bb602b8aeeb8d6ca&amp;type=3#TabBarButton" />
-    <Style src="project://database/Assets/UI%20Toolkit/StyleSheets/draw-view-styles.uss?fileID=7433441132597879392&amp;guid=a0390d732eb46a44d9eb34dd88f1d7d1&amp;type=3#draw-view-styles" />
-    <Style src="project://database/Assets/UI%20Toolkit/StyleSheets/main.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#main" />
     <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 100%; height: 100%; flex-direction: column-reverse;">
         <ui:VisualElement name="tab-bar" class="tab-bar">
             <ui:Instance template="TabBarButton" name="TabBarButton" />

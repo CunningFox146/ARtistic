@@ -10,9 +10,9 @@ namespace ArPaint.Infrastructure.AssetProvider
 
         public GameObject ShapeContainerPrefab =>
             _assetProvider.LoadAsset<GameObject>(_staticDataService.AssetPath.DrawLinePath);
-
-        public GameObject DrawViewPrefab => 
-            _assetProvider.LoadAsset<GameObject>(_staticDataService.AssetPath.DrawViewPath);
+        
+        public GameObject LoadViewPrefab(string viewName)
+            => _assetProvider.LoadAsset<GameObject>($"{_staticDataService.AssetPath.ViewPrefabsPath}/{viewName}");
         
         public PrefabsProvider(IAssetProvider assetProvider, IStaticDataService staticDataService)
         {
