@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Utils
+namespace ArPaint.Utils
 {
     public static class CollectionExtensions
     {

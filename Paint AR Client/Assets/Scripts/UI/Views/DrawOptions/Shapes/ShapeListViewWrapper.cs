@@ -1,9 +1,9 @@
 ﻿using ArPaint.UI.ViewModels.DrawOptions;
+using ArPaint.Utils;
 using UnityEngine.UIElements;
 using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UITK.BindableUIElements;
 using UnityMvvmToolkit.UITK.BindableUIElementWrappers;
-using Utils;
 
 namespace ArPaint.UI.Views.DrawOptions.Shapes
 {
