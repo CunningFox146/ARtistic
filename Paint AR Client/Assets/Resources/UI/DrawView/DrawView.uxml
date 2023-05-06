@@ -1,18 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="TabBarButton" src="project://database/Assets/Resources/UI/DrawView/TabBarButton.uxml?fileID=9197481963319205126&amp;guid=f327db99e69b82a4bb602b8aeeb8d6ca&amp;type=3#TabBarButton" />
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <Style src="project://database/Assets/Resources/UI/DrawView/DrawView.uss?fileID=7433441132597879392&amp;guid=a0390d732eb46a44d9eb34dd88f1d7d1&amp;type=3#DrawView" />
     <ArPaint.UI.Elements.SafeAreaView picking-mode="Ignore">
-        <ui:VisualElement name="tab-bar" picking-mode="Ignore" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: flex-end; position: absolute;">
-            <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
-            <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
-            <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
-            <ui:VisualElement name="TabBarButton" style="flex-grow: 1; height: 10%;">
-                <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ToggleShapeSelectCommand" class="tab-bar__button">
-                    <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
-                    <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
-                </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
-            </ui:VisualElement>
+        <ui:VisualElement name="tab-bar" picking-mode="Ignore" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: flex-end; position: absolute; justify-content: space-around;">
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton class="tab-bar__button">
+                <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/OptionsIcon&apos;);" />
+                <ui:Label tabindex="-1" text="Options" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
+            </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton class="tab-bar__button">
+                <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/UndoIcon&apos;); scale: -1 1;" />
+                <ui:Label tabindex="-1" text="Redo" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
+            </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton class="tab-bar__button">
+                <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/UndoIcon&apos;);" />
+                <ui:Label tabindex="-1" text="Undo" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
+            </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ToggleShapeSelectCommand" class="tab-bar__button">
+                <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/ShapesIcon&apos;);" />
+                <ui:Label tabindex="-1" text="Shapes" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
+            </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
         </ui:VisualElement>
         <ArPaint.UI.Elements.BindableVisibilityView picking-mode="Ignore" binding-visibility-path="IsShapeSelectVisible" style="position: absolute; flex-grow: 1; width: 25%; height: 90%; align-self: flex-end;">
             <ArPaint.UI.Views.Draw.ShapeListView focusable="false" binding-items-source-path="Shapes" name="shapes" virtualization-method="DynamicHeight" picking-mode="Ignore" show-border="false" style="position: relative; height: 100%; width: 100%; align-self: flex-end; flex-direction: column-reverse; flex-grow: 1; display: flex; visibility: visible;" />

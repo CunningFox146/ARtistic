@@ -12,6 +12,8 @@
     margin: 0;
     padding: 0;
     background-color: rgba(0, 0, 0, 0);
+    height: 10%;
+    justify-content: space-between;
 }
 
 .tab-bar__button__text {
@@ -21,6 +23,9 @@
 .tab-bar__button__icon {
     -unity-background-scale-mode: scale-to-fit;
     flex-grow: 1;
+    transform-origin: bottom;
+    -unity-text-outline-width: 0;
+    margin-top: 10px;
 }
 
 .unity-scroll-view__content-viewport {
