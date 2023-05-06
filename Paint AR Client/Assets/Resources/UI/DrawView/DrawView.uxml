@@ -7,8 +7,15 @@
             <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
             <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
             <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
-            <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
+            <ui:VisualElement name="TabBarButton" style="flex-grow: 1; height: 10%;">
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ToggleShapeSelectCommand" class="tab-bar__button">
+                    <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+                    <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
+                </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ArPaint.UI.Views.Draw.ShapeListView focusable="false" binding-items-source-path="Shapes" name="shapes" virtualization-method="DynamicHeight" picking-mode="Ignore" show-border="false" style="position: absolute; height: 90%; width: 25%; align-self: flex-end; flex-direction: column-reverse; flex-grow: 1; display: flex; visibility: visible;" />
+        <ArPaint.UI.Elements.BindableVisibilityView picking-mode="Ignore" binding-visibility-path="IsShapeSelectVisible" style="position: absolute; flex-grow: 1; width: 25%; height: 90%; align-self: flex-end;">
+            <ArPaint.UI.Views.Draw.ShapeListView focusable="false" binding-items-source-path="Shapes" name="shapes" virtualization-method="DynamicHeight" picking-mode="Ignore" show-border="false" style="position: relative; height: 100%; width: 100%; align-self: flex-end; flex-direction: column-reverse; flex-grow: 1; display: flex; visibility: visible;" />
+        </ArPaint.UI.Elements.BindableVisibilityView>
     </ArPaint.UI.Elements.SafeAreaView>
 </ui:UXML>
