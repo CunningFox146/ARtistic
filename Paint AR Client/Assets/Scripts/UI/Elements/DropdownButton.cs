@@ -1,7 +1,6 @@
 ﻿using ArPaint.UI.Elements.EventInterfaces;
 using ArPaint.Utils;
 using UIComponents;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace ArPaint.UI.Elements

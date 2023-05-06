@@ -1,4 +1,6 @@
-﻿using ArPaint.UI.ViewModels.DrawOptions;
+﻿using System;
+using System.Collections.Generic;
+using ArPaint.UI.ViewModels.DrawOptions;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -13,14 +15,17 @@ namespace ArPaint.UI.Views.DrawOptions
         [Inject]
         public void Constructor(DrawOptionsViewModel optionsViewModel)
         {
-            ViewModel = optionsViewModel;
+            viewModel = optionsViewModel;
         }
 
-        protected override IBindableElementsFactory GetBindableElementsFactory()
+        protected override IReadOnlyDictionary<Type, object> GetCollectionItemTemplates()
         {
-            return new DrawOptionsViewBindableElementsFactory(_shapeViewAsset);
+            return new Dictionary<Type, object>
+            {
+                { typeof(ShapeViewModel), _shapeViewAsset }
+            };
         }
-
+        
         public class Factory : PlaceholderFactory<DrawOptionsView>
         {
         }

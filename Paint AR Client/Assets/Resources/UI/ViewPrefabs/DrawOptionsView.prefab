@@ -62,5 +62,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9112dac7fba3442aa352a6a58f0df53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapeViewAsset: {fileID: 9197481963319205126, guid: b4b5f6f84305ca947a1272058742b08f,
+  _shapeViewAsset: {fileID: 9197481963319205126, guid: 48818c81bac322a4280bdb3ebb96a2d2,
     type: 3}

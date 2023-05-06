@@ -1,7 +1,7 @@
 ﻿using System;
 using ArPaint.UI.Systems;
 using ArPaint.UI.Systems.Stack;
-using UnityMvvmToolkit.Core;
+using ArPaint.UI.ViewModels;
 using UnityMvvmToolkit.UITK;
 
 namespace ArPaint.UI.Views
@@ -12,7 +12,7 @@ namespace ArPaint.UI.Views
         public event Action OnHide;
         public event Action OnShow;
 
-        protected TViewModel ViewModel;
+        protected TViewModel viewModel;
         
         public void Show()
         {
@@ -34,7 +34,7 @@ namespace ArPaint.UI.Views
 
         protected override TViewModel GetBindingContext()
         {
-            return ViewModel;
+            return viewModel;
         }
     }
 }
