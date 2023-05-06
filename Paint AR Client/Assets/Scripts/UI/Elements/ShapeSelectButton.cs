@@ -5,16 +5,17 @@ using UnityEngine.UIElements;
 
 namespace ArPaint.UI.Elements
 {
-    [UxmlName("DropdownButton")]
-    [Layout("UI/DrawView/DropdownButton")]
-    public partial class DropdownButton : UIComponent, IOnGeometryChanged, IOnFocusOut
+    [UxmlName("ShapeSelectButton")]
+    [Stylesheet("UI/Common")]
+    [Layout("UI/DrawView/ShapeSelectButton")]
+    public partial class ShapeSelectButton : UIComponent, IOnGeometryChanged, IOnFocusOut
     {
         private const int ScreenHeight = 1920;
         
-        [Query(Class = "dropdown-button__container")]
+        [Query(Class = "shape-select-button__container")]
         public VisualElement container;
         
-        [Query(Class = "dropdown-button__button")]
+        [Query(Class = "shape-select-button__button")]
         public Button button;
         
         public override void OnInit()

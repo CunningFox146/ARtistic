@@ -5,13 +5,13 @@
     white-space: normal;
 }
 
-.dropdown-button {
+.shape-select-button {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     flex-direction: column-reverse;
 }
 
-.dropdown-button__container {
+.shape-select-button__container {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     position: absolute;

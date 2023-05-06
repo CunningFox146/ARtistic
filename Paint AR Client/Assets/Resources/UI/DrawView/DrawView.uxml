@@ -1,5 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="TabBarButton" src="project://database/Assets/Resources/UI/DrawView/TabBarButton.uxml?fileID=9197481963319205126&amp;guid=f327db99e69b82a4bb602b8aeeb8d6ca&amp;type=3#TabBarButton" />
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <Style src="project://database/Assets/Resources/UI/DrawView/DrawView.uss?fileID=7433441132597879392&amp;guid=a0390d732eb46a44d9eb34dd88f1d7d1&amp;type=3#DrawView" />
-    <ArPaint.UI.Views.Draw.ShapeListView focusable="true" binding-items-source-path="Shapes" virtualization-method="DynamicHeight" fixed-item-height="30" />
+    <ArPaint.UI.Elements.SafeAreaView picking-mode="Ignore">
+        <ui:VisualElement name="tab-bar" picking-mode="Ignore" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: flex-end; position: absolute;">
+            <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
+            <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
+            <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
+            <ui:Instance template="TabBarButton" name="TabBarButton" style="flex-grow: 1; height: 10%;" />
+        </ui:VisualElement>
+        <ArPaint.UI.Views.Draw.ShapeListView focusable="false" binding-items-source-path="Shapes" name="shapes" virtualization-method="DynamicHeight" picking-mode="Ignore" show-border="false" style="position: absolute; height: 90%; width: 25%; align-self: flex-end; flex-direction: column-reverse; flex-grow: 1; display: flex; visibility: visible;" />
+    </ArPaint.UI.Elements.SafeAreaView>
 </ui:UXML>

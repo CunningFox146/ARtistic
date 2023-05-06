@@ -1,8 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="VisualElement" class="dropdown-button">
-        <ui:Button text="Button" display-tooltip-when-elided="true" name="Button" class="dropdown-button__button" style="flex-grow: 1;" />
-        <ui:VisualElement class="dropdown-button__container">
-            <ui:Button text="Button" display-tooltip-when-elided="true" name="Button" style="flex-shrink: 1; flex-grow: 1; transform-origin: bottom; translate: 0 0; display: flex;" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-</ui:UXML>

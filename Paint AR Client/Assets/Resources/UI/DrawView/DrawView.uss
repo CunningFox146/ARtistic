@@ -1,7 +1,7 @@
 .tab-bar {
     flex-grow: 0;
     background-color: rgb(20, 20, 22);
-    height: 10%;
+    height: 100%;
     width: 100%;
     justify-content: space-around;
     flex-direction: row;

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
+    <ui:VisualElement name="root" class="shape-select-button">
+        <ui:Button text="Button" display-tooltip-when-elided="true" name="button" class="shape-select-button__button" style="flex-grow: 1;" />
+        <ArPaint.UI.Views.Draw.ShapeListView focusable="true" name="ShapeListView" binding-items-source-path="Shapes" class="shape-select-button__container" />
+    </ui:VisualElement>
+</ui:UXML>
