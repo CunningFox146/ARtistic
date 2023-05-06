@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 6bf3e9e323b30834282941aea9cf12e3, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 436396d8bb426734590f47651fa5723e,
+  sourceAsset: {fileID: 9197481963319205126, guid: e74aa26ae4e2ea448b43f23791f41017,
     type: 3}
   m_SortingOrder: 0
 --- !u!114 &8404600444537534903
@@ -62,3 +62,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e3088fe0dd4893bcf17fe97890fd6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shapeViewAsset: {fileID: 9197481963319205126, guid: 48818c81bac322a4280bdb3ebb96a2d2,
+    type: 3}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArPaint.UI.Views.Draw;
 using ArPaint.UI.Views.DrawOptions;
 using Zenject;
 
@@ -12,11 +13,12 @@ namespace ArPaint.UI.Systems.Stack
 
         public IStackableView ActiveView => _viewStack.TryPeek(out var view) ? view : null;
 
-        public ViewStack(DrawOptionsView.Factory drawViewFactory)
+        public ViewStack(DrawView.Factory drawViewFactory, DrawOptionsView.Factory drawOptionsViewFactory)
         {
             _viewFactories = new()
             {
-                [typeof(DrawOptionsView)] = drawViewFactory
+                [typeof(DrawView)] = drawViewFactory,
+                [typeof(DrawOptionsView)] = drawOptionsViewFactory
             };
         }
 
