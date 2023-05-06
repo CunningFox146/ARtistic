@@ -7,11 +7,11 @@
                 <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/OptionsIcon&apos;);" />
                 <ui:Label tabindex="-1" text="Options" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
             </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton class="tab-bar__button">
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="RedoCommand" class="tab-bar__button">
                 <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/UndoIcon&apos;); scale: -1 1;" />
                 <ui:Label tabindex="-1" text="Redo" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
             </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton class="tab-bar__button">
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="UndoCommand" class="tab-bar__button">
                 <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/UndoIcon&apos;);" />
                 <ui:Label tabindex="-1" text="Undo" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
             </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
