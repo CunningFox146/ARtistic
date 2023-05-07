@@ -1,8 +1,6 @@
 ﻿using System;
-using ArPaint.UI.Systems;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.ViewModels;
-using ArPaint.UI.ViewModels.Draw;
 using UnityMvvmToolkit.UITK;
 using Zenject;
 
@@ -14,14 +12,8 @@ namespace ArPaint.UI.Views
         public event Action OnHide;
         public event Action OnShow;
 
-        protected TViewModel viewModel;
-        
-        [Inject]
-        protected void Constructor(TViewModel injectedViewModel)
-        {
-            viewModel = injectedViewModel;
-        }
-        
+        private TViewModel _viewModel;
+
         public void Show()
         {
             OnShow?.Invoke();
@@ -40,9 +32,15 @@ namespace ArPaint.UI.Views
             Destroy(gameObject);
         }
 
+        [Inject]
+        private void Constructor(TViewModel injectedViewModel)
+        {
+            _viewModel = injectedViewModel;
+        }
+
         protected override TViewModel GetBindingContext()
         {
-            return viewModel;
+            return _viewModel;
         }
     }
 }

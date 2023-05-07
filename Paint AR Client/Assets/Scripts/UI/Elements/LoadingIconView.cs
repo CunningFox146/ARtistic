@@ -5,79 +5,30 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityMvvmToolkit.Core;
-using UnityMvvmToolkit.Core.Extensions;
-using UnityMvvmToolkit.Core.Interfaces;
 
 namespace ArPaint.UI.Elements
 {
-    public class LoadingIconView : Image, IBindableElement
+    public class LoadingIconView : Image
     {
-        private PropertyBindingData _spritesPathBindingData;
-        private IReadOnlyProperty<IList<Sprite>> _spritesProperty;
-
-        private int _currentFrame;
         private CancellationTokenSource _animationToken;
-        
+        private int _currentFrame;
+        private IList<Sprite> _sprites;
+
         public int FramesPerSecond { get; set; }
         public float FadeDuration { get; set; }
-        public string SpritesBindingPath { get; set; }
-
-        private IList<Sprite> Sprites => _spritesProperty.Value;
         private int FrameWaitTime => 1000 / FramesPerSecond;
-        
-        public void SetBindingContext(IBindingContext context, IObjectProvider objectProvider)
-        {
-            _spritesPathBindingData ??= SpritesBindingPath.ToPropertyBindingData();
-            _spritesProperty = objectProvider.RentReadOnlyProperty<IList<Sprite>>(context, _spritesPathBindingData);
 
+        public void SetSprites(IList<Sprite> sprites)
+        {
+            _sprites = sprites;
             StartAnimating();
-        }
-
-        public void ResetBindingContext(IObjectProvider objectProvider)
-        {
-            if (_spritesProperty == null)
-                return;
-
-            objectProvider.ReturnReadOnlyProperty(_spritesProperty);
-            _spritesProperty = null;
-            
-            StopAnimating();
         }
 
         private void StartAnimating()
         {
             _currentFrame = 0;
-            _animationToken = new();
+            _animationToken = new CancellationTokenSource();
             Animate(_animationToken.Token);
-        }
-
-        private async void Animate(CancellationToken token)
-        {
-            while (!token.IsCancellationRequested)
-            {
-                if (++_currentFrame >= Sprites.Count)
-                {
-                    _currentFrame = 0;
-
-                    await DOTween.ToAlpha(
-                        () => style.unityBackgroundImageTintColor.value,
-                        value => style.unityBackgroundImageTintColor = value,
-                        0f,
-                        FadeDuration)
-                        .SetEase(Ease.OutSine)
-                        .OnUpdate(()=> UnityEngine.Debug.Log(style.unityBackgroundImageTintColor.value))
-                        .Play().ToUniTask(cancellationToken: token);
-
-                }
-                else
-                {
-                    style.unityBackgroundImageTintColor = Color.white;
-                    SetImage(Sprites[_currentFrame]);
-                }
-                
-                await Task.Delay(FrameWaitTime, token);
-            }
         }
 
         private void StopAnimating()
@@ -86,29 +37,52 @@ namespace ArPaint.UI.Elements
             _animationToken.Dispose();
         }
 
+        private async void Animate(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                if (++_currentFrame >= _sprites.Count)
+                {
+                    _currentFrame = 0;
+
+                    await DOTween.ToAlpha(
+                            () => style.unityBackgroundImageTintColor.value,
+                            value => style.unityBackgroundImageTintColor = value,
+                            0f,
+                            FadeDuration)
+                        .SetEase(Ease.OutSine)
+                        .Play().ToUniTask(cancellationToken: token);
+                }
+                else
+                {
+                    style.unityBackgroundImageTintColor = Color.white;
+                    SetImage(_sprites[_currentFrame]);
+                }
+
+                await Task.Delay(FrameWaitTime, token);
+            }
+        }
+
         public new class UxmlTraits : Image.UxmlTraits
         {
-            private readonly UxmlIntAttributeDescription _framesPerSecond = new()
-                { name = "frames-per-second", defaultValue = 30 };
-
             private readonly UxmlFloatAttributeDescription _fadeDuration = new()
                 { name = "fade-duration", defaultValue = 0.25f };
 
-            private readonly UxmlStringAttributeDescription _spritesBindingPath = new()
-                { name = "sprites-binding-path", defaultValue = "" };
+            private readonly UxmlIntAttributeDescription _framesPerSecond = new()
+                { name = "frames-per-second", defaultValue = 30 };
 
             public override void Init(VisualElement visualElement, IUxmlAttributes bag, CreationContext context)
             {
                 base.Init(visualElement, bag, context);
                 var view = (LoadingIconView)visualElement;
-                
+
                 view.FramesPerSecond = _framesPerSecond.GetValueFromBag(bag, context);
                 view.FadeDuration = _fadeDuration.GetValueFromBag(bag, context);
-                view.SpritesBindingPath = _spritesBindingPath.GetValueFromBag(bag, context);
             }
         }
 
-        public new class UxmlFactory : UxmlFactory<LoadingIconView, UxmlTraits> { }
-
+        public new class UxmlFactory : UxmlFactory<LoadingIconView, UxmlTraits>
+        {
+        }
     }
 }
