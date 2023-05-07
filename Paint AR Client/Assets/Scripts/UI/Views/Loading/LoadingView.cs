@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ArPaint.UI.Elements;
 using ArPaint.UI.ViewModels.Loading;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace ArPaint.UI.Views.Loading
 
             RootVisualElement.Q<LoadingIconView>().SetSprites(_loadingIconSprites);
         }
-
+        
         public class Factory : PlaceholderFactory<LoadingView>
         {
         }

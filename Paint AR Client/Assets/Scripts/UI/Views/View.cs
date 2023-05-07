@@ -16,14 +16,16 @@ namespace ArPaint.UI.Views
 
         public void Show()
         {
+            RootVisualElement.visible = false;
             OnShow?.Invoke();
-            gameObject.SetActive(true);
+            // gameObject.SetActive(true);
         }
 
         public void Hide()
         {
+            RootVisualElement.visible = false;
             OnHide?.Invoke();
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
         }
 
         public void Destroy()

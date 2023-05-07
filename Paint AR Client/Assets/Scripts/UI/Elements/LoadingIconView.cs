@@ -45,9 +45,9 @@ namespace ArPaint.UI.Elements
                 {
                     _currentFrame = 0;
 
-                    await DOTween.ToAlpha(
-                            () => style.unityBackgroundImageTintColor.value,
-                            value => style.unityBackgroundImageTintColor = value,
+                    await DOTween.To(
+                            () => style.opacity.value,
+                            value => style.opacity = value,
                             0f,
                             FadeDuration)
                         .SetEase(Ease.OutSine)
@@ -55,7 +55,7 @@ namespace ArPaint.UI.Elements
                 }
                 else
                 {
-                    style.unityBackgroundImageTintColor = Color.white;
+                    style.opacity = 1f;
                     SetImage(_sprites[_currentFrame]);
                 }
 
