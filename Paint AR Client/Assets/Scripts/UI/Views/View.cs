@@ -8,29 +8,23 @@ namespace ArPaint.UI.Views
 {
     public abstract class View<TViewModel> : DocumentView<TViewModel>, IStackableView where TViewModel : ViewModel
     {
-        public event Action OnDestroy;
-        public event Action OnHide;
-        public event Action OnShow;
-
         private TViewModel _viewModel;
 
-        public void Show()
+        public virtual void Show()
         {
+            RootVisualElement.SendEvent(new ViewShownEvent());
             RootVisualElement.visible = false;
-            OnShow?.Invoke();
-            // gameObject.SetActive(true);
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
+            RootVisualElement.SendEvent(new ViewHiddenEvent());
             RootVisualElement.visible = false;
-            OnHide?.Invoke();
-            // gameObject.SetActive(false);
         }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
-            OnDestroy?.Invoke();
+            Hide();
             Destroy(gameObject);
         }
 

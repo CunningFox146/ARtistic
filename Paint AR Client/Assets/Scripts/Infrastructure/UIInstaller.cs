@@ -1,4 +1,5 @@
 ﻿using ArPaint.Infrastructure.AssetProvider;
+using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.ViewModels;
 using ArPaint.UI.ViewModels.Draw;
@@ -31,6 +32,7 @@ namespace ArPaint.Infrastructure
 
         private void InstallLoadingView()
         {
+            Container.BindInterfacesAndSelfTo<LoadingDisplaySystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<LoadingViewModel>().AsSingle();
             Container.BindFactory<LoadingView, LoadingView.Factory>()
                 .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(LoadingView)));

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ArPaint.UI.Systems.LoadingDisplay;
 using UnityEngine.XR.ARFoundation;
 using Zenject;
 
@@ -9,16 +10,19 @@ namespace ArPaint.Infrastructure.GameStates
         private readonly DrawState.Factory _drawStateFactory;
         private readonly IGameStateMachine _gameState;
         private readonly ARPlaneManager _planeManager;
+        private readonly ILoadingDisplaySystem _loadingDisplaySystem;
 
         [Inject]
-        public ArInitState(ARPlaneManager planeManager, IGameStateMachine gameState)
+        public ArInitState(ARPlaneManager planeManager, IGameStateMachine gameState, ILoadingDisplaySystem loadingDisplaySystem)
         {
+            _loadingDisplaySystem = loadingDisplaySystem;
             _planeManager = planeManager;
             _gameState = gameState;
         }
 
         public void OnEnter()
         {
+            _loadingDisplaySystem.HideLoadingView();
 #if UNITY_EDITOR
             _gameState.EnterState<DrawState>();
 #else

@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea80225dcdd44249ae37422b2ddf5834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fadeDuration: 0.5
   _loadingIconSprites:
   - {fileID: 411523130, guid: 039283b3bbe6c5349b0388c897d55b3a, type: 3}
   - {fileID: 276857643, guid: 039283b3bbe6c5349b0388c897d55b3a, type: 3}

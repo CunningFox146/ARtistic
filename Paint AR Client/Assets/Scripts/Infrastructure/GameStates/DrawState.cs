@@ -18,7 +18,6 @@ namespace ArPaint.Infrastructure.GameStates
         {
             _updateLoop = updateLoop;
             _inputSource = inputSource;
-            viewStack.PushView<LoadingView>();
         }
 
         public void OnEnter()

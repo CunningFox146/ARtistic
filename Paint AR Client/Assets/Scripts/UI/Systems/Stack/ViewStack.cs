@@ -14,12 +14,11 @@ namespace ArPaint.UI.Systems.Stack
 
         public IStackableView ActiveView => _viewStack.TryPeek(out var view) ? view : null;
 
-        public ViewStack(LoadingView.Factory loadingViewFactory, DrawView.Factory drawViewFactory,
+        public ViewStack(DrawView.Factory drawViewFactory,
             DrawOptionsView.Factory drawOptionsViewFactory)
         {
             _viewFactories = new Dictionary<Type, IFactory<IStackableView>>
             {
-                [typeof(LoadingView)] = loadingViewFactory,
                 [typeof(DrawView)] = drawViewFactory,
                 [typeof(DrawOptionsView)] = drawOptionsViewFactory
             };
