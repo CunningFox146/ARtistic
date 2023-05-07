@@ -14,12 +14,6 @@ namespace ArPaint.UI.Views.Draw
     {
         [SerializeField] private VisualTreeAsset _shapeViewAsset;
 
-        [Inject]
-        public void Constructor(DrawViewModel optionsViewModel)
-        {
-            viewModel = optionsViewModel;
-        }
-
         protected override IReadOnlyDictionary<Type, object> GetCollectionItemTemplates()
         {
             return new Dictionary<Type, object>

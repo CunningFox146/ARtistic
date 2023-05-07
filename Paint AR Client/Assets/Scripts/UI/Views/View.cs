@@ -2,7 +2,9 @@
 using ArPaint.UI.Systems;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.ViewModels;
+using ArPaint.UI.ViewModels.Draw;
 using UnityMvvmToolkit.UITK;
+using Zenject;
 
 namespace ArPaint.UI.Views
 {
@@ -13,6 +15,12 @@ namespace ArPaint.UI.Views
         public event Action OnShow;
 
         protected TViewModel viewModel;
+        
+        [Inject]
+        protected void Constructor(TViewModel injectedViewModel)
+        {
+            viewModel = injectedViewModel;
+        }
         
         public void Show()
         {

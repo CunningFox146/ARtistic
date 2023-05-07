@@ -2,7 +2,7 @@
 
 namespace ArPaint.StaticData
 {
-    [CreateAssetMenu(fileName = "Static Data/Assets Path")]
+    [CreateAssetMenu(menuName = "Static Data/Assets Path", fileName = "AssetsPath")]
     public class AssetsPath : ScriptableObject, IAssetsPath
     {
         [field: SerializeField] public string DrawLinePath { get; private set; }

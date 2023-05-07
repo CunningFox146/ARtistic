@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="bg" focusable="true" style="flex-grow: 1; background-color: rgb(255, 255, 255); width: 100%; height: 100%; justify-content: flex-end;">
+        <ArPaint.UI.Elements.LoadingIconView sprites-binding-path="LoadingSprites" style="width: 256px; height: 256px; align-self: flex-end; margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using ArPaint.UI.Views.Draw;
 using ArPaint.UI.Views.DrawOptions;
+using ArPaint.UI.Views.Loading;
 using Zenject;
 
 namespace ArPaint.UI.Systems.Stack
 {
     public class ViewStack : IViewStack
     {
-        private readonly Stack<IStackableView> _viewStack = new();
         private readonly Dictionary<Type, IFactory<IStackableView>> _viewFactories;
+        private readonly Stack<IStackableView> _viewStack = new();
 
         public IStackableView ActiveView => _viewStack.TryPeek(out var view) ? view : null;
 
-        public ViewStack(DrawView.Factory drawViewFactory, DrawOptionsView.Factory drawOptionsViewFactory)
+        public ViewStack(LoadingView.Factory loadingViewFactory, DrawView.Factory drawViewFactory,
+            DrawOptionsView.Factory drawOptionsViewFactory)
         {
-            _viewFactories = new()
+            _viewFactories = new Dictionary<Type, IFactory<IStackableView>>
             {
+                [typeof(LoadingView)] = loadingViewFactory,
                 [typeof(DrawView)] = drawViewFactory,
                 [typeof(DrawOptionsView)] = drawOptionsViewFactory
             };
@@ -35,7 +38,7 @@ namespace ArPaint.UI.Systems.Stack
         {
             if (!_viewStack.TryPop(out var view))
                 return;
-            
+
             view.Destroy();
             (ActiveView as IViewFocusable)?.OnFocus();
         }

@@ -15,5 +15,6 @@ namespace ArPaint.Infrastructure.AssetProvider
         {
             return await Resources.LoadAsync<T>(path) as T;
         }
+        
     }
 }
