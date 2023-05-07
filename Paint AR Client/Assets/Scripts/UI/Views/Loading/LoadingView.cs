@@ -35,6 +35,7 @@ namespace ArPaint.UI.Views.Loading
 
         private UniTask HideAnimation()
         {
+            
             var style = RootVisualElement.style;
             return DOTween.To(
                     () => style.opacity.value,
