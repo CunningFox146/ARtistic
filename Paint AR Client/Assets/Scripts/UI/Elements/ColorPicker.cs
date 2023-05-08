@@ -15,17 +15,26 @@ namespace ArPaint.UI.Elements
         private static readonly string sliderContainerClass = $"{ussClassName}__slider-container";
         private static readonly string colorSliderClass = $"{ussClassName}__color";
         private static readonly string lightnessSliderClass = $"{ussClassName}__lightness";
+        private static readonly string saturationSliderClass = $"{ussClassName}__saturation";
         private static readonly string alphaSliderClass = $"{ussClassName}__alpha";
+        private static readonly string sliderTrackerClass = "unity-base-slider__tracker";
 
         private readonly Slider _colorSlider;
         private readonly Slider _lightnessSlider;
         private readonly Slider _alphaSlider;
-        
+        private readonly Slider _saturationSlider;
+
+        private readonly VisualElement _saturationSliderTracker;
+        private readonly VisualElement _lightnessSliderTracker;
+        private readonly VisualElement _alphaSliderTracker;
+
         private readonly VisualElement _colorPreview;
         private readonly VisualElement _slidersContainer;
 
         private ColorHsl _currentColor;
-        
+
+        private Color TintColor => new ColorHsl(_currentColor.H, 1f, 0.5f).ToRGB();
+
         public ColorPicker()
         {
             style.flexDirection = FlexDirection.Row;
@@ -49,13 +58,21 @@ namespace ArPaint.UI.Elements
             _lightnessSlider = CreateSlider();
             _lightnessSlider.AddToClassList(lightnessSliderClass);
             _lightnessSlider.RegisterValueChangedCallback(OnLightnessSliderChange);
+            _lightnessSliderTracker = _lightnessSlider.Q(className: sliderTrackerClass);
             
+            _saturationSlider = CreateSlider();
+            _saturationSlider.AddToClassList(saturationSliderClass);
+            _saturationSlider.RegisterValueChangedCallback(OnSaturationSliderChange);
+            _saturationSliderTracker = _saturationSlider.Q(className: sliderTrackerClass);
+
             _alphaSlider = CreateSlider();
             _alphaSlider.AddToClassList(alphaSliderClass);
             _alphaSlider.RegisterValueChangedCallback(OnAlphaSliderChange);
+            _alphaSliderTracker = _alphaSlider.Q(className: sliderTrackerClass);
 
             _slidersContainer.Add(_colorSlider);
             _slidersContainer.Add(_lightnessSlider);
+            _slidersContainer.Add(_saturationSlider);
             _slidersContainer.Add(_alphaSlider);
             
             SetColor(Color.white);
@@ -67,6 +84,7 @@ namespace ArPaint.UI.Elements
             OnColorChanged();
             
             _colorSlider.SetValueWithoutNotify(_currentColor.H / 360f);
+            _saturationSlider.SetValueWithoutNotify(_currentColor.S);
             _lightnessSlider.SetValueWithoutNotify(_currentColor.L);
             _alphaSlider.SetValueWithoutNotify(_currentColor.A);
         }
@@ -74,7 +92,12 @@ namespace ArPaint.UI.Elements
         private void OnColorSliderChange(ChangeEvent<float> evt)
         {
             _currentColor = _currentColor.SetH(Mathf.FloorToInt(evt.newValue * 360f));
-            UnityEngine.Debug.Log(_currentColor);
+            OnColorChanged();
+        }
+
+        private void OnSaturationSliderChange(ChangeEvent<float> evt)
+        {
+            _currentColor = _currentColor.SetS(evt.newValue);
             OnColorChanged();
         }
 
@@ -93,12 +116,12 @@ namespace ArPaint.UI.Elements
         private void OnColorChanged()
         {
             var color = _currentColor.ToRGB();
-            var tintColor = new ColorHsl(_currentColor.H, 1f, 0.5f).ToRGB();
-            _lightnessSlider.Q(className:"unity-base-slider__tracker").style.unityBackgroundImageTintColor = tintColor;
-            _alphaSlider.Q(className:"unity-base-slider__tracker").style.unityBackgroundImageTintColor = tintColor;
-            
             ColorChanged?.Invoke(color);
+            
             _colorPreview.style.backgroundColor = color;
+            _saturationSliderTracker.style.backgroundColor = TintColor;
+            _lightnessSliderTracker.style.backgroundColor = TintColor;
+            _alphaSliderTracker.style.unityBackgroundImageTintColor = TintColor;
         }
 
         private static Slider CreateSlider()

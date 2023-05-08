@@ -51,8 +51,13 @@
     flex-grow: 1;
 }
 
+.color-picker__lightness .unity-base-slider__tracker {
+    background-image: resource('UI/DrawOptionsView/Graphics/LightnessPicker');
+}
+
 .color-picker__saturation .unity-base-slider__tracker {
     background-image: resource('UI/DrawOptionsView/Graphics/SaturationPicker');
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .color-picker__alpha .unity-base-slider__tracker {
