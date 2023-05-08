@@ -1,3 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawOptionsView/Graphics/hsl&apos;); height: 119px;" />
+    <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
+    <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; height: 278px;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 0.25; background-color: rgb(255, 255, 255);" />
+        <ui:VisualElement style="flex-grow: 0.75; background-color: rgba(0, 0, 0, 0);">
+            <ui:Slider picking-mode="Ignore" value="42" high-value="100" class="alpha-picker color-picker__alpha" style="flex-shrink: 1; flex-grow: 1; margin-left: 10px; margin-right: 10px; margin-top: 25px; margin-bottom: 25px;" />
+            <ui:Slider picking-mode="Ignore" value="42" high-value="100" name="Slider" class="color-picker__hsl" style="flex-shrink: 1; flex-grow: 1; height: auto; flex-direction: row; margin-top: 25px; margin-left: 10px; margin-right: 10px; margin-bottom: 25px;" />
+            <ui:Slider picking-mode="Ignore" value="42" high-value="100" class="alpha-picker color-picker__saturation" style="flex-shrink: 1; flex-grow: 1; margin-left: 10px; margin-right: 10px; margin-top: 25px; margin-bottom: 25px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

@@ -11,6 +11,7 @@ namespace ArPaint.Infrastructure.GameStates
     public class DrawState : IEnterState, IExitState, IUpdateable
     {
         private readonly IInputSource _inputSource;
+        private readonly IViewStack _viewStack;
         private readonly IUpdateLoop _updateLoop;
         private bool _isUpdating;
 
@@ -18,10 +19,12 @@ namespace ArPaint.Infrastructure.GameStates
         {
             _updateLoop = updateLoop;
             _inputSource = inputSource;
+            _viewStack = viewStack;
         }
 
         public void OnEnter()
         {
+            _viewStack.PushView<DrawView>();
             _updateLoop.RegisterUpdate(this);
         }
 

@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using ArPaint.UI.Views.Draw;
 using ArPaint.UI.Views.DrawOptions;
-using ArPaint.UI.Views.Loading;
-using Zenject;
 
 namespace ArPaint.UI.Systems.Stack
 {
-    public class ViewStack : IViewStack
+    public class ViewStack : IViewStack, IDisposable
     {
-        private readonly Dictionary<Type, IFactory<IStackableView>> _viewFactories;
+        private readonly Dictionary<Type, IStackableView> _viewsPool;
         private readonly Stack<IStackableView> _viewStack = new();
 
         public IStackableView ActiveView => _viewStack.TryPeek(out var view) ? view : null;
@@ -17,19 +15,30 @@ namespace ArPaint.UI.Systems.Stack
         public ViewStack(DrawView.Factory drawViewFactory,
             DrawOptionsView.Factory drawOptionsViewFactory)
         {
-            _viewFactories = new Dictionary<Type, IFactory<IStackableView>>
+            _viewsPool = new Dictionary<Type, IStackableView>
             {
-                [typeof(DrawView)] = drawViewFactory,
-                [typeof(DrawOptionsView)] = drawOptionsViewFactory
+                [typeof(DrawView)] = Create(drawViewFactory),
+                [typeof(DrawOptionsView)] = drawOptionsViewFactory.Create()
             };
+            
+            foreach (var view in _viewsPool.Values)
+            {
+                view.Hide();
+            }
+        }
+
+        private static DrawView Create(DrawView.Factory drawViewFactory)
+        {
+            return drawViewFactory.Create();
         }
 
         public void PushView<TView>() where TView : IStackableView
         {
             (ActiveView as IViewFocusable)?.OnUnfocus();
 
-            var factory = _viewFactories[typeof(TView)];
-            var view = factory.Create();
+            var view = _viewsPool[typeof(TView)];
+            view.Show();
+            
             _viewStack.Push(view);
         }
 
@@ -38,8 +47,18 @@ namespace ArPaint.UI.Systems.Stack
             if (!_viewStack.TryPop(out var view))
                 return;
 
-            view.Destroy();
+            view.Show();
             (ActiveView as IViewFocusable)?.OnFocus();
+        }
+
+        public void Dispose()
+        {
+            _viewStack.Clear();
+            foreach (var view in _viewsPool.Values)
+            {
+                view.Destroy();
+            }
+            _viewsPool.Clear();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.ViewModels;
+using UnityEngine.UIElements;
 using UnityMvvmToolkit.UITK;
 using Zenject;
 
@@ -12,13 +13,15 @@ namespace ArPaint.UI.Views
 
         public virtual void Show()
         {
-            RootVisualElement.SendEvent(new ViewShownEvent());
-            RootVisualElement.visible = false;
+            RootVisualElement.visible = true;
+            RootVisualElement.Query<VisualElement>().Where(element => element is IViewShownHandler).ForEach(
+                element => { ((IViewShownHandler)element).OnViewShown(this); });   
         }
 
         public virtual void Hide()
         {
-            RootVisualElement.SendEvent(new ViewHiddenEvent());
+            RootVisualElement.Query<VisualElement>().Where(element => element is IViewHiddenHandler).ForEach(
+                element => { ((IViewHiddenHandler)element).OnViewHidden(this); });
             RootVisualElement.visible = false;
         }
 

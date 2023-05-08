@@ -20,3 +20,36 @@
     transform-origin: bottom;
     display: flex;
 }
+
+.unity-base-slider__tracker {
+    height: 25px;
+    margin-top: -12.5px;
+}
+
+.unity-base-slider__dragger {
+    width: 50px;
+    height: 50px;
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: -25px;
+    margin-bottom: 0;
+}
+
+.color-picker__hsl .unity-base-slider__tracker {
+    background-image: resource('UI/DrawOptionsView/Graphics/HslPicker');
+}
+
+.color-picker__alpha .unity-base-slider__tracker {
+    background-image: resource('UI/DrawOptionsView/Graphics/AlphaPicker');
+}
+
+.unity-base-slider__drag-container {
+}
+
+.color-picker__saturation .unity-base-slider__tracker {
+    background-image: resource('UI/DrawOptionsView/Graphics/SaturationPicker');
+}

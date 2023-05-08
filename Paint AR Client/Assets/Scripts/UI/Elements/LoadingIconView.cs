@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.Views;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -8,7 +11,7 @@ using UnityEngine.UIElements;
 
 namespace ArPaint.UI.Elements
 {
-    public class LoadingIconView : Image
+    public class LoadingIconView : Image, IViewHiddenHandler, IViewShownHandler 
     {
         private CancellationTokenSource _animationToken;
         private int _currentFrame;
@@ -18,6 +21,21 @@ namespace ArPaint.UI.Elements
         public float FadeDuration { get; set; }
         private int FrameWaitTime => 1000 / FramesPerSecond;
 
+        public LoadingIconView()
+        {
+            RegisterCallback<DetachFromPanelEvent>(_ => StopAnimating());
+        }
+        
+        public void OnViewHidden(IStackableView view)
+        {
+            StopAnimating();
+        }
+
+        public void OnViewShown(IStackableView view)
+        {
+            StartAnimating();
+        }
+
         public void SetSprites(IList<Sprite> sprites)
         {
             _sprites = sprites;
@@ -26,6 +44,9 @@ namespace ArPaint.UI.Elements
 
         private void StartAnimating()
         {
+            if (_animationToken != null || !_sprites.Any())
+                return;
+            
             _currentFrame = 0;
             _animationToken = new CancellationTokenSource();
             Animate(_animationToken.Token);
@@ -33,34 +54,42 @@ namespace ArPaint.UI.Elements
 
         private void StopAnimating()
         {
+            if (_animationToken == null)
+                return;
+            
             _animationToken.Cancel();
             _animationToken.Dispose();
+            _animationToken = null;
         }
 
         private async void Animate(CancellationToken token)
         {
-            while (!token.IsCancellationRequested)
+            try
             {
-                if (++_currentFrame >= _sprites.Count)
+                while (!token.IsCancellationRequested)
                 {
-                    _currentFrame = 0;
+                    if (++_currentFrame >= _sprites.Count)
+                    {
+                        _currentFrame = 0;
 
-                    await DOTween.To(
-                            () => style.opacity.value,
-                            value => style.opacity = value,
-                            0f,
-                            FadeDuration)
-                        .SetEase(Ease.OutSine)
-                        .Play().ToUniTask(cancellationToken: token);
-                }
-                else
-                {
-                    style.opacity = 1f;
-                    SetImage(_sprites[_currentFrame]);
-                }
+                        await DOTween.To(
+                                () => style.opacity.value,
+                                value => style.opacity = value,
+                                0f,
+                                FadeDuration)
+                            .SetEase(Ease.OutSine)
+                            .Play().ToUniTask(cancellationToken: token);
+                    }
+                    else
+                    {
+                        style.opacity = 1f;
+                        SetImage(_sprites[_currentFrame]);
+                    }
 
-                await Task.Delay(FrameWaitTime, token);
+                    await Task.Delay(FrameWaitTime, token);
+                }
             }
+            catch (TaskCanceledException) { }
         }
 
         public new class UxmlTraits : Image.UxmlTraits
@@ -84,5 +113,6 @@ namespace ArPaint.UI.Elements
         public new class UxmlFactory : UxmlFactory<LoadingIconView, UxmlTraits>
         {
         }
+
     }
 }
