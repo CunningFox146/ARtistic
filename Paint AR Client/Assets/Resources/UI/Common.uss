@@ -24,6 +24,10 @@
 .unity-base-slider__tracker {
     height: 25px;
     margin-top: -12.5px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .unity-base-slider__dragger {
@@ -39,17 +43,19 @@
     margin-bottom: 0;
 }
 
-.color-picker__hsl .unity-base-slider__tracker {
-    background-image: resource('UI/DrawOptionsView/Graphics/HslPicker');
-}
-
-.color-picker__alpha .unity-base-slider__tracker {
-    background-image: resource('UI/DrawOptionsView/Graphics/AlphaPicker');
-}
-
 .unity-base-slider__drag-container {
+}
+
+.color-picker__color .unity-base-slider__tracker {
+    background-image: resource('UI/DrawOptionsView/Graphics/HslColorPicker');
+    flex-grow: 1;
 }
 
 .color-picker__saturation .unity-base-slider__tracker {
     background-image: resource('UI/DrawOptionsView/Graphics/SaturationPicker');
+}
+
+.color-picker__alpha .unity-base-slider__tracker {
+    background-color: rgba(255, 255, 255, 0);
+    background-image: resource('UI/DrawOptionsView/Graphics/AlphaPicker');
 }
