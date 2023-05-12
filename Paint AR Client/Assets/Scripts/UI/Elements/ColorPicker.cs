@@ -8,8 +8,6 @@ namespace ArPaint.UI.Elements
 {
     public class ColorPicker : VisualElement
     {
-        public event Action<Color> ColorChanged;
-        
         private static readonly string ussClassName = "color-picker";
         private static readonly string colorPreviewClass = $"{ussClassName}__color-preview";
         private static readonly string sliderContainerClass = $"{ussClassName}__slider-container";
@@ -33,7 +31,10 @@ namespace ArPaint.UI.Elements
 
         private ColorHsl _currentColor;
 
+
+        private Color StartColor { get; set; } = Color.white;
         private Color TintColor => new ColorHsl(_currentColor.H, 1f, 0.5f).ToRGB();
+        public Color CurrentColor => _currentColor.ToRGB();
 
         public ColorPicker()
         {
@@ -42,7 +43,7 @@ namespace ArPaint.UI.Elements
 
             _colorPreview = new VisualElement();
             _colorPreview.style.flexGrow = .25f;
-            _colorPreview.style.backgroundColor = Color.white;
+            _colorPreview.style.backgroundColor = StartColor;
             _colorPreview.AddToClassList(colorPreviewClass);
             Add(_colorPreview);
             
@@ -75,7 +76,7 @@ namespace ArPaint.UI.Elements
             _slidersContainer.Add(_saturationSlider);
             _slidersContainer.Add(_alphaSlider);
             
-            SetColor(Color.white);
+            SetColor(StartColor);
         }
 
         public void SetColor(Color color)
@@ -113,10 +114,9 @@ namespace ArPaint.UI.Elements
             OnColorChanged();
         }
 
-        private void OnColorChanged()
+        protected virtual void OnColorChanged()
         {
             var color = _currentColor.ToRGB();
-            ColorChanged?.Invoke(color);
             
             _colorPreview.style.backgroundColor = color;
             _saturationSliderTracker.style.backgroundColor = TintColor;
@@ -142,7 +142,17 @@ namespace ArPaint.UI.Elements
 
         public new class UxmlTraits : VisualElement.UxmlTraits
         {
-            
+            private readonly UxmlColorAttributeDescription _bindingImageAttribute = new()
+                { name = "start-color", defaultValue = Color.white };
+
+            public override void Init(VisualElement visualElement, IUxmlAttributes bag, CreationContext context)
+            {
+                base.Init(visualElement, bag, context);
+                var view = (ColorPicker)visualElement;
+                    
+                view.StartColor = _bindingImageAttribute.GetValueFromBag(bag, context);
+            }
         }
+
     }
 }

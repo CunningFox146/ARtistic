@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/Resources/UI/DrawView/DrawView.uss?fileID=7433441132597879392&amp;guid=a0390d732eb46a44d9eb34dd88f1d7d1&amp;type=3#DrawView" />
     <ArPaint.UI.Elements.SafeAreaView picking-mode="Ignore">
         <ui:VisualElement name="tab-bar" picking-mode="Ignore" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; align-items: flex-end; position: absolute; justify-content: space-around;">
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton class="tab-bar__button">
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="OpenOptionsCommand" class="tab-bar__button">
                 <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/OptionsIcon&apos;);" />
                 <ui:Label tabindex="-1" text="Options" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
             </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>

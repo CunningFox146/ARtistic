@@ -1,45 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using ArPaint.UI.Views.Draw;
-using ArPaint.UI.Views.DrawOptions;
 
 namespace ArPaint.UI.Systems.Stack
 {
     public class ViewStack : IViewStack, IDisposable
     {
-        private readonly Dictionary<Type, IStackableView> _viewsPool;
+        private readonly IViewProvider _viewProvider;
         private readonly Stack<IStackableView> _viewStack = new();
 
         public IStackableView ActiveView => _viewStack.TryPeek(out var view) ? view : null;
 
-        public ViewStack(DrawView.Factory drawViewFactory,
-            DrawOptionsView.Factory drawOptionsViewFactory)
+        public ViewStack(IViewProvider viewProvider)
         {
-            _viewsPool = new Dictionary<Type, IStackableView>
-            {
-                [typeof(DrawView)] = Create(drawViewFactory),
-                [typeof(DrawOptionsView)] = drawOptionsViewFactory.Create()
-            };
-            
-            foreach (var view in _viewsPool.Values)
-            {
-                view.Hide();
-            }
+            _viewProvider = viewProvider;
         }
-
-        private static DrawView Create(DrawView.Factory drawViewFactory)
-        {
-            return drawViewFactory.Create();
-        }
-
+        
         public void PushView<TView>() where TView : IStackableView
         {
             (ActiveView as IViewFocusable)?.OnUnfocus();
 
-            var view = _viewsPool[typeof(TView)];
-            view.Show();
-            
+            var view = _viewProvider.GetView<TView>();
+
+            if (view == null)
+                return;
+
             _viewStack.Push(view);
+            
+            (view as ISortableView)?.SetSortOrder(_viewStack.Count);
+            view.SetViewStack(this);
+            view.Show();
         }
 
         public void PopView()
@@ -48,17 +37,14 @@ namespace ArPaint.UI.Systems.Stack
                 return;
 
             view.Show();
+            
+            (view as ISortableView)?.SetSortOrder(0);
             (ActiveView as IViewFocusable)?.OnFocus();
         }
 
         public void Dispose()
         {
             _viewStack.Clear();
-            foreach (var view in _viewsPool.Values)
-            {
-                view.Destroy();
-            }
-            _viewsPool.Clear();
         }
     }
 }

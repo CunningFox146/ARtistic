@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
+using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.Views.DrawOptions;
 using Services.StaticData;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
@@ -26,6 +28,7 @@ namespace ArPaint.UI.ViewModels.Draw
         public ICommand ToggleShapeSelectCommand { get; }
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
+        public ICommand OpenOptionsCommand { get; }
         public ObservableCollection<ShapeViewModel> Shapes => _shapes.Value;
 
         public bool IsShapeSelectVisible
@@ -42,10 +45,16 @@ namespace ArPaint.UI.ViewModels.Draw
             ToggleShapeSelectCommand = new Command(ToggleShapeSelect);
             UndoCommand = new Command(Undo);
             RedoCommand = new Command(Redo);
+            OpenOptionsCommand = new Command(OpenOptions);
             _isShapeSelectVisible = new Property<bool>(false);
             _shapes = new ReadOnlyProperty<ObservableCollection<ShapeViewModel>>(new());
             
             InitShapes(staticData.Shapes.ShapesList);
+        }
+
+        private void OpenOptions()
+        {
+            ViewStack.PushView<DrawOptionsView>();
         }
 
         private void InitShapes(List<Shape> shapes)

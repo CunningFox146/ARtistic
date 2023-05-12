@@ -24,32 +24,42 @@ namespace ArPaint.Infrastructure
 
         public override void InstallBindings()
         {
+            InstallFactories();
+            
+            Container.Bind<IViewProvider>().To<ViewProvider>().AsSingle();
+            Container.Bind<IViewStack>().To<ViewStack>().AsSingle();
+
             InstallLoadingView();
             InstallDrawView();
             InstallDrawOptionsView();
-            Container.Bind<IViewStack>().To<ViewStack>().AsSingle().NonLazy();
+        }
+
+        private void InstallFactories()
+        {
+            Container.BindFactory<LoadingView, LoadingView.Factory>()
+                .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(LoadingView)));
+
+            Container.BindFactory<DrawView, DrawView.Factory>()
+                .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(DrawView)));
+
+            Container.BindFactory<DrawOptionsView, DrawOptionsView.Factory>()
+                .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(DrawOptionsView)));
         }
 
         private void InstallLoadingView()
         {
             Container.BindInterfacesAndSelfTo<LoadingDisplaySystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<LoadingViewModel>().AsSingle();
-            Container.BindFactory<LoadingView, LoadingView.Factory>()
-                .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(LoadingView)));
         }
 
         private void InstallDrawView()
         {
             Container.BindInterfacesAndSelfTo<DrawViewModel>().AsSingle();
-            Container.BindFactory<DrawView, DrawView.Factory>()
-                .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(DrawView)));
         }
 
         private void InstallDrawOptionsView()
         {
             Container.BindInterfacesAndSelfTo<DrawOptionsViewModel>().AsSingle();
-            Container.BindFactory<DrawOptionsView, DrawOptionsView.Factory>()
-                .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(DrawOptionsView)));
         }
     }
 }

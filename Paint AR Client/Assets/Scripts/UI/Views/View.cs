@@ -7,19 +7,30 @@ using Zenject;
 
 namespace ArPaint.UI.Views
 {
-    public abstract class View<TViewModel> : DocumentView<TViewModel>, IStackableView where TViewModel : ViewModel
+    public abstract class View<TViewModel> : DocumentView<TViewModel>, IStackableView, ISortableView
+        where TViewModel : ViewModel
     {
         private TViewModel _viewModel;
+        private UIDocument _document;
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+            _document = GetComponent<UIDocument>();
+        }
 
         public virtual void Show()
         {
             RootVisualElement.visible = true;
+            
+            // TODO: Refactor
             RootVisualElement.Query<VisualElement>().Where(element => element is IViewShownHandler).ForEach(
                 element => { ((IViewShownHandler)element).OnViewShown(this); });   
         }
 
         public virtual void Hide()
         {
+            // TODO: Refactor
             RootVisualElement.Query<VisualElement>().Where(element => element is IViewHiddenHandler).ForEach(
                 element => { ((IViewHiddenHandler)element).OnViewHidden(this); });
             RootVisualElement.visible = false;
@@ -31,6 +42,11 @@ namespace ArPaint.UI.Views
             Destroy(gameObject);
         }
 
+        public void SetViewStack(IViewStack viewStack)
+        {
+            _viewModel.ViewStack = viewStack;
+        }
+
         [Inject]
         private void Constructor(TViewModel injectedViewModel)
         {
@@ -40,6 +56,11 @@ namespace ArPaint.UI.Views
         protected override TViewModel GetBindingContext()
         {
             return _viewModel;
+        }
+
+        public void SetSortOrder(int sortOrder)
+        {
+            _document.sortingOrder = sortOrder;
         }
     }
 }

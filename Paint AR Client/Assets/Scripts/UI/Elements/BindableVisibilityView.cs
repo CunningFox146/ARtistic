@@ -23,6 +23,18 @@ namespace ArPaint.UI.Elements
             SetVisible(_visibilityProperty.Value);
         }
 
+        public void ResetBindingContext(IObjectProvider objectProvider)
+        {
+            if (_visibilityProperty == null)
+                return;
+            
+            _visibilityProperty.ValueChanged -= OnVisibilityChanged;
+            objectProvider.ReturnProperty(_visibilityProperty);
+            _visibilityProperty = null;
+            
+            SetVisible(false);
+        }
+
         private void OnVisibilityChanged(object sender, bool newValue)
         {
             SetVisible(newValue);
@@ -36,18 +48,6 @@ namespace ArPaint.UI.Elements
                 this.Hide();
         }
 
-        public void ResetBindingContext(IObjectProvider objectProvider)
-        {
-            if (_visibilityProperty == null)
-                return;
-            
-            _visibilityProperty.ValueChanged -= OnVisibilityChanged;
-            objectProvider.ReturnProperty(_visibilityProperty);
-            _visibilityProperty = null;
-            
-            SetVisible(false);
-        }
-        
         public new class UxmlTraits : VisualElement.UxmlTraits
         {
             private readonly UxmlStringAttributeDescription _bindingImageAttribute = new()
