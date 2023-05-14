@@ -21,6 +21,8 @@ namespace ArPaint.Services.Draw.Shapes
         {
             _lineRenderer.startColor = brush.Color;
             _lineRenderer.endColor = brush.Color;
+
+            _lineRenderer.widthCurve = AnimationCurve.Constant(0f, 1f, brush.Size);
         }
 
         public void Destroy()
@@ -57,9 +59,6 @@ namespace ArPaint.Services.Draw.Shapes
             transform.rotation = rotation;
         }
 
-        public void Hide() => gameObject.SetActive(false);
-        public void Show() => gameObject.SetActive(true);
-        
         public void Clear()
         {
             _lineRenderer.positionCount = 0;
@@ -68,6 +67,7 @@ namespace ArPaint.Services.Draw.Shapes
         public ShapeData GetData()
         {
             var positions = new Vector3[_lineRenderer.positionCount];
+            _lineRenderer.GetPositions(positions);
             return new ShapeData
             {
                 Position = transform.position,

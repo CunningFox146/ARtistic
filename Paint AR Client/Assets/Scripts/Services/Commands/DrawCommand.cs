@@ -1,4 +1,5 @@
 ﻿using System;
+using ArPaint.Services.Draw.Brushes;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.SaveLoad;
 
@@ -6,6 +7,7 @@ namespace ArPaint.Services.Commands
 {
     public class DrawCommand : Command
     {
+        public Brush Brush { get; set; }
         public ShapeData? ShapeData { get; set; }
         public IShapeContainer ShapeContainer { get; set; }
         
@@ -18,6 +20,7 @@ namespace ArPaint.Services.Commands
                 if (ShapeData != null)
                 {
                     ShapeContainer = CreateContainer?.Invoke();
+                    ShapeContainer?.SetBrush(Brush);
                     (ShapeContainer as ILoadable<ShapeData>)?.Load(ShapeData.Value);
                 }
             };

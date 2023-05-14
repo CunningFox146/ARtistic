@@ -13,7 +13,11 @@ namespace ArPaint.UI.ViewModels.DrawOptions
         private readonly IDrawService _drawService;
 
         [Observable(nameof(ShapeColor))]
-        private readonly Property<Color> _shapeColor;
+        private readonly IProperty<Color> _shapeColor;
+        
+        
+        [Observable(nameof(Size))]
+        private readonly IProperty<float> _size;
         
         public ICommand CloseViewCommand { get; }
         public Brush _brush;
@@ -23,13 +27,22 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             get => _shapeColor.Value;
             set => _shapeColor.Value = value;
         }
+        
+        public float Size
+        {
+            get => _size.Value;
+            set => _size.Value = value;
+        }
 
         public DrawOptionsViewModel(IDrawService drawService)
         {
             _drawService = drawService;
             
             _shapeColor = new Property<Color>();
-            _shapeColor.Value = drawService.Brush.Color;
+            _size = new Property<float>();
+            
+            ShapeColor = drawService.Brush.Color;
+            Size = drawService.Brush.Size;
 
             CloseViewCommand = new Command(CloseView);
         }
@@ -38,7 +51,8 @@ namespace ArPaint.UI.ViewModels.DrawOptions
         {
             _drawService.Brush = new()
             {
-                Color = _shapeColor.Value
+                Color = ShapeColor,
+                Size = Size,
             };
             ViewStack.PopView();
         }

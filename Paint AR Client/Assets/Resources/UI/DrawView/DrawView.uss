@@ -19,6 +19,9 @@
 
 .tab-bar__button__text {
     color: rgb(255, 255, 255);
+    white-space: nowrap;
+    flex-shrink: 1;
+    flex-grow: 0;
 }
 
 .tab-bar__button__icon {

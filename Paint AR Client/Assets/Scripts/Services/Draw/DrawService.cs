@@ -107,6 +107,7 @@ namespace ArPaint.Services.Draw
 
             var command = new DrawCommand
             {
+                Brush = Brush,
                 ShapeContainer = container,
                 ShapeData = (container as ISavable<ShapeData>)?.GetData(),
                 CreateContainer = () => _shapeContainerFactory.Create()
