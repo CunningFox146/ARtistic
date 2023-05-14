@@ -26,7 +26,7 @@ namespace ArPaint.UI.Elements
         private readonly VisualElement _lightnessSliderTracker;
         private readonly VisualElement _alphaSliderTracker;
 
-        private readonly VisualElement _colorPreview;
+        private readonly AspectRatioPanel _colorPreview;
         private readonly VisualElement _slidersContainer;
 
         private ColorHsl _currentColor;
@@ -41,12 +41,23 @@ namespace ArPaint.UI.Elements
             style.flexDirection = FlexDirection.Row;
             AddToClassList(ussClassName);
 
-            _colorPreview = new VisualElement();
-            _colorPreview.name = "color-preview";
-            _colorPreview.style.flexGrow = .25f;
-            _colorPreview.style.backgroundColor = StartColor;
+            var colorPreviewContainer = new VisualElement();
+            colorPreviewContainer.name = "color-preview-container";
+            colorPreviewContainer.style.flexGrow = .25f;
+            Add(colorPreviewContainer);
+
+            _colorPreview = new AspectRatioPanel
+            {
+                AspectRatioX = 1,
+                AspectRatioY = 1,
+                name = "color-preview",
+                style =
+                {
+                    backgroundColor = StartColor
+                }
+            };
             _colorPreview.AddToClassList(colorPreviewClass);
-            Add(_colorPreview);
+            colorPreviewContainer.Add(_colorPreview);
             
             _slidersContainer = new VisualElement();
             _slidersContainer.name = "sliders-container";
