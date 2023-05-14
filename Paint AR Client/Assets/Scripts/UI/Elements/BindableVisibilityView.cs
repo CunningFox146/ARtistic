@@ -11,7 +11,7 @@ namespace ArPaint.UI.Elements
         private PropertyBindingData _visibilityPathBindingData;
         private IProperty<bool> _visibilityProperty;
 
-        public string BindingVisibilityPath { get; set; }
+        public string BindingVisibilityPath { get; private set; }
         
         public void SetBindingContext(IBindingContext context, IObjectProvider objectProvider)
         {
@@ -51,7 +51,7 @@ namespace ArPaint.UI.Elements
         public new class UxmlTraits : VisualElement.UxmlTraits
         {
             private readonly UxmlStringAttributeDescription _bindingImageAttribute = new()
-                { name = "binding-visibility-path", defaultValue = "" };
+                { name = "binding-visibility-path", defaultValue = string.Empty };
 
             public override void Init(VisualElement visualElement, IUxmlAttributes bag, CreationContext context)
             {
