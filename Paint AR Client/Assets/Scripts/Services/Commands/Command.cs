@@ -2,7 +2,7 @@
 
 namespace ArPaint.Services.Commands
 {
-    public struct Command : ICommand
+    public class Command : ICommand
     {
         public Action PerformAction { get; set; }
         public Action UndoAction { get; set; }

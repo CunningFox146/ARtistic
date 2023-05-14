@@ -13,5 +13,6 @@ namespace ArPaint.Services.Draw.Shapes
         void Show();
         Vector3 TransformPoint(Vector3 worldPoint);
         bool IsLooping { get; set; }
+        void Destroy();
     }
 }

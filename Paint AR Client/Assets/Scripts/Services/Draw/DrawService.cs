@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Commands;
+using ArPaint.Services.Draw.Brushes;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.Input;
 using ArPaint.Services.SaveLoad;
@@ -14,7 +15,7 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 namespace ArPaint.Services.Draw
 {
-    public class DrawService : IUpdateable, IDisposable
+    public class DrawService : IUpdateable, IDisposable, IDrawService
     {
         private readonly Dictionary<int, IShapeContainer> _activeShapes = new();
         private readonly IInputSource _inputSource;
@@ -22,9 +23,9 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
         private readonly ICommandBuffer _commandBuffer;
-        private readonly List<IShape> _shapes;
 
         public IShape Shape { get; set; }
+        public Brush Brush { get; set; } 
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop, ICommandBuffer commandBuffer, IStaticDataService staticData)
@@ -34,9 +35,7 @@ namespace ArPaint.Services.Draw
             _shapeContainerFactory = shapeContainerFactory;
             _updateLoop = updateLoop;
             _commandBuffer = commandBuffer;
-            _shapes = staticData.Shapes.ShapesList.ToList<IShape>();
-
-            Shape = _shapes.First();
+            Shape = staticData.Shapes.ShapesList.FirstOrDefault();
 
             _updateLoop.RegisterUpdate(this);
         }
@@ -99,12 +98,14 @@ namespace ArPaint.Services.Draw
 
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             (Shape as IShapeEnd)?.OnDrawEnd(container, container.TransformPoint(touchPosition));
-            
-            _commandBuffer.AddCommand(new Command
+
+            var command = new DrawCommand
             {
-                PerformAction = () => container.Show(),
-                UndoAction = () => container.Hide(),
-            });
+                ShapeContainer = container,
+                ShapeData = (container as ISavable<ShapeData>)?.GetData(),
+                CreateContainer = () => _shapeContainerFactory.Create()
+            };
+            _commandBuffer.AddCommand(command, true);
         }
 
         private bool IsTouchValid(Touch touch)

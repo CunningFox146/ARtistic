@@ -9,7 +9,7 @@ namespace ArPaint.UI.ViewModels.DrawOptions
 {
     public class DrawOptionsViewModel : ViewModel
     {
-        private readonly DrawService _drawService;
+        private readonly IDrawService _drawService;
 
         [Observable(nameof(ShapeColor))]
         private readonly Property<Color> _shapeColor;
@@ -22,7 +22,7 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             set => _shapeColor.Value = value;
         }
 
-        public DrawOptionsViewModel(DrawService drawService)
+        public DrawOptionsViewModel(IDrawService drawService)
         {
             _drawService = drawService;
             

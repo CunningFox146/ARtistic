@@ -3,5 +3,5 @@
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <ui:Instance template="BackButton" name="BackButton" />
     <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" style="height: 250px;" />
-    <ArPaint.UI.Elements.BindableSlider />
+    <ArPaint.UI.Elements.BindableSlider name="BindableSlider" />
 </ui:UXML>

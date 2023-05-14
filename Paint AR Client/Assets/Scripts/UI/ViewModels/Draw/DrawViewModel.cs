@@ -17,7 +17,7 @@ namespace ArPaint.UI.ViewModels.Draw
     public class DrawViewModel : ViewModel
     {
         private readonly ICommandBuffer _commandBuffer;
-        private readonly DrawService _drawService;
+        private readonly IDrawService _drawService;
         
         [Observable(nameof(Shapes))]
         private readonly IReadOnlyProperty<ObservableCollection<ShapeViewModel>> _shapes;
@@ -37,7 +37,7 @@ namespace ArPaint.UI.ViewModels.Draw
             set => _isShapeSelectVisible.Value = value;
         }
 
-        public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, DrawService drawService)
+        public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, IDrawService drawService)
         {
             _commandBuffer = commandBuffer;
             _drawService = drawService;

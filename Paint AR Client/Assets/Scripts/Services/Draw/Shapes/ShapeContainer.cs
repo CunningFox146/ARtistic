@@ -16,6 +16,11 @@ namespace ArPaint.Services.Draw.Shapes
             set => _lineRenderer.loop = value;
         }
 
+        public void Destroy()
+        {
+            GameObject.Destroy(gameObject);
+        }
+
         public Vector3 TransformPoint(Vector3 worldPosition)
         {
             return transform.InverseTransformPoint(worldPosition);
@@ -56,7 +61,6 @@ namespace ArPaint.Services.Draw.Shapes
         public ShapeData GetData()
         {
             var positions = new Vector3[_lineRenderer.positionCount];
-            UnityEngine.Debug.Log(_lineRenderer.GetPositions(positions));
             return new ShapeData
             {
                 Position = transform.position,
