@@ -108,3 +108,7 @@
     height: 154px;
     width: 102px;
 }
+
+.unity-slider__progress {
+    background-color: rgb(255, 0, 255);
+}
