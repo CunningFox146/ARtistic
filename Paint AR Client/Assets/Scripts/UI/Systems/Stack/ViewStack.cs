@@ -36,7 +36,7 @@ namespace ArPaint.UI.Systems.Stack
             if (!_viewStack.TryPop(out var view))
                 return;
 
-            view.Show();
+            view.Hide();
             
             (view as ISortableView)?.SetSortOrder(0);
             (ActiveView as IViewFocusable)?.OnFocus();

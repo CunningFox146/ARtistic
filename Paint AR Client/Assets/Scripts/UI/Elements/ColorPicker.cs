@@ -42,31 +42,33 @@ namespace ArPaint.UI.Elements
             AddToClassList(ussClassName);
 
             _colorPreview = new VisualElement();
+            _colorPreview.name = "color-preview";
             _colorPreview.style.flexGrow = .25f;
             _colorPreview.style.backgroundColor = StartColor;
             _colorPreview.AddToClassList(colorPreviewClass);
             Add(_colorPreview);
             
             _slidersContainer = new VisualElement();
+            _slidersContainer.name = "sliders-container";
             _slidersContainer.style.flexGrow = .75f;
             _slidersContainer.AddToClassList(sliderContainerClass);
             Add(_slidersContainer);
             
-            _colorSlider = CreateSlider();
+            _colorSlider = CreateSlider("color-slider");
             _colorSlider.AddToClassList(colorSliderClass);
             _colorSlider.RegisterValueChangedCallback(OnColorSliderChange);
             
-            _lightnessSlider = CreateSlider();
+            _lightnessSlider = CreateSlider("lightness-slider");
             _lightnessSlider.AddToClassList(lightnessSliderClass);
             _lightnessSlider.RegisterValueChangedCallback(OnLightnessSliderChange);
             _lightnessSliderTracker = _lightnessSlider.Q(className: sliderTrackerClass);
             
-            _saturationSlider = CreateSlider();
+            _saturationSlider = CreateSlider("saturation-slider");
             _saturationSlider.AddToClassList(saturationSliderClass);
             _saturationSlider.RegisterValueChangedCallback(OnSaturationSliderChange);
             _saturationSliderTracker = _saturationSlider.Q(className: sliderTrackerClass);
 
-            _alphaSlider = CreateSlider();
+            _alphaSlider = CreateSlider("alpha-slider");
             _alphaSlider.AddToClassList(alphaSliderClass);
             _alphaSlider.RegisterValueChangedCallback(OnAlphaSliderChange);
             _alphaSliderTracker = _alphaSlider.Q(className: sliderTrackerClass);
@@ -124,10 +126,11 @@ namespace ArPaint.UI.Elements
             _alphaSliderTracker.style.unityBackgroundImageTintColor = TintColor;
         }
 
-        private static Slider CreateSlider()
+        private static Slider CreateSlider(string name)
         {
             return new Slider
             {
+                name = name,
                 highValue = 1f,
                 style =
                 {

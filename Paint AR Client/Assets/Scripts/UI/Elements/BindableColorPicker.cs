@@ -12,8 +12,7 @@ namespace ArPaint.UI.Elements
         private IProperty<Color> _colorProperty;
 
         private string BindingColorPath { get; set; }
-
-
+        
         public void SetBindingContext(IBindingContext context, IObjectProvider objectProvider)
         {
             _colorPathBindingData ??= BindingColorPath.ToPropertyBindingData();

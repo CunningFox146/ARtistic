@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="CloseViewCommand" name="BackButton" class="back-button">
+        <ui:VisualElement name="icon" class="back-button__icon" />
+    </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+</ui:UXML>

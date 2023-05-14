@@ -64,3 +64,29 @@
     background-color: rgba(255, 255, 255, 0);
     background-image: resource('UI/DrawOptionsView/Graphics/AlphaPicker');
 }
+
+.back-button {
+    flex-grow: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 48px;
+    height: 48px;
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.back-button__icon {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource('UI/Common/Graphics/BackIcon');
+    -unity-background-scale-mode: scale-to-fit;
+    height: 15px;
+    width: 12px;
+}
