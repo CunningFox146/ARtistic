@@ -1,9 +1,10 @@
-﻿using ArPaint.Services.Draw;
-using UnityEngine;
+﻿using System.Drawing;
+using ArPaint.Services.Draw;
 using UnityEngine.XR.ARFoundation;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
+using Color = UnityEngine.Color;
 
 namespace ArPaint.UI.ViewModels.DrawOptions
 {
@@ -15,6 +16,7 @@ namespace ArPaint.UI.ViewModels.DrawOptions
         private readonly Property<Color> _shapeColor;
         
         public ICommand CloseViewCommand { get; }
+        public Brush _brush;
 
         public Color ShapeColor
         {
@@ -27,19 +29,19 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             _drawService = drawService;
             
             _shapeColor = new Property<Color>();
-            _shapeColor.ValueChanged += OnShapeColorChanged;
+            _shapeColor.Value = drawService.Brush.Color;
 
             CloseViewCommand = new Command(CloseView);
         }
 
         private void CloseView()
         {
+            _drawService.Brush = new()
+            {
+                Color = _shapeColor.Value
+            };
             ViewStack.PopView();
         }
 
-        private void OnShapeColorChanged(object sender, Color color)
-        {
-            
-        }
     }
 }

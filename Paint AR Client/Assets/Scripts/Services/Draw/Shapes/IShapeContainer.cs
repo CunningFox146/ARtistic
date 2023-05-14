@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ArPaint.Services.Draw.Brushes;
+using UnityEngine;
 
 namespace ArPaint.Services.Draw.Shapes
 {
@@ -9,10 +10,9 @@ namespace ArPaint.Services.Draw.Shapes
         void SetPosition(int index, Vector3 position);
         void SetRotation(Quaternion rotation);
         void Clear();
-        void Hide();
-        void Show();
         Vector3 TransformPoint(Vector3 worldPoint);
         bool IsLooping { get; set; }
+        void SetBrush(Brush brush);
         void Destroy();
     }
 }

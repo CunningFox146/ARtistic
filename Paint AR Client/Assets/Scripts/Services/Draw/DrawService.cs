@@ -8,6 +8,7 @@ using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.Input;
 using ArPaint.Services.SaveLoad;
 using Services.StaticData;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -36,6 +37,10 @@ namespace ArPaint.Services.Draw
             _updateLoop = updateLoop;
             _commandBuffer = commandBuffer;
             Shape = staticData.Shapes.ShapesList.FirstOrDefault();
+            Brush = new()
+            {
+                Color = Color.white
+            };
 
             _updateLoop.RegisterUpdate(this);
         }
@@ -77,6 +82,7 @@ namespace ArPaint.Services.Draw
             var container = _shapeContainerFactory.Create();
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
 
+            container.SetBrush(Brush);
             container.InitTransform(touchPosition, _mainCamera.transform.rotation);
 
             (Shape as IShapeStart)?.OnDrawStart(container, container.TransformPoint(touchPosition));

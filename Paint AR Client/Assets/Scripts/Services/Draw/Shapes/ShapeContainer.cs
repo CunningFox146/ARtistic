@@ -1,4 +1,5 @@
-﻿using ArPaint.Services.SaveLoad;
+﻿using ArPaint.Services.Draw.Brushes;
+using ArPaint.Services.SaveLoad;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +15,12 @@ namespace ArPaint.Services.Draw.Shapes
         {
             get => _lineRenderer.loop;
             set => _lineRenderer.loop = value;
+        }
+
+        public void SetBrush(Brush brush)
+        {
+            _lineRenderer.startColor = brush.Color;
+            _lineRenderer.endColor = brush.Color;
         }
 
         public void Destroy()
@@ -74,7 +81,7 @@ namespace ArPaint.Services.Draw.Shapes
         {
             transform.position = data.Position;
             transform.rotation = data.Rotation;
-            // _lineRenderer.SetPositions(data.LinePositions);
+            
             foreach (var position in data.LinePositions)
             {
                 AppendPosition(position);
