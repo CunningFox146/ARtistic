@@ -1,5 +1,7 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="CloseViewCommand" name="BackButton" class="back-button">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
+    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="CloseViewCommand" name="BackButton" class="back-button" style="border-top-left-radius: 100%; border-bottom-left-radius: 100%; border-top-right-radius: 100%; border-bottom-right-radius: 100%;">
         <ui:VisualElement name="icon" class="back-button__icon" />
     </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
 </ui:UXML>
+

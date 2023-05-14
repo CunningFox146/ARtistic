@@ -1,3 +1,7 @@
+:root {
+    --primary-color: rgb(47, 105, 255);
+}
+
 .caption-label {
     -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Poppins-Regular.ttf?fileID=12800000&guid=c5973a18b44adae479ce54f5c571fd17&type=3#Poppins-Regular');
     -unity-font-style: normal;
@@ -78,16 +82,17 @@
     background-color: rgba(255, 255, 255, 0.1);
     width: 48px;
     height: 48px;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
     border-top-left-radius: 100%;
     border-bottom-left-radius: 100%;
     border-top-right-radius: 100%;
     border-bottom-right-radius: 100%;
-    align-items: center;
-    justify-content: space-around;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
 }
 
 .back-button__icon {
@@ -110,5 +115,9 @@
 }
 
 .unity-slider__progress {
-    background-color: rgb(255, 0, 255);
+    background-color: var(--primary-color);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }

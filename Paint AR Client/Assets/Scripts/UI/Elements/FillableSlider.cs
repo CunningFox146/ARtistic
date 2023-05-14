@@ -21,8 +21,9 @@ namespace ArPaint.UI.Elements
 
             _dragger = this.Q<VisualElement>(className: draggerUssClassName);
             
-            var dragContainer = this.Q<VisualElement>(className: dragContainerUssClassName);
-            dragContainer.Add(_progressBar);
+            var tracker = this.Q<VisualElement>(className: trackerUssClassName);
+            tracker.Add(_progressBar);
+            
             
             _dragger.RegisterCallback<GeometryChangedEvent>(_ => UpdateFill());
             this.RegisterValueChangedCallback(_ => UpdateFill());
