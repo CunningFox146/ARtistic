@@ -4,10 +4,15 @@
     <Style src="project://database/Assets/Resources/UI/CheckBox.uss?fileID=7433441132597879392&amp;guid=c7b32686458c6b947a8c35e60479c810&amp;type=3#CheckBox" />
     <ui:VisualElement name="bg" class="bg" />
     <ArPaint.UI.Elements.SafeAreaView>
-        <ui:Instance template="BackButton" name="BackButton" />
-        <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" style="height: 250px;" />
-        <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Size" low-value="0.5" high-value="5" style="margin-top: 20px; margin-bottom: 20px;" />
-        <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Smoothness" high-value="10" style="margin-top: 20px; margin-bottom: 20px;" />
-        <ArPaint.UI.Elements.BindableCheckBox text="test" name="BindableCheckBox" binding-is-checked-path="IsDotted" style="flex-grow: 0;" />
+        <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement name="header" class="header" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:Instance template="BackButton" name="BackButton" />
+                <ui:Label tabindex="-1" text="Brush settings" display-tooltip-when-elided="true" class="header-text" />
+            </ui:VisualElement>
+            <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" style="height: 250px;" />
+            <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Size" low-value="0.5" high-value="5" style="margin-top: 20px; margin-bottom: 20px;" />
+            <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Smoothness" high-value="10" style="margin-top: 20px; margin-bottom: 20px;" />
+            <ArPaint.UI.Elements.BindableCheckBox text="test" name="BindableCheckBox" binding-is-checked-path="IsDotted" style="flex-grow: 0;" />
+        </ui:VisualElement>
     </ArPaint.UI.Elements.SafeAreaView>
 </ui:UXML>
