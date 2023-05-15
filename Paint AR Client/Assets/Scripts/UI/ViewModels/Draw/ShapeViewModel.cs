@@ -1,5 +1,6 @@
 ﻿using System;
 using ArPaint.Services.Draw.Shapes;
+using UnityEngine.UIElements;
 using UnityMvvmToolkit.Common.Interfaces;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
@@ -13,7 +14,10 @@ namespace ArPaint.UI.ViewModels.Draw
         private readonly IReadOnlyProperty<string> _name;
         
         [Observable(nameof(IsSelected))]
-        private readonly IProperty<bool> _isSelected = new Property<bool>();
+        private readonly IProperty<bool> _isSelected;
+        
+        [Observable(nameof(Icon))]
+        private readonly IProperty<VectorImage> _icon;
 
         private readonly Action<Shape> _onSelect;
 
@@ -29,15 +33,25 @@ namespace ArPaint.UI.ViewModels.Draw
             set => _isSelected.Value = value;
         }
         
+        public VectorImage Icon
+        {
+            get => _icon.Value;
+            set => _icon.Value = value;
+        }
+        
         public int Id { get; }
 
         public ShapeViewModel(Shape shape, Action<Shape> onSelect)
         {
             _onSelect = onSelect;
             Id = Guid.NewGuid().GetHashCode();
-            
+
+            _isSelected = new Property<bool>();
+            _icon = new Property<VectorImage>();
             _name = new ReadOnlyProperty<string>(shape.Name);
+            
             Shape = shape;
+            Icon = Shape.Icon;
 
             SelectShapeCommand = new Command(SelectShape);
         }

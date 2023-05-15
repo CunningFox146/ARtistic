@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Circle
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Circle
+  <Icon>k__BackingField: {fileID: 7388822144124034973, guid: 6c4d9bc9e1320144295e7df2dd3d4651,
+    type: 3}
   <IsLooping>k__BackingField: 1

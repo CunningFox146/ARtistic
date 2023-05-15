@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Cube
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Cube
+  <Icon>k__BackingField: {fileID: 7388822144124034973, guid: 262ebcc51f8897c41b4b6f636998f6c1,
+    type: 3}
   <IsLooping>k__BackingField: 1

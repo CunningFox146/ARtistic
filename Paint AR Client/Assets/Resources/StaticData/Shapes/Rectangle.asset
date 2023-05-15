@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Rectangle
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Rectangle
+  <Icon>k__BackingField: {fileID: 7388822144124034973, guid: 35643b6d2422493438b30b713ad2c7f1,
+    type: 3}
   <IsLooping>k__BackingField: 1

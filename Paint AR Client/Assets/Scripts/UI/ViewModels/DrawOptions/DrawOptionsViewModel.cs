@@ -71,7 +71,6 @@ namespace ArPaint.UI.ViewModels.DrawOptions
 
         private void CloseView()
         {
-            UnityEngine.Debug.Log(IsDotted);
             _drawService.Brush = new()
             {
                 Color = ShapeColor,

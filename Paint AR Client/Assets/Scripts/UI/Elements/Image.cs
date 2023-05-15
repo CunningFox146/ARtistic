@@ -9,6 +9,11 @@ namespace ArPaint.UI.Elements
         {
             style.backgroundImage = new StyleBackground(image);
         }
+        
+        public void SetImage(VectorImage image)
+        {
+            style.backgroundImage = new StyleBackground(image);
+        }
 
         public new class UxmlFactory : UxmlFactory<Image, UxmlTraits> {}
     

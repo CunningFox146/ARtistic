@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Oval
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Oval
+  <Icon>k__BackingField: {fileID: 7388822144124034973, guid: 4374b7f0c6707744388ef9c3e9a92740,
+    type: 3}
   <IsLooping>k__BackingField: 1

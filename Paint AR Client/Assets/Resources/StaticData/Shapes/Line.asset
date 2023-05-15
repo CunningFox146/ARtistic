@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Line
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Line
+  <Icon>k__BackingField: {fileID: 7388822144124034973, guid: 731551d30908e7742b3a3a7f4aee7c76,
+    type: 3}
   <IsLooping>k__BackingField: 0
