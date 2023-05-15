@@ -47,6 +47,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lineRenderer: {fileID: 6620551147813589577}
   _distance: 0.01
+  _materials:
+  - <Material>k__BackingField: {fileID: 2100000, guid: 5336459859e76264c885e56897dc40f3,
+      type: 2}
+    <Mode>k__BackingField: 0
+  - <Material>k__BackingField: {fileID: 2100000, guid: c2908493b0b21cb42a19fe6773002348,
+      type: 2}
+    <Mode>k__BackingField: 0
 --- !u!1 &9128496328670326988
 GameObject:
   m_ObjectHideFlags: 0

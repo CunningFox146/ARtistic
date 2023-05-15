@@ -24,7 +24,14 @@ namespace ArPaint.Utils
                 visualElement.Show();
 
         }
-        
-        
+
+        public static VisualElement GetDocumentRoot(this VisualElement element)
+        {
+            while (element.parent != null)
+            {
+                element = element.parent;
+            }
+            return element;
+        }
     }
 }

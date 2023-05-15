@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using ArPaint.Services.Draw;
+using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
@@ -19,6 +20,9 @@ namespace ArPaint.UI.ViewModels.DrawOptions
         [Observable(nameof(Size))]
         private readonly IProperty<float> _size;
         
+        [Observable(nameof(Smoothness))]
+        private readonly IProperty<float> _smoothness;
+        
         public ICommand CloseViewCommand { get; }
         public Brush _brush;
 
@@ -33,6 +37,12 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             get => _size.Value;
             set => _size.Value = value;
         }
+        
+        public float Smoothness
+        {
+            get => _smoothness.Value;
+            set => _smoothness.Value = value;
+        }
 
         public DrawOptionsViewModel(IDrawService drawService)
         {
@@ -40,9 +50,11 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             
             _shapeColor = new Property<Color>();
             _size = new Property<float>();
+            _smoothness = new Property<float>();
             
             ShapeColor = drawService.Brush.Color;
             Size = drawService.Brush.Size;
+            Smoothness = drawService.Brush.Smoothness;
 
             CloseViewCommand = new Command(CloseView);
         }
@@ -53,6 +65,7 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             {
                 Color = ShapeColor,
                 Size = Size,
+                Smoothness = Mathf.FloorToInt(Smoothness),
             };
             ViewStack.PopView();
         }

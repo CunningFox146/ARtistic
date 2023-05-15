@@ -4,6 +4,5 @@
     <ui:Instance template="BackButton" name="BackButton" />
     <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" style="height: 250px;" />
     <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Size" low-value="1" style="margin-top: 20px; margin-bottom: 20px;" />
-    <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="EndSnmooth" style="margin-top: 20px; margin-bottom: 20px;" />
-    <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="CornerSmooth" style="margin-top: 20px; margin-bottom: 20px;" />
+    <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Smoothness" style="margin-top: 20px; margin-bottom: 20px;" />
 </ui:UXML>

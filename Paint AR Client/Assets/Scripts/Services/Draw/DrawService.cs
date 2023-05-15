@@ -37,10 +37,7 @@ namespace ArPaint.Services.Draw
             _updateLoop = updateLoop;
             _commandBuffer = commandBuffer;
             Shape = staticData.Shapes.ShapesList.FirstOrDefault();
-            Brush = new()
-            {
-                Color = Color.white
-            };
+            Brush = Brush.Default;
 
             _updateLoop.RegisterUpdate(this);
         }
@@ -77,7 +74,8 @@ namespace ArPaint.Services.Draw
 
         private void RegisterTouch(Touch touch)
         {
-            if (!IsTouchValid(touch)) return;
+            if (!IsTouchValid(touch))
+                return;
 
             var container = _shapeContainerFactory.Create();
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
@@ -92,7 +90,8 @@ namespace ArPaint.Services.Draw
 
         private void OnTouchMove(Touch touch)
         {
-            if (!touch.valid || !_activeShapes.TryGetValue(touch.touchId, out var container)) return;
+            if (!touch.valid || !_activeShapes.TryGetValue(touch.touchId, out var container))
+                return;
 
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             Shape.OnDrawMove(container, container.TransformPoint(touchPosition));
@@ -100,7 +99,8 @@ namespace ArPaint.Services.Draw
 
         private void UnregisterTouch(Touch touch)
         {
-            if (!touch.valid || !_activeShapes.Remove(touch.touchId, out var container)) return;
+            if (!touch.valid || !_activeShapes.Remove(touch.touchId, out var container))
+                return;
 
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             (Shape as IShapeEnd)?.OnDrawEnd(container, container.TransformPoint(touchPosition));
