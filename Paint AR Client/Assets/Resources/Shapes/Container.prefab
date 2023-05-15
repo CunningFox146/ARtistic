@@ -53,7 +53,7 @@ MonoBehaviour:
     <Mode>k__BackingField: 0
   - <Material>k__BackingField: {fileID: 2100000, guid: c2908493b0b21cb42a19fe6773002348,
       type: 2}
-    <Mode>k__BackingField: 0
+    <Mode>k__BackingField: 1
 --- !u!1 &9128496328670326988
 GameObject:
   m_ObjectHideFlags: 0

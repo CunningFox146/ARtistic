@@ -51,7 +51,8 @@ namespace ArPaint.Services.Draw
         {
             foreach (var touch in _inputSource.Touches)
             {
-                if (touch.IsOverUI()) continue;
+                if (touch.IsOverUI() && !_activeShapes.ContainsKey(touch.touchId))
+                    continue;
 
                 switch (touch.phase)
                 {

@@ -1,8 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="BackButton" src="project://database/Assets/Resources/UI/Common/BackButton.uxml?fileID=9197481963319205126&amp;guid=06b7cf2ba4e21dc448246807f9a635d6&amp;type=3#BackButton" />
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
+    <Style src="project://database/Assets/Resources/UI/CheckBox.uss?fileID=7433441132597879392&amp;guid=c7b32686458c6b947a8c35e60479c810&amp;type=3#CheckBox" />
     <ui:Instance template="BackButton" name="BackButton" />
     <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" style="height: 250px;" />
-    <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Size" low-value="1" style="margin-top: 20px; margin-bottom: 20px;" />
-    <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Smoothness" style="margin-top: 20px; margin-bottom: 20px;" />
+    <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Size" low-value="0.5" high-value="5" style="margin-top: 20px; margin-bottom: 20px;" />
+    <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Smoothness" high-value="10" style="margin-top: 20px; margin-bottom: 20px;" />
+    <ArPaint.UI.Elements.BindableCheckBox text="test" name="BindableCheckBox" binding-is-checked-path="IsDotted" style="flex-grow: 0;" />
 </ui:UXML>

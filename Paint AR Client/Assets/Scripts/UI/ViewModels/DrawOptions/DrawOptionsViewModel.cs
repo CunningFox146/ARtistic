@@ -23,8 +23,10 @@ namespace ArPaint.UI.ViewModels.DrawOptions
         [Observable(nameof(Smoothness))]
         private readonly IProperty<float> _smoothness;
         
+        [Observable(nameof(IsDotted))]
+        private readonly IProperty<bool> _isDotted;
+        
         public ICommand CloseViewCommand { get; }
-        public Brush _brush;
 
         public Color ShapeColor
         {
@@ -43,6 +45,12 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             get => _smoothness.Value;
             set => _smoothness.Value = value;
         }
+        
+        public bool IsDotted
+        {
+            get => _isDotted.Value;
+            set => _isDotted.Value = value;
+        }
 
         public DrawOptionsViewModel(IDrawService drawService)
         {
@@ -51,21 +59,25 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             _shapeColor = new Property<Color>();
             _size = new Property<float>();
             _smoothness = new Property<float>();
+            _isDotted = new Property<bool>();
             
             ShapeColor = drawService.Brush.Color;
             Size = drawService.Brush.Size;
             Smoothness = drawService.Brush.Smoothness;
+            IsDotted = drawService.Brush.IsDotted;
 
             CloseViewCommand = new Command(CloseView);
         }
 
         private void CloseView()
         {
+            UnityEngine.Debug.Log(IsDotted);
             _drawService.Brush = new()
             {
                 Color = ShapeColor,
                 Size = Size,
                 Smoothness = Mathf.FloorToInt(Smoothness),
+                IsDotted = IsDotted,
             };
             ViewStack.PopView();
         }
