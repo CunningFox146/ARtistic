@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
+    <ArPaint.UI.Elements.SafeAreaView>
+        <ui:VisualElement name="root" style="flex-grow: 1; justify-content: center; align-items: center;">
+            <ui:VisualElement name="circles-container" usage-hints="DynamicTransform" class="ar_anim__circle-container" style="width: 350px; height: 350px;">
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+                <ui:VisualElement name="circle" class="ar-anim__circle" />
+            </ui:VisualElement>
+            <ui:VisualElement usage-hints="DynamicTransform" name="phone-icon" class="ar-anim__phone" />
+        </ui:VisualElement>
+    </ArPaint.UI.Elements.SafeAreaView>
+</ui:UXML>

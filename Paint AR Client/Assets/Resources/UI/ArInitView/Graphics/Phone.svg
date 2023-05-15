@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+
+<defs>
+</defs>
+<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+	<path d="M 61.78 90 H 28.22 c -5.614 0 -10.181 -4.567 -10.181 -10.181 V 10.181 C 18.039 4.567 22.606 0 28.22 0 H 61.78 c 5.613 0 10.181 4.567 10.181 10.181 v 69.639 C 71.961 85.433 67.394 90 61.78 90 z M 28.22 4 c -3.408 0 -6.181 2.772 -6.181 6.181 v 69.639 c 0 3.408 2.772 6.181 6.181 6.181 H 61.78 c 3.408 0 6.181 -2.772 6.181 -6.181 V 10.181 C 67.961 6.772 65.188 4 61.78 4 H 28.22 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+	<circle cx="45.004" cy="79.284" r="3.244" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+	<path d="M 51.128 11.926 H 38.872 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 12.256 c 1.104 0 2 0.896 2 2 S 52.232 11.926 51.128 11.926 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+</g>
+</svg>

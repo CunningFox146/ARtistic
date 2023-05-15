@@ -2,9 +2,11 @@
 using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.ViewModels;
+using ArPaint.UI.ViewModels.ArInit;
 using ArPaint.UI.ViewModels.Draw;
 using ArPaint.UI.ViewModels.DrawOptions;
 using ArPaint.UI.ViewModels.Loading;
+using ArPaint.UI.Views.ArInit;
 using ArPaint.UI.Views.Draw;
 using ArPaint.UI.Views.DrawOptions;
 using ArPaint.UI.Views.Loading;
@@ -30,6 +32,7 @@ namespace ArPaint.Infrastructure
             Container.Bind<IViewStack>().To<ViewStack>().AsSingle();
 
             InstallLoadingView();
+            InstallArInitView();
             InstallDrawView();
             InstallDrawOptionsView();
         }
@@ -41,6 +44,9 @@ namespace ArPaint.Infrastructure
 
             Container.BindFactory<DrawView, DrawView.Factory>()
                 .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(DrawView)));
+            
+            Container.BindFactory<ArInitView, ArInitView.Factory>()
+                .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(ArInitView)));
 
             Container.BindFactory<DrawOptionsView, DrawOptionsView.Factory>()
                 .FromComponentInNewPrefab(_prefabsProvider.LoadViewPrefab(nameof(DrawOptionsView)));
@@ -50,6 +56,11 @@ namespace ArPaint.Infrastructure
         {
             Container.BindInterfacesAndSelfTo<LoadingDisplaySystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<LoadingViewModel>().AsSingle();
+        }
+
+        private void InstallArInitView()
+        {
+            Container.BindInterfacesAndSelfTo<ArInitViewModel>().AsSingle();
         }
 
         private void InstallDrawView()

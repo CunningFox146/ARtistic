@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.Views.ArInit;
 using ArPaint.UI.Views.Draw;
 using ArPaint.UI.Views.DrawOptions;
-using Zenject;
 
 namespace ArPaint.Infrastructure
 {
@@ -11,21 +11,22 @@ namespace ArPaint.Infrastructure
     {
         private readonly Dictionary<Type, IStackableView> _views;
 
-        public ViewProvider(DrawView.Factory drawViewFactory, DrawOptionsView.Factory drawOptionsViewFactory)
+        public ViewProvider(ArInitView.Factory arInitViewFactory,
+            DrawView.Factory drawViewFactory, DrawOptionsView.Factory drawOptionsViewFactory)
         {
-            _views = new()
+            _views = new Dictionary<Type, IStackableView>
             {
+                [typeof(ArInitView)] = arInitViewFactory.Create(),
                 [typeof(DrawView)] = drawViewFactory.Create(),
-                [typeof(DrawOptionsView)] = drawOptionsViewFactory.Create(),
+                [typeof(DrawOptionsView)] = drawOptionsViewFactory.Create()
             };
 
-            foreach (var view in _views.Values)
-            {
-                view.Hide();
-            }
+            foreach (var view in _views.Values) view.Hide();
         }
 
         public TView GetView<TView>() where TView : IStackableView
-            => (TView)_views[typeof(TView)];
+        {
+            return (TView)_views[typeof(TView)];
+        }
     }
 }

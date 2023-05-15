@@ -159,9 +159,9 @@
 }
 
 .view-root {
-    padding-left: 70px;
-    padding-right: 70px;
-    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
     padding-bottom: 0;
 }
 
@@ -183,4 +183,41 @@
 
 .header {
     margin-bottom: 40px;
+}
+
+.ar-anim__circle {
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: resource('UI/DrawView/Graphics/Circle');
+    width: 30%;
+    height: 30%;
+    flex-shrink: 0;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    -unity-background-image-tint-color: rgb(125, 125, 125);
+}
+
+.ar-anim__phone {
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    background-image: resource('UI/ArInitView/Graphics/Phone');
+    width: 175px;
+    height: 175px;
+    transform-origin: bottom;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.ar_anim__circle-container {
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
