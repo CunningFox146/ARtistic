@@ -2,6 +2,5 @@
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SelectShapeCommand" enabled="true" class="shape-button">
         <ArPaint.UI.Elements.BindableSvgImage image-binding-path="Icon" class="shape-button__icon" />
-        <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" binding-text-path="Name" class="caption-label shape-button__label" />
     </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
 </ui:UXML>

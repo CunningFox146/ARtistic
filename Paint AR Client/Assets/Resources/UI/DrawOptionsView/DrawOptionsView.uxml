@@ -2,8 +2,8 @@
     <ui:Template name="BackButton" src="project://database/Assets/Resources/UI/Common/BackButton.uxml?fileID=9197481963319205126&amp;guid=06b7cf2ba4e21dc448246807f9a635d6&amp;type=3#BackButton" />
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <Style src="project://database/Assets/Resources/UI/CheckBox.uss?fileID=7433441132597879392&amp;guid=c7b32686458c6b947a8c35e60479c810&amp;type=3#CheckBox" />
+    <ui:VisualElement name="bg" class="bg" />
     <ArPaint.UI.Elements.SafeAreaView>
-        <ui:VisualElement name="bg" class="bg" />
         <ui:Instance template="BackButton" name="BackButton" />
         <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" style="height: 250px;" />
         <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Size" low-value="0.5" high-value="5" style="margin-top: 20px; margin-bottom: 20px;" />

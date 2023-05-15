@@ -133,7 +133,10 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 15px;
 }
 
 .shape-button__icon {
@@ -144,12 +147,6 @@
     padding-top: 10px;
     padding-bottom: 10px;
     height: 35px;
-}
-
-.shape-button__label {
-    font-size: 12px;
-    white-space: nowrap;
-    flex-grow: 0;
 }
 
 .bg {
