@@ -6,8 +6,6 @@ using Services.Toast;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
-using UnityMvvmToolkit.UniTask;
-using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace ArPaint.UI.ViewModels.Register
 {
@@ -68,7 +66,7 @@ namespace ArPaint.UI.ViewModels.Register
             }
         }
 
-        private async UniTask Register(CancellationToken cancellationToken = default)
+        private void Register()
         {
             try
             {

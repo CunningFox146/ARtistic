@@ -1,14 +1,12 @@
-﻿using Cysharp.Threading.Tasks;
-
-namespace Services.Auth
+﻿namespace Services.Auth
 {
     public interface IAuthSystem
     {
         bool IsSignedIn { get; }
-        UniTask SignIn(string email, string password);
-        UniTask SingInWithGoogle();
-        UniTask Register(string email, string username, string password);
-        UniTask ReloadUser();
+        void SignIn(string email, string password);
+        void SingInWithGoogle();
+        void Register(string email, string username, string password);
+        void ReloadUser();
         void SignOut();
     }
 }
