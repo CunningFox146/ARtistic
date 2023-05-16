@@ -37,7 +37,6 @@ namespace ArPaint.UI.ViewModels.Register
 
         private void Register()
         {
-            UnityEngine.Debug.Log($"{Login} {Password}");
         }
     }
 }
