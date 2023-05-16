@@ -1,7 +1,9 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using ArPaint.UI.Views.Register;
 using Cysharp.Threading.Tasks;
 using Services.Auth;
+using Services.Toast;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -13,6 +15,7 @@ namespace ArPaint.UI.ViewModels.Register
     public class RegisterViewModel : ViewModel
     {
         private readonly IAuthSystem _auth;
+        private readonly IToast _toast;
 
         [Observable(nameof(UserName))]
         private readonly IProperty<string> _userName;
@@ -43,9 +46,10 @@ namespace ArPaint.UI.ViewModels.Register
             set => _password.Value = value;
         }
 
-        public RegisterViewModel(IAuthSystem auth)
+        public RegisterViewModel(IAuthSystem auth, IToast toast)
         {
             _auth = auth;
+            _toast = toast;
             _userName = new Property<string>();
             _login = new Property<string>();
             _password = new Property<string>();
@@ -55,7 +59,15 @@ namespace ArPaint.UI.ViewModels.Register
 
         private async UniTask Register(CancellationToken cancellationToken = default)
         {
-            await _auth.Register(Login, UserName, Password);
+            try
+            {
+                await _auth.Register(Login, UserName, Password);
+                _toast.ShowMessage("Sign in success!");
+            }
+            catch (Exception exception)
+            {
+                _toast.ShowMessage(exception.Message);
+            }
         }
     }
 }

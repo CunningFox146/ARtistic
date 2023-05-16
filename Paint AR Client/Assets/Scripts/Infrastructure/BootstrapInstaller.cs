@@ -7,6 +7,7 @@ using Firebase.Auth;
 using Google;
 using Services.Auth;
 using Services.StaticData;
+using Services.Toast;
 using Zenject;
 
 namespace ArPaint.Infrastructure
@@ -23,8 +24,11 @@ namespace ArPaint.Infrastructure
             Container.Bind<IAuthSystem>().To<AuthSystem>().AsSingle();
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
             Container.BindFactory<BootstrapState, BootstrapState.Factory>();
-            
-#if !UNITY_EDITOR
+     
+#if UNITY_EDITOR
+            Container.Bind<IToast>().To<ToastEditor>().AsSingle();
+#else
+            Container.Bind<IToast>().To<ToastAndroid>().AsSingle();
             Container.Bind<GoogleSignIn>().FromMethod(_ => GoogleSignIn.DefaultInstance);
 #endif
             Container.Bind<FirebaseApp>().FromMethod(_ => FirebaseApp.DefaultInstance);
