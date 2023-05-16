@@ -1,11 +1,15 @@
-﻿using System.Security.Authentication;
+﻿using System;
+using System.Security.Authentication;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Firebase;
 using Services.Auth;
 using Services.Toast;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
+using UnityMvvmToolkit.UniTask;
+using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace ArPaint.UI.ViewModels.Register
 {
@@ -60,19 +64,19 @@ namespace ArPaint.UI.ViewModels.Register
             {
                 await _auth.SingInWithGoogle();
             }
-            catch (AuthenticationException exception)
+            catch (Exception exception)
             {
                 _toast.ShowMessage(exception.Message);
             }
         }
 
-        private void Register()
+        private async UniTask Register(CancellationToken cancellationToken = default)
         {
             try
             {
                 await _auth.Register(Login, UserName, Password);
             }
-            catch (AuthenticationException exception)
+            catch (Exception exception)
             {
                 _toast.ShowMessage(exception.Message);
             }

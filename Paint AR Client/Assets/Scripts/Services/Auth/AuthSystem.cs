@@ -16,18 +16,18 @@ namespace Services.Auth
             _auth = auth;
         }
         
-        public async void SignIn(string email, string password)
+        public async UniTask SignIn(string email, string password)
         {
             var credential = EmailAuthProvider.GetCredential(email, password);
             await _auth.SignInWithCredentialAsync(credential);
         }
 
-        public async void SingInWithGoogle()
+        public async UniTask SingInWithGoogle()
         {
             
         }
 
-        public async void Register(string email, string username, string password)
+        public async UniTask Register(string email, string username, string password)
         {
             var authResult = await _auth.CreateUserWithEmailAndPasswordAsync(email, password);
             var profile = new UserProfile()
@@ -46,7 +46,7 @@ namespace Services.Auth
             }
         }
 
-        public async void ReloadUser()
+        public async UniTask ReloadUser()
         {
             if (_auth.CurrentUser != null)
             {
