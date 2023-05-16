@@ -23,8 +23,7 @@ namespace ArPaint.Infrastructure.GameStates
             Application.targetFrameRate = 300;
             await _staticData.Load();
             await _sceneLoader.LoadScene(SceneIndex.Draw);
-            var status = await FirebaseApp.CheckDependenciesAsync();
-            UnityEngine.Debug.Log($"Firebase status: {status}");
+            await FirebaseApp.CheckDependenciesAsync();
             FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
         }
 

@@ -7,6 +7,8 @@ using ArPaint.Services.Draw.Brushes;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.Input;
 using ArPaint.Services.SaveLoad;
+using ArPaint.Utils;
+using Firebase.Analytics;
 using Services.StaticData;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,7 +27,19 @@ namespace ArPaint.Services.Draw
         private readonly IUpdateLoop _updateLoop;
         private readonly ICommandBuffer _commandBuffer;
 
-        public IShape Shape { get; set; }
+        private IShape _shape;
+
+        public IShape Shape
+        {
+            get => _shape;
+            set
+            {
+                _shape = value;
+                FirebaseAnalytics.LogEvent(AnalyticsEvents.ShapeSelect,
+                    new Parameter("shape", _shape.GetType().Name));
+            }
+        }
+
         public Brush Brush { get; set; } 
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,

@@ -2,6 +2,7 @@ using ArPaint.Infrastructure.AssetProvider;
 using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Infrastructure.GameStates;
 using ArPaint.Infrastructure.SceneManagement;
+using Firebase;
 using Services.StaticData;
 using Zenject;
 
@@ -18,6 +19,7 @@ namespace ArPaint.Infrastructure
             Container.Bind<IPrefabsProvider>().To<PrefabsProvider>().AsSingle();
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
             Container.BindFactory<BootstrapState, BootstrapState.Factory>();
+            Container.Bind<FirebaseApp>().FromMethod(_ => FirebaseApp.DefaultInstance);
             Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle().NonLazy();
         }
     }
