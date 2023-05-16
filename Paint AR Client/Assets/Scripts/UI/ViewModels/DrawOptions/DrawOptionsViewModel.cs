@@ -1,7 +1,5 @@
-﻿using System.Drawing;
-using ArPaint.Services.Draw;
+﻿using ArPaint.Services.Draw;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -15,7 +13,6 @@ namespace ArPaint.UI.ViewModels.DrawOptions
 
         [Observable(nameof(ShapeColor))]
         private readonly IProperty<Color> _shapeColor;
-        
         
         [Observable(nameof(Size))]
         private readonly IProperty<float> _size;

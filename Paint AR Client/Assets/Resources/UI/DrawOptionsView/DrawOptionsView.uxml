@@ -2,17 +2,26 @@
     <ui:Template name="BackButton" src="project://database/Assets/Resources/UI/Common/BackButton.uxml?fileID=9197481963319205126&amp;guid=06b7cf2ba4e21dc448246807f9a635d6&amp;type=3#BackButton" />
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <Style src="project://database/Assets/Resources/UI/CheckBox.uss?fileID=7433441132597879392&amp;guid=c7b32686458c6b947a8c35e60479c810&amp;type=3#CheckBox" />
-    <ui:VisualElement name="bg" class="bg" />
+    <ui:VisualElement name="bg" class="bg" style="background-color: rgba(0, 0, 0, 0.63);" />
     <ArPaint.UI.Elements.SafeAreaView>
         <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement name="header" class="header" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                 <ui:Instance template="BackButton" name="BackButton" />
-                <ui:Label tabindex="-1" text="Brush settings" display-tooltip-when-elided="true" class="header-text" />
+                <ui:Label tabindex="-1" text="Brush settings" display-tooltip-when-elided="true" name="header" class="header-text" />
             </ui:VisualElement>
-            <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" style="height: 250px;" />
+            <ui:Label tabindex="-1" text="Color" display-tooltip-when-elided="true" name="color-header" class="subheader-text" style="margin-top: 20px;" />
+            <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" name="color-picker" style="height: 250px;" />
+            <ui:VisualElement name="separator" class="separator" />
+            <ui:Label tabindex="-1" text="Size" display-tooltip-when-elided="true" name="size-header" class="subheader-text" />
             <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Size" low-value="0.5" high-value="5" style="margin-top: 20px; margin-bottom: 20px;" />
+            <ui:VisualElement name="separator" class="separator" />
+            <ui:Label tabindex="-1" text="Smoothness" display-tooltip-when-elided="true" name="size-header" class="subheader-text" />
             <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Smoothness" high-value="10" style="margin-top: 20px; margin-bottom: 20px;" />
-            <ArPaint.UI.Elements.BindableCheckBox text="test" name="BindableCheckBox" binding-is-checked-path="IsDotted" style="flex-grow: 0;" />
+            <ui:VisualElement name="separator" class="separator" />
+            <ui:VisualElement name="is-dotted" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="Is dotted" display-tooltip-when-elided="true" class="subheader-text" />
+                <ArPaint.UI.Elements.BindableSwitch value-binding-path="IsDotted" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ArPaint.UI.Elements.SafeAreaView>
 </ui:UXML>

@@ -64,6 +64,13 @@
         "io.savolainen.uicomponents",
         "com.bitbebop.ui-toolkit-safe-area"
       ]
+    },
+    {
+      "name": "Firebase Registry",
+      "url": "https://unityregistry-pa.googleapis.com",
+      "scopes": [
+        "com.google"
+      ]
     }
   ]
 }

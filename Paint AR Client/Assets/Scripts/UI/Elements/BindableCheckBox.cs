@@ -1,5 +1,4 @@
-﻿using ArPaint.UI.Elements;
-using UnityEngine.UIElements;
+﻿using UnityEngine.UIElements;
 using UnityMvvmToolkit.Common.Interfaces;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Extensions;
