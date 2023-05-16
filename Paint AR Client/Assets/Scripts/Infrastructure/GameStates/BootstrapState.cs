@@ -1,4 +1,6 @@
 using ArPaint.Infrastructure.SceneManagement;
+using Firebase;
+using Firebase.Analytics;
 using Services.StaticData;
 using UnityEngine;
 using Zenject;
@@ -21,6 +23,9 @@ namespace ArPaint.Infrastructure.GameStates
             Application.targetFrameRate = 300;
             await _staticData.Load();
             await _sceneLoader.LoadScene(SceneIndex.Draw);
+            var status = await FirebaseApp.CheckDependenciesAsync();
+            UnityEngine.Debug.Log($"Firebase status: {status}");
+            FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
         }
 
         public class Factory : PlaceholderFactory<BootstrapState>

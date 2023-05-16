@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "570735574844",
+    "project_id": "artistic-a515f",
+    "storage_bucket": "artistic-a515f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570735574844:android:31995fc687b7ebb536a839",
+        "android_client_info": {
+          "package_name": "com.cunningfox146.artistic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570735574844-i075f5fh4labbe9gfqafs7kjkal8pafp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEV6DjJtI9rUDfoImcsr5ZIgdPyMZ2I2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570735574844-i075f5fh4labbe9gfqafs7kjkal8pafp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
