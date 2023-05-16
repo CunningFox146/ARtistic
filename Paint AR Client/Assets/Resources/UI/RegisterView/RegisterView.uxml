@@ -3,4 +3,5 @@
     <ArPaint.UI.Elements.BindableTextField name="login" asdasdvalue-binding-path="Login" text-binding-path="Login" keyboard-type="EmailAddress" />
     <ArPaint.UI.Elements.BindableTextField name="password" asdasdvalue-binding-path="Password" text-binding-path="Password" password="true" />
     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Register" name="register-button" command="RegisterCommand" />
+    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Google" name="google-button" command="GoogleSignInCommand" />
 </ui:UXML>

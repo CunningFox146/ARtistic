@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Firebase.Auth;
 using Google;
+using UnityEngine;
 
 namespace Services.Auth
 {
@@ -9,13 +10,6 @@ namespace Services.Auth
         private readonly FirebaseAuth _auth;
         private readonly GoogleSignIn _googleSignIn;
 
-        private readonly GoogleSignInConfiguration _signInConfiguration = new()
-        {
-            WebClientId = "570735574844-jmaco85sp22e8rp1gbro0hhdj3f1u3i1.apps.googleusercontent.com",
-            UseGameSignIn = false,
-            RequestEmail = true,
-            RequestIdToken = true,
-        };
 
         public bool IsSignedIn => _auth.CurrentUser != null;
 
@@ -40,12 +34,15 @@ namespace Services.Auth
 
         public async UniTask SingInWithGoogle()
         {
-#if !UNITY_EDITOR
-            GoogleSignIn.Configuration = _signInConfiguration;
+            GoogleSignIn.Configuration = new()
+            {
+                WebClientId = "570735574844-jmaco85sp22e8rp1gbro0hhdj3f1u3i1.apps.googleusercontent.com",
+                RequestIdToken = true,
+            };
+            Debug.Log(GoogleSignIn.Configuration);
             var googleUser = await _googleSignIn.SignIn();
             var credential = GoogleAuthProvider.GetCredential(googleUser.IdToken, null);
             await _auth.SignInWithCredentialAsync(credential);
-#endif
         }
 
         public async UniTask Register(string email, string username, string password)

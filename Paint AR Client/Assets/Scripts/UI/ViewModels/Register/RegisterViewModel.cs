@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.Security.Authentication;
 using System.Threading;
-using ArPaint.UI.Views.Register;
 using Cysharp.Threading.Tasks;
 using Services.Auth;
 using Services.Toast;
@@ -15,31 +14,30 @@ namespace ArPaint.UI.ViewModels.Register
     public class RegisterViewModel : ViewModel
     {
         private readonly IAuthSystem _auth;
+
+        [Observable(nameof(Login))] private readonly IProperty<string> _login;
+
+        [Observable(nameof(Password))] private readonly IProperty<string> _password;
+
         private readonly IToast _toast;
 
-        [Observable(nameof(UserName))]
-        private readonly IProperty<string> _userName;
-        
-        [Observable(nameof(Login))]
-        private readonly IProperty<string> _login;
-        
-        [Observable(nameof(Password))]
-        private readonly IProperty<string> _password;
-        
+        [Observable(nameof(UserName))] private readonly IProperty<string> _userName;
+
         public IAsyncCommand RegisterCommand { get; }
+        public IAsyncCommand GoogleSignInCommand { get; }
 
         public string UserName
         {
             get => _userName.Value;
             set => _userName.Value = value;
         }
-        
+
         public string Login
         {
             get => _login.Value;
             set => _login.Value = value;
         }
-        
+
         public string Password
         {
             get => _password.Value;
@@ -54,7 +52,20 @@ namespace ArPaint.UI.ViewModels.Register
             _login = new Property<string>();
             _password = new Property<string>();
 
-            RegisterCommand = new AsyncCommand(Register);
+            RegisterCommand = new AsyncCommand(Register) { DisableOnExecution = true };
+            GoogleSignInCommand = new AsyncCommand(GoogleSignIn) { DisableOnExecution = true };
+        }
+
+        private async UniTask GoogleSignIn(CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                await _auth.SingInWithGoogle();
+            }
+            catch (AuthenticationException exception)
+            {
+                _toast.ShowMessage(exception.Message);
+            }
         }
 
         private async UniTask Register(CancellationToken cancellationToken = default)
@@ -62,9 +73,8 @@ namespace ArPaint.UI.ViewModels.Register
             try
             {
                 await _auth.Register(Login, UserName, Password);
-                _toast.ShowMessage("Sign in success!");
             }
-            catch (Exception exception)
+            catch (AuthenticationException exception)
             {
                 _toast.ShowMessage(exception.Message);
             }
