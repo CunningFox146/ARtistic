@@ -28,6 +28,7 @@ namespace ArPaint.UI.Elements
             if (_valueProperty == null)
                 return;
 
+            IsCheckedChanged -= OnIsCheckedChanged;
             _valueProperty.ValueChanged -= OnValueChanged;
             objectProvider.ReturnProperty(_valueProperty);
             _valueProperty = null;

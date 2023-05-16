@@ -18,9 +18,9 @@ namespace ArPaint.UI.Elements
 
             _valueProperty = objectProvider.RentProperty<float>(context, _valueBindingData);
             _valueProperty.ValueChanged += OnValueChanged;
+            this.RegisterValueChangedCallback(OnValueChanged);
 
             SetValueWithoutNotify(_valueProperty.Value);
-            this.RegisterValueChangedCallback(OnValueChanged);
         }
 
         public void ResetBindingContext(IObjectProvider objectProvider)
@@ -29,6 +29,7 @@ namespace ArPaint.UI.Elements
                 return;
             
             _valueProperty.ValueChanged -= OnValueChanged;
+            this.UnregisterValueChangedCallback(OnValueChanged);
             objectProvider.ReturnProperty(_valueProperty);
             _valueProperty = null;
         }

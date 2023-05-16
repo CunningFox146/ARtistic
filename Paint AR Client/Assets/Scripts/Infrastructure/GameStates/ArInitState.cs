@@ -2,6 +2,7 @@
 using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.Views.ArInit;
+using ArPaint.UI.Views.Register;
 using UnityEngine.XR.ARFoundation;
 using Zenject;
 
@@ -27,12 +28,12 @@ namespace ArPaint.Infrastructure.GameStates
         public void OnEnter()
         {
             _loadingDisplaySystem.HideLoadingView();
-            _viewStack.PushView<ArInitView>();
-#if UNITY_EDITOR
-            _gameState.EnterState<DrawState>();
-#else
-            _planeManager.planesChanged += OnPlanesChanged;
-#endif
+            _viewStack.PushView<RegisterView>();
+// #if UNITY_EDITOR
+//             _gameState.EnterState<DrawState>();
+// #else
+//             _planeManager.planesChanged += OnPlanesChanged;
+// #endif
         }
 
         public void OnExit()
