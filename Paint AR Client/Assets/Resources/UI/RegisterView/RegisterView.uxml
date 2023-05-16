@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ArPaint.UI.Elements.BindableTextField name="login" asdasdvalue-binding-path="Login" text-binding-path="Login" />
-    <ArPaint.UI.Elements.BindableTextField name="password" asdasdvalue-binding-path="Password" text-binding-path="Password" />
+    <ArPaint.UI.Elements.BindableTextField name="user-name" asdasdvalue-binding-path="Login" text-binding-path="UserName" keyboard-type="ASCIICapable" />
+    <ArPaint.UI.Elements.BindableTextField name="login" asdasdvalue-binding-path="Login" text-binding-path="Login" keyboard-type="EmailAddress" />
+    <ArPaint.UI.Elements.BindableTextField name="password" asdasdvalue-binding-path="Password" text-binding-path="Password" password="true" />
     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Register" name="register-button" command="RegisterCommand" />
 </ui:UXML>

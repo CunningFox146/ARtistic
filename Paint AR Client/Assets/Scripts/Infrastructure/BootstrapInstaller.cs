@@ -4,6 +4,7 @@ using ArPaint.Infrastructure.GameStates;
 using ArPaint.Infrastructure.SceneManagement;
 using Firebase;
 using Firebase.Auth;
+using Google;
 using Services.Auth;
 using Services.StaticData;
 using Zenject;
@@ -23,6 +24,9 @@ namespace ArPaint.Infrastructure
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
             Container.BindFactory<BootstrapState, BootstrapState.Factory>();
             
+#if !UNITY_EDITOR
+            Container.Bind<GoogleSignIn>().FromMethod(_ => GoogleSignIn.DefaultInstance);
+#endif
             Container.Bind<FirebaseApp>().FromMethod(_ => FirebaseApp.DefaultInstance);
             Container.Bind<FirebaseAuth>().FromMethod(_ => FirebaseAuth.DefaultInstance);
             
