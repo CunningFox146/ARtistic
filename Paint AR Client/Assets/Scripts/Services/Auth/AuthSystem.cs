@@ -30,7 +30,14 @@ namespace Services.Auth
             await FirebaseApp.CheckAndFixDependenciesAsync();
             FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
 
-            await ReloadUser();
+            try
+            {
+                await ReloadUser();
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception);
+            }
         }
 
         public async UniTask SignIn(string email, string password)

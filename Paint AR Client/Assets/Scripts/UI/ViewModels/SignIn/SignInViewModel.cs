@@ -64,19 +64,25 @@ namespace ArPaint.UI.ViewModels.Register
             }
             catch (Exception exception)
             {
-                _toast.ShowMessage(exception.Message);
+                _toast.ShowError(exception);
             }
         }
 
         private async UniTask SignIn(CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
+            {
+                _toast.ShowMessage("Please enter Email & password");
+                return;
+            }
+            
             try
             {
                 await _auth.SignIn(Email, Password);
             }
             catch (Exception exception)
             {
-                _toast.ShowMessage(exception.Message);
+                _toast.ShowError(exception);
             }
         }
     }

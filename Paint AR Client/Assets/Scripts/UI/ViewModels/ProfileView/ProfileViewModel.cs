@@ -52,7 +52,7 @@ namespace ArPaint.UI.ViewModels.ProfileView
             }
             catch (Exception exception)
             {
-                _toast.ShowMessage(exception.Message);
+                _toast.ShowError(exception);
             }
         }
 
@@ -64,7 +64,7 @@ namespace ArPaint.UI.ViewModels.ProfileView
             }
             catch (Exception exception)
             {
-                _toast.ShowMessage(exception.Message);
+                _toast.ShowError(exception);
             }
         }
 
@@ -76,7 +76,7 @@ namespace ArPaint.UI.ViewModels.ProfileView
             }
             catch (Exception exception)
             {
-                _toast.ShowMessage(exception.Message);
+                _toast.ShowError(exception);
             }
         }
 

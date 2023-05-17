@@ -62,6 +62,12 @@ namespace ArPaint.UI.ViewModels.Register
 
         private async UniTask Register(CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(UserName))
+            {
+                _toast.ShowMessage("Please enter Email, User name & password");
+                return;
+            }
+            
             try
             {
                 await _auth.Register(Email, UserName, Password);

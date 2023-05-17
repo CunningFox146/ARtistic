@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="tab-bar" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
+        <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="discover" class="tab-bar__button">
+            <ui:VisualElement name="VisualElement" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/MainMenu/Graphics/Discover&apos;);" />
+            <ui:Label tabindex="-1" text="Discover" display-tooltip-when-elided="true" class="tab-bar__button__text" />
+        </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+        <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="home" class="tab-bar__button">
+            <ui:VisualElement name="VisualElement" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/MainMenu/Graphics/Home&apos;);" />
+            <ui:Label tabindex="-1" text="Home" display-tooltip-when-elided="true" class="tab-bar__button__text" />
+        </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+        <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="profile" class="tab-bar__button">
+            <ui:VisualElement name="VisualElement" class="tab-bar__button__icon tab-bar__button__icon--selected" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/MainMenu/Graphics/ProfileSelected&apos;);" />
+            <ui:Label tabindex="-1" text="Profile" display-tooltip-when-elided="true" class="tab-bar__button__text" />
+        </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+    </ui:VisualElement>
+</ui:UXML>
