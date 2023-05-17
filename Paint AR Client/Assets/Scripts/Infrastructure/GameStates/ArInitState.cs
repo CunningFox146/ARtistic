@@ -30,6 +30,7 @@ namespace ArPaint.Infrastructure.GameStates
 #if UNITY_EDITOR
             _gameState.EnterState<DrawState>();
 #else
+            _viewStack.PushView<ArInitView>();
             _planeManager.planesChanged += OnPlanesChanged;
 #endif
         }

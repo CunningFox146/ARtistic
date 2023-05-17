@@ -40,7 +40,7 @@ namespace ArPaint.Infrastructure.GameStates
             if (isSignedIn)
             {
                 _auth.AuthStateChange -= OnAuthStateChange;
-                await _sceneLoader.LoadScene(SceneIndex.Draw);
+                await _sceneLoader.LoadScene(SceneIndex.MainMenu);
             }
         }
 

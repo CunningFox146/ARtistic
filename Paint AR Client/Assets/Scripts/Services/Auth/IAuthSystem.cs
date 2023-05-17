@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Firebase.Auth;
 
 namespace Services.Auth
 {
@@ -7,11 +8,14 @@ namespace Services.Auth
     {
         event Action<bool> AuthStateChange;
         bool IsSignedIn { get; }
+        FirebaseUser User { get; }
         UniTask Init();
         UniTask SignIn(string email, string password);
         UniTask SingInWithGoogle();
         UniTask Register(string email, string username, string password);
-        UniTask ReloadUser();
+        UniTask SendResetPasswordEmail();
+        UniTask ChangeUserName(string username);
+        UniTask DeleteProfile();
         void SignOut();
     }
 }

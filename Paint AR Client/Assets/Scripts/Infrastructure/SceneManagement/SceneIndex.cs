@@ -4,6 +4,7 @@ namespace ArPaint.Infrastructure.SceneManagement
     {
         Bootstrap,
         Auth,
+        MainMenu,
         Draw
     }
 }
