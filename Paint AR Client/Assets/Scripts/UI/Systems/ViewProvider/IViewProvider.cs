@@ -1,4 +1,6 @@
-﻿namespace ArPaint.UI.Systems.Stack
+﻿using ArPaint.UI.Systems.Stack;
+
+namespace ArPaint.UI.Systems.ViewProvider
 {
     public interface IViewProvider
     {
