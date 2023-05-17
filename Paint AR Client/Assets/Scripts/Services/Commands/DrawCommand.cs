@@ -2,6 +2,7 @@
 using ArPaint.Services.Draw.Brushes;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.SaveLoad;
+using Newtonsoft.Json;
 
 namespace ArPaint.Services.Commands
 {
@@ -9,8 +10,8 @@ namespace ArPaint.Services.Commands
     {
         public Brush Brush { get; set; }
         public ShapeData? ShapeData { get; set; }
-        public IShapeContainer ShapeContainer { get; set; }
         
+        public IShapeContainer ShapeContainer { get; set; }
         public Func<IShapeContainer> CreateContainer { get; set; }
         
         public DrawCommand()
@@ -31,5 +32,36 @@ namespace ArPaint.Services.Commands
                 ShapeContainer.Destroy();
             };
         }
+
+        public string Serialize() => JsonConvert.SerializeObject((SerializableDrawCommand)this);
+        public static DrawCommand Deserialize(string json) => JsonConvert.DeserializeObject(json) as SerializableDrawCommand;
+    }
+
+    [Serializable]
+    public class SerializableDrawCommand
+    {
+        public SerializableBrush Brush { get; set; }
+        public SerializableShapeData? ShapeData { get; set; }
+        
+        public static SerializableDrawCommand FromCommand(DrawCommand brush)
+            => new()
+            {
+                Brush = brush.Brush,
+                ShapeData = brush.ShapeData,
+            };
+
+        public DrawCommand ToCommand()
+            => new()
+            {
+                Brush = Brush,
+                ShapeData = ShapeData,
+            };
+        
+        
+        public static implicit operator SerializableDrawCommand(DrawCommand command)
+            => FromCommand(command);
+
+        public static implicit operator DrawCommand(SerializableDrawCommand command)
+            => command.ToCommand();
     }
 }

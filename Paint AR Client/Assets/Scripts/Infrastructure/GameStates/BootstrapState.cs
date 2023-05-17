@@ -26,7 +26,8 @@ namespace ArPaint.Infrastructure.GameStates
             Application.targetFrameRate = 300;
             await _staticData.Load();
             await _auth.Init();
-            await _sceneLoader.LoadScene(_auth.IsSignedIn ? SceneIndex.MainMenu : SceneIndex.Auth);
+            await _sceneLoader.LoadScene(SceneIndex.Draw);
+            // await _sceneLoader.LoadScene(_auth.IsSignedIn ? SceneIndex.MainMenu : SceneIndex.Auth);
         }
 
         public class Factory : PlaceholderFactory<BootstrapState>

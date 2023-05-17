@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ArPaint.Services.Commands
 {
@@ -14,7 +15,7 @@ namespace ArPaint.Services.Commands
             
             _commands.Push(command);
         }
-
+        
         public void UndoLastCommand()
         {
             if (!_commands.TryPop(out var command)) return;
@@ -26,6 +27,19 @@ namespace ArPaint.Services.Commands
         {
             if (!_discardedCommands.TryPop(out var command)) return;
             AddCommand(command);
+        }
+
+        public string SerializeDrawCommands()
+        {
+            var commands = new List<SerializableDrawCommand>();
+
+            foreach (var command in _commands)
+            {
+                if (command is DrawCommand drawCommand)
+                    commands.Add(drawCommand);   
+            }
+
+            return JsonConvert.SerializeObject(commands);
         }
     }
 }

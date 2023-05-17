@@ -10,7 +10,6 @@ using ArPaint.Services.SaveLoad;
 using ArPaint.Utils;
 using Firebase.Analytics;
 using Services.StaticData;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
