@@ -9,9 +9,11 @@ using ArPaint.Services.Input;
 using ArPaint.Services.SaveLoad;
 using ArPaint.Utils;
 using Firebase.Analytics;
+using Newtonsoft.Json;
 using Services.StaticData;
 using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
@@ -25,6 +27,7 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
         private readonly ICommandBuffer _commandBuffer;
+        private readonly Transform _container;
 
         private IShape _shape;
 
@@ -44,6 +47,7 @@ namespace ArPaint.Services.Draw
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop, ICommandBuffer commandBuffer, IStaticDataService staticData)
         {
+            _container = new GameObject { name = "Shapes Container"}.transform;
             _mainCamera = mainCamera;
             _inputSource = inputSource;
             _shapeContainerFactory = shapeContainerFactory;
@@ -55,9 +59,17 @@ namespace ArPaint.Services.Draw
             _updateLoop.RegisterUpdate(this);
         }
 
-        public void Dispose()
+        public void Load(string drawCommandsJson)
         {
-            _updateLoop.UnregisterUpdate(this);
+            if (JsonConvert.DeserializeObject(drawCommandsJson) is not List<SerializableDrawCommand> serializableDrawCommands)
+                return;
+            
+            foreach (var command in serializableDrawCommands)
+            {
+                var drawCommand = (DrawCommand)command;
+                drawCommand.CreateContainer = CreateShapeContainer;
+                _commandBuffer.AddCommand(drawCommand);
+            }
         }
 
         public void OnUpdate()
@@ -86,12 +98,19 @@ namespace ArPaint.Services.Draw
                 shape.SetRotation(_mainCamera.transform.rotation);
         }
 
+        private IShapeContainer CreateShapeContainer()
+        {
+            var container = _shapeContainerFactory.Create();
+            container.SetParent(_container);
+            return container;
+        }
+
         private void RegisterTouch(Touch touch)
         {
             if (!IsTouchValid(touch))
                 return;
 
-            var container = _shapeContainerFactory.Create();
+            var container = CreateShapeContainer();
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
 
             container.SetBrush(Brush);
@@ -124,7 +143,7 @@ namespace ArPaint.Services.Draw
                 Brush = Brush,
                 ShapeContainer = container,
                 ShapeData = (container as ISavable<ShapeData>)?.GetData(),
-                CreateContainer = () => _shapeContainerFactory.Create()
+                CreateContainer = CreateShapeContainer
             };
             _commandBuffer.AddCommand(command, true);
         }
@@ -132,6 +151,11 @@ namespace ArPaint.Services.Draw
         private bool IsTouchValid(Touch touch)
         {
             return touch.valid && !_activeShapes.ContainsKey(touch.touchId);
+        }
+        
+        public void Dispose()
+        {
+            _updateLoop.UnregisterUpdate(this);
         }
     }
 }

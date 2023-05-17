@@ -38,6 +38,8 @@ namespace ArPaint.Services.Draw.Shapes
                 _lineRenderer.material = materialData.Material;
         }
 
+        public void SetParent(Transform parent) => transform.SetParent(parent);
+
         public void Destroy()
         {
             GameObject.Destroy(gameObject);

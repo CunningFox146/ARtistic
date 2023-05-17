@@ -8,6 +8,7 @@ using ArPaint.UI.Views.Loading;
 using Firebase;
 using Firebase.Auth;
 using Services.Auth;
+using Services.PersistentData;
 using Services.StaticData;
 using Services.Toast;
 using UnityEngine;
@@ -27,6 +28,7 @@ namespace ArPaint.Infrastructure
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<IPrefabsProvider>().To<PrefabsProvider>().AsSingle();
             Container.Bind<IAuthSystem>().To<AuthSystem>().AsSingle();
+            Container.Bind<IPersistentData>().To<PlayerPrefsPersistentData>().AsSingle();
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
             Container.BindFactory<BootstrapState, BootstrapState.Factory>();
             
