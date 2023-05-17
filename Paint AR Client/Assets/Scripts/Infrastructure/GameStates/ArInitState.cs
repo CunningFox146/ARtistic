@@ -10,7 +10,6 @@ namespace ArPaint.Infrastructure.GameStates
 {
     public class ArInitState : IEnterState, IExitState
     {
-        private readonly DrawState.Factory _drawStateFactory;
         private readonly IGameStateMachine _gameState;
         private readonly ARPlaneManager _planeManager;
         private readonly ILoadingDisplaySystem _loadingDisplaySystem;
@@ -28,12 +27,11 @@ namespace ArPaint.Infrastructure.GameStates
         public void OnEnter()
         {
             _loadingDisplaySystem.HideLoadingView();
-            _viewStack.PushView<RegisterView>();
-// #if UNITY_EDITOR
-//             _gameState.EnterState<DrawState>();
-// #else
-//             _planeManager.planesChanged += OnPlanesChanged;
-// #endif
+#if UNITY_EDITOR
+            _gameState.EnterState<DrawState>();
+#else
+            _planeManager.planesChanged += OnPlanesChanged;
+#endif
         }
 
         public void OnExit()
