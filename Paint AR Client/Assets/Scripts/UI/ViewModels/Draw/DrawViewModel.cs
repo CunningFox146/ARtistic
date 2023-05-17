@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
+using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.Views.DrawOptions;
+using Cysharp.Threading.Tasks;
 using Services.StaticData;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
+using UnityMvvmToolkit.UniTask;
+using UnityMvvmToolkit.UniTask.Interfaces;
 using Command = UnityMvvmToolkit.Core.Command;
 using ICommand = UnityMvvmToolkit.Core.Interfaces.ICommand;
 
@@ -18,7 +23,8 @@ namespace ArPaint.UI.ViewModels.Draw
     {
         private readonly ICommandBuffer _commandBuffer;
         private readonly IDrawService _drawService;
-        
+        private readonly ISceneLoader _sceneLoader;
+
         [Observable(nameof(Shapes))]
         private readonly IReadOnlyProperty<ObservableCollection<ShapeViewModel>> _shapes;
         
@@ -29,6 +35,7 @@ namespace ArPaint.UI.ViewModels.Draw
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
         public ICommand OpenOptionsCommand { get; }
+        public IAsyncCommand ExitDrawingCommand { get; }
         public ObservableCollection<ShapeViewModel> Shapes => _shapes.Value;
 
         public bool IsShapeSelectVisible
@@ -37,19 +44,27 @@ namespace ArPaint.UI.ViewModels.Draw
             set => _isShapeSelectVisible.Value = value;
         }
 
-        public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, IDrawService drawService)
+        public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, IDrawService drawService, ISceneLoader sceneLoader)
         {
             _commandBuffer = commandBuffer;
             _drawService = drawService;
+            _sceneLoader = sceneLoader;
 
             ToggleShapeSelectCommand = new Command(ToggleShapeSelect);
             UndoCommand = new Command(Undo);
             RedoCommand = new Command(Redo);
             OpenOptionsCommand = new Command(OpenOptions);
+            ExitDrawingCommand = new AsyncCommand(ExitDrawing) {DisableOnExecution = true};
             _isShapeSelectVisible = new Property<bool>(false);
             _shapes = new ReadOnlyProperty<ObservableCollection<ShapeViewModel>>(new());
             
             InitShapes(staticData.Shapes.ShapesList);
+        }
+
+        private async UniTask ExitDrawing(CancellationToken _)
+        {
+            _drawService.Save();
+            await _sceneLoader.LoadScene(SceneIndex.MainMenu);
         }
 
         private void OpenOptions()

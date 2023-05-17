@@ -14,7 +14,7 @@ namespace ArPaint.UI.ViewModels.Home
         private readonly IDrawingsProvider _drawingsProvider;
 
         [Observable(nameof(Drawings))]
-        private readonly IReadOnlyProperty<ObservableCollection<DrawingViewModel>> _drawings;
+        private readonly IProperty<ObservableCollection<DrawingViewModel>> _drawings;
 
         public ObservableCollection<DrawingViewModel> Drawings => _drawings.Value;
         

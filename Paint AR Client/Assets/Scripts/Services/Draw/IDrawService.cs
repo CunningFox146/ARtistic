@@ -7,5 +7,6 @@ namespace ArPaint.Services.Draw
     {
         IShape Shape { get; set; }
         Brush Brush { get; set; }
+        void Save();
     }
 }

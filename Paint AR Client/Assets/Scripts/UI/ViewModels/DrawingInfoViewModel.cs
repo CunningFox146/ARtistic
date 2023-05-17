@@ -1,8 +1,12 @@
-﻿using ArPaint.Infrastructure.SceneManagement;
+﻿using System.Threading;
+using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Draw;
+using Cysharp.Threading.Tasks;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
+using UnityMvvmToolkit.UniTask;
+using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace ArPaint.UI.ViewModels
 {
@@ -20,7 +24,7 @@ namespace ArPaint.UI.ViewModels
         private DrawingData _selectedDrawing;
 
         public ICommand SaveCommand { get; }
-        public ICommand DrawCommand { get; }
+        public IAsyncCommand DrawCommand { get; }
         public ICommand CloseViewCommand { get; }
         
         public string DrawingName
@@ -45,7 +49,7 @@ namespace ArPaint.UI.ViewModels
 
             CloseViewCommand = new Command(CloseView);
             SaveCommand = new Command(Save);
-            DrawCommand = new Command(Draw);
+            DrawCommand = new AsyncCommand(Draw);
 
             _drawingsProvider.SelectedDrawingChanged += OnSelectedDrawingChanged;
             OnSelectedDrawingChanged(_drawingsProvider.SelectedDrawing);
@@ -66,7 +70,7 @@ namespace ArPaint.UI.ViewModels
             ViewStack.PopView();
         }
 
-        public void Save()
+        private void Save()
         {
             if (string.IsNullOrEmpty(DrawingName))
                 return;
@@ -77,13 +81,13 @@ namespace ArPaint.UI.ViewModels
             _drawingsProvider.SelectDrawing(_selectedDrawing, true);
         }
 
-        public void Draw()
+        private async UniTask Draw(CancellationToken _)
         {
             if (string.IsNullOrEmpty(DrawingName))
                 return;
             
             Save();
-            _sceneLoader.LoadScene(SceneIndex.Draw);
+            await _sceneLoader.LoadScene(SceneIndex.Draw);
         }
     }
 }

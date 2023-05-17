@@ -204,3 +204,5 @@ MonoBehaviour:
     type: 3}
   _homeView: {fileID: 8381417635746461322, guid: b17709176473b1746a847c8a22909b0e,
     type: 3}
+  _drawingInfoView: {fileID: 3489873490210749136, guid: 24861a97415679e44b5964bf49150a29,
+    type: 3}

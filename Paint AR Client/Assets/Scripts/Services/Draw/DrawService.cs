@@ -9,11 +9,9 @@ using ArPaint.Services.Input;
 using ArPaint.Services.SaveLoad;
 using ArPaint.Utils;
 using Firebase.Analytics;
-using Newtonsoft.Json;
 using Services.StaticData;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
@@ -27,6 +25,7 @@ namespace ArPaint.Services.Draw
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
         private readonly ICommandBuffer _commandBuffer;
+        private readonly IDrawingsProvider _drawingsProvider;
         private readonly Transform _container;
 
         private IShape _shape;
@@ -45,7 +44,7 @@ namespace ArPaint.Services.Draw
         public Brush Brush { get; set; } 
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
-            IUpdateLoop updateLoop, ICommandBuffer commandBuffer, IStaticDataService staticData)
+            IUpdateLoop updateLoop, ICommandBuffer commandBuffer, IStaticDataService staticData, IDrawingsProvider drawingsProvider)
         {
             _container = new GameObject { name = "Shapes Container"}.transform;
             _mainCamera = mainCamera;
@@ -53,22 +52,34 @@ namespace ArPaint.Services.Draw
             _shapeContainerFactory = shapeContainerFactory;
             _updateLoop = updateLoop;
             _commandBuffer = commandBuffer;
+            _drawingsProvider = drawingsProvider;
+            
             Shape = staticData.Shapes.ShapesList.FirstOrDefault();
             Brush = Brush.Default;
 
             _updateLoop.RegisterUpdate(this);
+
+            if (_drawingsProvider.SelectedDrawing != null)
+            {
+                Load(_drawingsProvider.SelectedDrawing.DrawCommands);
+            }
         }
 
-        public void Load(string drawCommandsJson)
+        private void Load(List<SerializableDrawCommand> serializableDrawCommands)
         {
-            if (JsonConvert.DeserializeObject(drawCommandsJson) is not List<SerializableDrawCommand> serializableDrawCommands)
-                return;
-            
             foreach (var command in serializableDrawCommands)
             {
                 var drawCommand = (DrawCommand)command;
                 drawCommand.CreateContainer = CreateShapeContainer;
                 _commandBuffer.AddCommand(drawCommand);
+            }
+        }
+
+        public void Save()
+        {
+            if (_drawingsProvider.SelectedDrawing != null)
+            {
+                _drawingsProvider.SelectedDrawing.DrawCommands = _commandBuffer.SerializeDrawCommands();
             }
         }
 

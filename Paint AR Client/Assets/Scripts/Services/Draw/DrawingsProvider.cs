@@ -27,7 +27,8 @@ namespace ArPaint.Services.Draw
                 Drawings.Add(new()
                 {
                     Description = $"Item {i}",
-                    Name = $"WOWZA {i}"
+                    Name = $"WOWZA {i}",
+                    DrawCommands = new()
                 });
             }
         }

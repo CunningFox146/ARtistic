@@ -29,7 +29,7 @@ namespace ArPaint.Services.Commands
             AddCommand(command);
         }
 
-        public string SerializeDrawCommands()
+        public List<SerializableDrawCommand> SerializeDrawCommands()
         {
             var commands = new List<SerializableDrawCommand>();
 
@@ -39,7 +39,7 @@ namespace ArPaint.Services.Commands
                     commands.Add(drawCommand);   
             }
 
-            return JsonConvert.SerializeObject(commands);
+            return commands;
         }
     }
 }
