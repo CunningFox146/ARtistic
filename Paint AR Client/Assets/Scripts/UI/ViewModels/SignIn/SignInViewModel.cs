@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Security.Authentication;
 using System.Threading;
-using ArPaint.UI.Views.SignIn;
+using ArPaint.UI.Views.Register;
 using Cysharp.Threading.Tasks;
+using Firebase;
 using Services.Auth;
 using Services.Toast;
 using UnityMvvmToolkit.Core;
@@ -12,23 +14,17 @@ using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace ArPaint.UI.ViewModels.Register
 {
-    public class RegisterViewModel : ViewModel
+    public class SignInViewModel : ViewModel
     {
         private readonly IAuthSystem _auth;
         private readonly IToast _toast;
 
         [Observable(nameof(Email))] private readonly IProperty<string> _email;
         [Observable(nameof(Password))] private readonly IProperty<string> _password;
-        [Observable(nameof(UserName))] private readonly IProperty<string> _userName;
 
-        public IAsyncCommand RegisterCommand { get; }
-        public ICommand OpenSignInViewCommand { get; }
-
-        public string UserName
-        {
-            get => _userName.Value;
-            set => _userName.Value = value;
-        }
+        public IAsyncCommand SignInCommand { get; }
+        public IAsyncCommand GoogleSignInCommand { get; }
+        public ICommand OpenRegisterViewCommand { get; }
 
         public string Email
         {
@@ -42,29 +38,41 @@ namespace ArPaint.UI.ViewModels.Register
             set => _password.Value = value;
         }
 
-        public RegisterViewModel(IAuthSystem auth, IToast toast)
+        public SignInViewModel(IAuthSystem auth, IToast toast)
         {
             _auth = auth;
             _toast = toast;
-            _userName = new Property<string>();
             _email = new Property<string>();
             _password = new Property<string>();
 
-            OpenSignInViewCommand = new Command(OpenSignInView);
-            RegisterCommand = new AsyncCommand(Register) { DisableOnExecution = true };
+            SignInCommand = new AsyncCommand(SignIn) { DisableOnExecution = true };
+            GoogleSignInCommand = new AsyncCommand(GoogleSignIn) { DisableOnExecution = true };
+            OpenRegisterViewCommand = new Command(OpenRegisterView);
         }
 
-        private void OpenSignInView()
+        private void OpenRegisterView()
         {
             ViewStack.PopView();
-            ViewStack.PushView<SignInView>();
+            ViewStack.PushView<RegisterView>();
         }
 
-        private async UniTask Register(CancellationToken cancellationToken = default)
+        private async UniTask GoogleSignIn(CancellationToken cancellationToken = default)
         {
             try
             {
-                await _auth.Register(Email, UserName, Password);
+                await _auth.SingInWithGoogle();
+            }
+            catch (Exception exception)
+            {
+                _toast.ShowMessage(exception.Message);
+            }
+        }
+
+        private async UniTask SignIn(CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                await _auth.SignIn(Email, Password);
             }
             catch (Exception exception)
             {

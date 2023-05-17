@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ArPaint.UI.Elements.BindableTextField text-binding-path="Email" name="Email" keyboard-type="EmailAddress" />
+    <ArPaint.UI.Elements.BindableTextField password="true" name="Password" text-binding-path="Password" />
+    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SignInCommand" text="Sign in" name="sign-in-button" />
+    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="Register" command="OpenRegisterViewCommand" text="Register" />
+</ui:UXML>

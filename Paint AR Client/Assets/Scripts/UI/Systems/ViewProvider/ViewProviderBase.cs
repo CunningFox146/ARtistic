@@ -4,7 +4,7 @@ using ArPaint.UI.Systems.Stack;
 
 namespace ArPaint.Infrastructure
 {
-    public abstract class ViewProviderBase : IViewProvider, IDisposable
+    public abstract class ViewProviderBase : IViewProvider
     {
         protected Dictionary<Type, IStackableView> views;
 
@@ -16,15 +16,6 @@ namespace ArPaint.Infrastructure
         public TView GetView<TView>() where TView : IStackableView
         {
             return (TView)views[typeof(TView)];
-        }
-
-        public void Dispose()
-        {
-            foreach (var view in views.Values)
-            {
-                view.Destroy();
-            }
-            views.Clear();
         }
     }
 }

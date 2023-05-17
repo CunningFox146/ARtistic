@@ -155,6 +155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _registerView: {fileID: 3489873490210749136, guid: c0c297af6092ebf4e930e0bc0307bb3f,
     type: 3}
+  _singInView: {fileID: 3489873490210749136, guid: 8a708a9484d108f4bad046aad3eb86d5,
+    type: 3}
 --- !u!114 &200152040
 MonoBehaviour:
   m_ObjectHideFlags: 0
