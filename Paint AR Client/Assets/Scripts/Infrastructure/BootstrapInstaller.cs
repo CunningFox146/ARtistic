@@ -2,6 +2,7 @@ using ArPaint.Infrastructure.AssetProvider;
 using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Infrastructure.GameStates;
 using ArPaint.Infrastructure.SceneManagement;
+using ArPaint.Services.Draw;
 using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.ViewModels.Loading;
 using ArPaint.UI.Views.Loading;
@@ -29,6 +30,7 @@ namespace ArPaint.Infrastructure
             Container.Bind<IPrefabsProvider>().To<PrefabsProvider>().AsSingle();
             Container.Bind<IAuthSystem>().To<AuthSystem>().AsSingle();
             Container.Bind<IPersistentData>().To<PlayerPrefsPersistentData>().AsSingle();
+            Container.Bind<IDrawingsProvider>().To<DrawingsProvider>().AsSingle();
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
             Container.BindFactory<BootstrapState, BootstrapState.Factory>();
             
