@@ -21,6 +21,10 @@ namespace ArPaint.UI.Views
 
         public virtual void Show()
         {
+            if (RootVisualElement == null)
+                return;
+            
+            gameObject.SetActive(true);
             RootVisualElement.visible = true;
             
             // TODO: Refactor
@@ -30,6 +34,11 @@ namespace ArPaint.UI.Views
 
         public virtual void Hide()
         {
+            if (RootVisualElement == null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
             // TODO: Refactor
             RootVisualElement.Query<VisualElement>().Where(element => element is IViewHiddenHandler).ForEach(
                 element => { ((IViewHiddenHandler)element).OnViewHidden(this); });

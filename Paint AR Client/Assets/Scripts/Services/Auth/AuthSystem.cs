@@ -1,4 +1,7 @@
+using System;
 using Cysharp.Threading.Tasks;
+using Firebase;
+using Firebase.Analytics;
 using Firebase.Auth;
 using UnityEngine;
 using Firebase.Auth;
@@ -7,15 +10,31 @@ namespace Services.Auth
 {
     public class AuthSystem : IAuthSystem
     {
+        public event Action<bool> AuthStateChange;
+        
         private readonly FirebaseAuth _auth;
 
-        public bool IsSignedIn => _auth.CurrentUser != null;
+        public bool IsSignedIn => _auth.CurrentUser != null && _auth.CurrentUser.IsValid();
 
         public AuthSystem(FirebaseAuth auth)
         {
             _auth = auth;
+            _auth.StateChanged += OnAuthStateChanged;
         }
-        
+
+        private void OnAuthStateChanged(object sender, EventArgs e)
+        {
+            AuthStateChange?.Invoke(IsSignedIn);
+        }
+
+        public async UniTask Init()
+        {
+            await FirebaseApp.CheckAndFixDependenciesAsync();
+            FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
+
+            await ReloadUser();
+        }
+
         public async UniTask SignIn(string email, string password)
         {
             var credential = EmailAuthProvider.GetCredential(email, password);

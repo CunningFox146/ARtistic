@@ -41,17 +41,18 @@ namespace ArPaint.Infrastructure
             Container.BindInterfacesAndSelfTo<InputSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<DrawService>().AsSingle();
 
-            Container.BindInterfacesAndSelfTo<DrawOptionsViewModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<DrawViewModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<ArInitViewModel>().AsSingle();
             Container.BindFactory<ArInitView, ArInitView.Factory>()
                 .FromComponentInNewPrefab(_arInitView);
             
+            Container.BindInterfacesAndSelfTo<DrawViewModel>().AsSingle();
             Container.BindFactory<DrawView, DrawView.Factory>()
                 .FromComponentInNewPrefab(_drawView);
 
+            Container.BindInterfacesAndSelfTo<DrawOptionsViewModel>().AsSingle();
             Container.BindFactory<DrawOptionsView, DrawOptionsView.Factory>()
                 .FromComponentInNewPrefab(_drawOptionsView);
+            
             Container.BindInterfacesTo<ViewStack>().AsSingle();
             Container.BindInterfacesTo<DrawViewProvider>().AsSingle();
             
