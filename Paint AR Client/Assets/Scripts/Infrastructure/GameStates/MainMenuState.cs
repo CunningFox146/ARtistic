@@ -1,5 +1,6 @@
 ﻿using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.Views.Home;
 using ArPaint.UI.Views.Profile;
 using Zenject;
 
@@ -19,7 +20,7 @@ namespace ArPaint.Infrastructure.GameStates
         public void OnEnter()
         {
             _loadingDisplay.HideLoadingView();
-            _viewStack.PushView<ProfileView>();
+            _viewStack.PushView<HomeView>();
         }
         
         public class Factory : PlaceholderFactory<MainMenuState> { }

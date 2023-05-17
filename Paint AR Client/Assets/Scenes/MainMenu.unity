@@ -202,3 +202,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _profileView: {fileID: 3489873490210749136, guid: 834ca4cd4a58bb84aa30b54853323f36,
     type: 3}
+  _homeView: {fileID: 3489873490210749136, guid: b17709176473b1746a847c8a22909b0e,
+    type: 3}

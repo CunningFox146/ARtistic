@@ -8,6 +8,7 @@ namespace ArPaint.Infrastructure.SceneManagement
     {
         public async UniTask LoadScene(SceneIndex scene, Action callback = null)
         {
+            UnityEngine.Debug.Log(scene);
             await SceneManager.LoadSceneAsync((int)scene, LoadSceneMode.Single);
             callback?.Invoke();
         }
