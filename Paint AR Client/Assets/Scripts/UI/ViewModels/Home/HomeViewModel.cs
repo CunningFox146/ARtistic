@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using ArPaint.Services.Draw;
+using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.Views.DrawingInfo;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -29,11 +31,6 @@ namespace ArPaint.UI.ViewModels.Home
             BuildDrawingsCollection();
         }
 
-        private void CreateDrawing()
-        {
-            throw new System.NotImplementedException();
-        }
-
         private void OnDrawingsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             BuildDrawingsCollection();
@@ -48,9 +45,16 @@ namespace ArPaint.UI.ViewModels.Home
             }
         }
 
+        private void CreateDrawing()
+        {
+            _drawingsProvider.SelectDrawing(null);
+            ViewStack.PushView<DrawingInfoView>();
+        }
+
         private void SelectDrawing(DrawingData drawing)
         {
-            _drawingsProvider.SelectedDrawing = drawing;
+            _drawingsProvider.SelectDrawing(drawing);
+            ViewStack.PushView<DrawingInfoView>();
         }
     }
 }

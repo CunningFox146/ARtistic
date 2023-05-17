@@ -1,7 +1,9 @@
 ﻿using ArPaint.Infrastructure.GameStates;
 using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.ViewModels;
 using ArPaint.UI.ViewModels.Home;
 using ArPaint.UI.ViewModels.ProfileView;
+using ArPaint.UI.Views.DrawingInfo;
 using ArPaint.UI.Views.Home;
 using ArPaint.UI.Views.Profile;
 using UI.Systems.ViewProvider;
@@ -14,6 +16,7 @@ namespace ArPaint.Infrastructure
     {
         [SerializeField] private GameObject _profileView;
         [SerializeField] private GameObject _homeView;
+        [SerializeField] private GameObject _drawingInfoView;
         
         public override void InstallBindings()
         {
@@ -24,6 +27,10 @@ namespace ArPaint.Infrastructure
             Container.BindInterfacesAndSelfTo<HomeViewModel>().AsSingle();
             Container.BindFactory<HomeView, HomeView.Factory>()
                 .FromComponentInNewPrefab(_homeView);
+            
+            Container.BindInterfacesAndSelfTo<DrawingInfoViewModel>().AsSingle();
+            Container.BindFactory<DrawingInfoView, DrawingInfoView.Factory>()
+                .FromComponentInNewPrefab(_drawingInfoView);
 
             Container.BindInterfacesTo<MainMenuViewProvider>().AsSingle();
             Container.BindInterfacesTo<ViewStack>().AsSingle();

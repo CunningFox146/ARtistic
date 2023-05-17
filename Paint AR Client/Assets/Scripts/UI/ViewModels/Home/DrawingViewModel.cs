@@ -12,29 +12,46 @@ namespace ArPaint.UI.ViewModels.Home
         public int Id { get; }
 
         [Observable(nameof(DrawingName))]
-        private readonly IReadOnlyProperty<string> _drawingName;
+        private readonly IProperty<string> _drawingName;
 
         [Observable(nameof(DrawingDescription))]
-        private readonly IReadOnlyProperty<string> _drawingDescription;
+        private readonly IProperty<string> _drawingDescription;
 
         private readonly DrawingData _drawing;
         private readonly Action<DrawingData> _selectDrawing;
         
         public ICommand SelectDrawingCommand { get; }
-
-        public string DrawingName => _drawingName.Value;
-        public string DrawingDescription => _drawingDescription.Value;
+        
+        public string DrawingName
+        {
+            get => _drawingName.Value;
+            set => _drawingName.Value = value;
+        }
+        
+        public string DrawingDescription
+        {
+            get => _drawingDescription.Value;
+            set => _drawingDescription.Value = value;
+        }
         
         public DrawingViewModel(DrawingData drawing, Action<DrawingData> selectDrawing)
         {
             _drawing = drawing;
             _selectDrawing = selectDrawing;
 
-            _drawingName = new ReadOnlyProperty<string>(_drawing.Name);
-            _drawingDescription = new ReadOnlyProperty<string>(_drawing.Description);
+            _drawingName = new Property<string>(_drawing.Name);
+            _drawingDescription = new Property<string>(_drawing.Description);
             
             Id = new Guid().GetHashCode();
             SelectDrawingCommand = new Command(SelectDrawing);
+
+            _drawing.ItemUpdate += Update;
+        }
+
+        private void Update()
+        {
+            DrawingName = _drawing.Name;
+            DrawingDescription = _drawing.Description;
         }
 
         private void SelectDrawing()

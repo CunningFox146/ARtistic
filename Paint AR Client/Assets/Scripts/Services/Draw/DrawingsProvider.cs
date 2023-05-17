@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using Services.PersistentData;
 
@@ -6,8 +7,10 @@ namespace ArPaint.Services.Draw
 {
     public class DrawingsProvider : IDrawingsProvider
     {
+        public event Action<DrawingData> SelectedDrawingChanged;
+        
         private readonly IPersistentData _persistentData;
-        public DrawingData SelectedDrawing { get; set; }
+        public DrawingData SelectedDrawing { get; private set; }
         public ObservableCollection<DrawingData> Drawings { get; }
 
         public DrawingsProvider(IPersistentData persistentData)
@@ -41,6 +44,13 @@ namespace ArPaint.Services.Draw
         public void RemoveData(DrawingData data)
         {
             Drawings.Remove(data);
+        }
+
+        public void SelectDrawing(DrawingData drawingData, bool noNotify = false)
+        {
+            SelectedDrawing = drawingData;
+            if (!noNotify)
+                SelectedDrawingChanged?.Invoke(SelectedDrawing);
         }
 
         public void Save()
