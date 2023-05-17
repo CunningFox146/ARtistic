@@ -2,6 +2,7 @@
     --text-color: rgb(255, 255, 255);
     --primary-color: rgb(47, 105, 255);
     --bg-opacity: 0.15;
+    --bg-color: rgb(20, 20, 22);
 }
 
 .caption-label {
@@ -283,4 +284,60 @@
 .switch--on {
     background-color: rgb(69, 179, 107);
     align-items: flex-end;
+}
+
+.tab-bar {
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 12%;
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.tab-bar__button {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
+    height: auto;
+    justify-content: space-between;
+    width: 25%;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.tab-bar__button__text {
+    color: rgb(255, 255, 255);
+    white-space: nowrap;
+    flex-shrink: 1;
+    flex-grow: 0;
+    margin-top: 15px;
+}
+
+.tab-bar__button__icon {
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    transform-origin: bottom;
+    -unity-text-outline-width: 0;
+    margin-top: 10px;
+    height: 75px;
+}
+
+.tab-bar__button__icon--selected {
+    -unity-background-image-tint-color: var(--primary-color);
+}
+
+.bg {
+    flex-grow: 1;
+    background-color: var(--bg-color);
+    background-image: resource('UI/MainMenu/Graphics/BlurBg');
 }
