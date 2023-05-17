@@ -9,13 +9,13 @@ namespace ArPaint.UI.Views.Home
 {
     public class HomeView : View<HomeViewModel>
     {
-        [SerializeField] private VisualTreeAsset _drawingViewAsset;
+        [SerializeField] private VisualTreeAsset _drawingListViewAsset;
 
         protected override IReadOnlyDictionary<Type, object> GetCollectionItemTemplates()
         {
             return new Dictionary<Type, object>
             {
-                { typeof(DrawingsListView), _drawingViewAsset }
+                { typeof(DrawingViewModel), _drawingListViewAsset }
             };
         }
         

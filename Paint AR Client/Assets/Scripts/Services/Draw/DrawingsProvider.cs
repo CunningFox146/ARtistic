@@ -18,6 +18,15 @@ namespace ArPaint.Services.Draw
             Drawings = json != null
                 ? JsonConvert.DeserializeObject(json) as ObservableCollection<DrawingData>
                 : new ObservableCollection<DrawingData>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                Drawings.Add(new()
+                {
+                    Description = $"Item {i}",
+                    Name = $"WOWZA {i}"
+                });
+            }
         }
 
         public DrawingData CreateNewData()

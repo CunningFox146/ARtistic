@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SelectDrawingCommand">
+        <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" name="name" picking-mode="Ignore" binding-text-path="DrawingName" />
+        <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" name="description" picking-mode="Ignore" binding-text-path="DrawingDescription" />
+    </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+</ui:UXML>
