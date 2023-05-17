@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ArPaint.UI.Systems.ViewProvider;
 
 namespace ArPaint.UI.Systems.Stack
 {

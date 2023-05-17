@@ -22,7 +22,9 @@ namespace ArPaint.Infrastructure.GameStates
         {
             Application.targetFrameRate = 300;
             await _staticData.Load();
-            await _sceneLoader.LoadScene(SceneIndex.PostBootstrap);
+            await _sceneLoader.LoadScene(SceneIndex.Draw);
+            await FirebaseApp.CheckAndFixDependenciesAsync();
+            FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
         }
 
         public class Factory : PlaceholderFactory<BootstrapState>

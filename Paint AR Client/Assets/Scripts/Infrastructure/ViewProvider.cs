@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ArPaint.UI.Systems.Stack;
-using ArPaint.UI.Systems.ViewProvider;
 using ArPaint.UI.Views.ArInit;
 using ArPaint.UI.Views.Draw;
 using ArPaint.UI.Views.DrawOptions;

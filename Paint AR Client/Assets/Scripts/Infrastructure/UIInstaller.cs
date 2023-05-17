@@ -1,7 +1,6 @@
 ﻿using ArPaint.Infrastructure.AssetProvider;
 using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Systems.Stack;
-using ArPaint.UI.Systems.ViewProvider;
 using ArPaint.UI.ViewModels;
 using ArPaint.UI.ViewModels.ArInit;
 using ArPaint.UI.ViewModels.Draw;
