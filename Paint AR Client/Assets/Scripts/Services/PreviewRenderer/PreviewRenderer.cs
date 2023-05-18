@@ -1,21 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw.Shapes;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
 
 namespace Services.PreviewRenderer
 {
-    public class PreviewRenderer : IPreviewRenderer
+    public class PreviewRenderer : IPreviewRenderer, IUpdateable, IDisposable
     {
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private Transform _container;
         private readonly Transform _itemRotationContainer; // Transform to rotate
         private readonly Transform _itemPreviewContainer; // Transform that acts as the center of object
         private readonly Camera _camera;
+        private readonly IUpdateLoop _updateLoop;
 
-        public PreviewRenderer(ShapeContainer.Factory shapeContainerFactory, Camera camera)
+        public PreviewRenderer(ShapeContainer.Factory shapeContainerFactory, Camera camera, IUpdateLoop updateLoop)
         {
             _itemRotationContainer = new GameObject { name = "RotationContainer"}.transform;
             _itemPreviewContainer = new GameObject { name = "PreviewContainer"}.transform;
@@ -24,11 +28,14 @@ namespace Services.PreviewRenderer
             
             _shapeContainerFactory = shapeContainerFactory;
             _camera = camera;
+            _updateLoop = updateLoop;
         }
 
         public async void RenderDrawing(IEnumerable<SerializableDrawCommand> commands)
         {
             Clear();
+            
+            _updateLoop.RegisterUpdate(this);
             
             _itemRotationContainer.localRotation = Quaternion.identity;
             _itemPreviewContainer.position = Vector3.zero;
@@ -98,6 +105,16 @@ namespace Services.PreviewRenderer
             }
             
             return bounds;
+        }
+
+        public void OnUpdate()
+        {
+            _itemRotationContainer.Rotate(Time.deltaTime * 10f * Vector3.up);
+        }
+
+        public void Dispose()
+        {
+            _updateLoop.UnregisterUpdate(this);
         }
     }
 }
