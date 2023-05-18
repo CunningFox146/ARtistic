@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using ArPaint.Utils;
+using Firebase.Firestore;
 using Newtonsoft.Json;
 using Services.PersistentData;
 
@@ -14,7 +15,7 @@ namespace ArPaint.Services.Draw
         public DrawingData SelectedDrawing { get; private set; }
         public ObservableCollection<DrawingData> Drawings { get; }
 
-        public DrawingsProvider(IPersistentData persistentData)
+        public DrawingsProvider(IPersistentData persistentData, FirebaseFirestore firestore)
         {
             _persistentData = persistentData;
 
@@ -24,11 +25,19 @@ namespace ArPaint.Services.Draw
                 : null;
 
             Drawings = loaded ?? new ObservableCollection<DrawingData>();
+
+            foreach (var drawing in Drawings)
+            {
+                firestore.Document($"drawings/{drawing.Id}").SetAsync(drawing);
+            }
         }
 
         public DrawingData CreateNewData()
         {
-            var data = new DrawingData();
+            var data = new DrawingData()
+            {
+                Id = Guid.NewGuid().GetHashCode()
+            };
 
             Drawings.Add(data);
 

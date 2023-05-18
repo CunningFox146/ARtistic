@@ -1,13 +1,20 @@
 ﻿using System;
+using Firebase.Firestore;
 using UnityEngine;
 
 namespace ArPaint.Utils.Serialization
 {
+    [FirestoreData]
     [Serializable]
     public struct SerializableVector
     {
+        [FirestoreProperty]
         public float X { get; set; }
+        
+        [FirestoreProperty]
         public float Y { get; set; }
+        
+        [FirestoreProperty]
         public float Z { get; set; }
 
         public static SerializableVector FromVector3(Vector3 vector3)

@@ -1,14 +1,23 @@
 ﻿using System;
+using Firebase.Firestore;
 using UnityEngine;
 
 namespace ArPaint.Utils.Serialization
 {
+    [FirestoreData]
     [Serializable]
     public class SerializableQuaternion
     {
+        [FirestoreProperty]
         public float X { get; set; }
+        
+        [FirestoreProperty]
         public float Y { get; set; }
+        
+        [FirestoreProperty]
         public float Z { get; set; }
+        
+        [FirestoreProperty]
         public float W { get; set; }
 
         public static SerializableQuaternion FromQuaternion(Quaternion quaternion)

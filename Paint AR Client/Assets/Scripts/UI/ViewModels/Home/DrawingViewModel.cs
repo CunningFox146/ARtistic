@@ -37,12 +37,13 @@ namespace ArPaint.UI.ViewModels.Home
         public DrawingViewModel(DrawingData drawing, Action<DrawingData> selectDrawing)
         {
             Drawing = drawing;
+            Id = Drawing.Id;
+            
             _selectDrawing = selectDrawing;
 
             _drawingName = new Property<string>(Drawing.Name);
             _drawingDescription = new Property<string>(Drawing.Description);
-            
-            Id = new Guid().GetHashCode();
+
             SelectDrawingCommand = new Command(SelectDrawing);
             Update();
         }

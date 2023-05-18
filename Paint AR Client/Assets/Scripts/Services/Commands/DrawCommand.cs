@@ -2,6 +2,7 @@
 using ArPaint.Services.Draw.Brushes;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.SaveLoad;
+using Firebase.Firestore;
 using Newtonsoft.Json;
 
 namespace ArPaint.Services.Commands
@@ -37,11 +38,16 @@ namespace ArPaint.Services.Commands
         public static DrawCommand Deserialize(string json) => JsonConvert.DeserializeObject(json) as SerializableDrawCommand;
     }
 
+    
+    [FirestoreData]
     [Serializable]
     public class SerializableDrawCommand
     {
+        [FirestoreProperty]
         public SerializableBrush Brush { get; set; }
-        public SerializableShapeData? ShapeData { get; set; }
+
+        [FirestoreProperty]
+        public SerializableShapeData ShapeData { get; set; }
         
         public static SerializableDrawCommand FromCommand(DrawCommand brush)
             => new()

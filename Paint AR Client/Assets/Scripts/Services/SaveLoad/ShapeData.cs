@@ -1,5 +1,6 @@
 ﻿using System;
 using ArPaint.Utils.Serialization;
+using Firebase.Firestore;
 using UnityEngine;
 
 namespace ArPaint.Services.SaveLoad
@@ -12,12 +13,20 @@ namespace ArPaint.Services.SaveLoad
         public bool IsLooping { get; set; } 
     }
 
+    [FirestoreData]
     [Serializable]
-    public struct SerializableShapeData
+    public class SerializableShapeData
     {
+        [FirestoreProperty]
         public SerializableVector Position { get; set; }
+        
+        [FirestoreProperty]
         public SerializableQuaternion Rotation { get; set; }
+        
+        [FirestoreProperty]
         public SerializableVector[] LinePositions { get; set; } 
+        
+        [FirestoreProperty]
         public bool IsLooping { get; set; }
 
         public static SerializableShapeData FromShapeData(ShapeData data)

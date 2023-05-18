@@ -1,5 +1,6 @@
 ﻿using System;
 using ArPaint.Utils.Serialization;
+using Firebase.Firestore;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -21,12 +22,20 @@ namespace ArPaint.Services.Draw.Brushes
         }; 
     }
 
+    [FirestoreData]
     [Serializable]
     public struct SerializableBrush
     {
+        [FirestoreProperty]
         public SerializableColor Color { get; set; }
+        
+        [FirestoreProperty]
         public bool IsDotted { get; set; }
+        
+        [FirestoreProperty]
         public float Size { get; set; }
+        
+        [FirestoreProperty]
         public int Smoothness { get; set; }
         
         public static SerializableBrush FromBrush(Brush brush)
