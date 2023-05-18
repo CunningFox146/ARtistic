@@ -8,9 +8,11 @@ using ArPaint.Services.Input;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.ViewModels.ArInit;
 using ArPaint.UI.ViewModels.Draw;
+using ArPaint.UI.ViewModels.DrawingPlacer;
 using ArPaint.UI.ViewModels.DrawOptions;
 using ArPaint.UI.Views.ArInit;
 using ArPaint.UI.Views.Draw;
+using ArPaint.UI.Views.DrawingPlacer;
 using ArPaint.UI.Views.DrawOptions;
 using UI.Systems.ViewProvider;
 using Unity.XR.CoreUtils;
@@ -25,6 +27,7 @@ namespace ArPaint.Infrastructure
         [SerializeField] private GameObject _arInitView;
         [SerializeField] private GameObject _drawView;
         [SerializeField] private GameObject _drawOptionsView;
+        [SerializeField] private GameObject _drawingPlacerView;
 
         
         private IPrefabsProvider _prefabsProvider;
@@ -49,6 +52,10 @@ namespace ArPaint.Infrastructure
             Container.BindFactory<ArInitView, ArInitView.Factory>()
                 .FromComponentInNewPrefab(_arInitView);
             
+            Container.BindInterfacesAndSelfTo<DrawingPlacerViewModel>().AsSingle();
+            Container.BindFactory<DrawingPlacerView, DrawingPlacerView.Factory>()
+                .FromComponentInNewPrefab(_drawingPlacerView);
+            
             Container.BindInterfacesAndSelfTo<DrawViewModel>().AsSingle();
             Container.BindFactory<DrawView, DrawView.Factory>()
                 .FromComponentInNewPrefab(_drawView);
@@ -56,10 +63,10 @@ namespace ArPaint.Infrastructure
             Container.BindInterfacesAndSelfTo<DrawOptionsViewModel>().AsSingle();
             Container.BindFactory<DrawOptionsView, DrawOptionsView.Factory>()
                 .FromComponentInNewPrefab(_drawOptionsView);
-            
-            Container.BindInterfacesTo<ViewStack>().AsSingle();
+
             Container.BindInterfacesTo<DrawViewProvider>().AsSingle();
-            
+            Container.BindInterfacesTo<ViewStack>().AsSingle();
+
             Container.BindFactory<ArInitState, ArInitState.Factory>();
             Container.BindFactory<PlaceDrawingState, PlaceDrawingState.Factory>();
             Container.BindFactory<DrawState, DrawState.Factory>();

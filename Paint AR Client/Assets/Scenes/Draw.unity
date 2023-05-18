@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -205,6 +205,8 @@ MonoBehaviour:
   _drawView: {fileID: 3489873490210749136, guid: a9508ccc39175174795e4137203f507b,
     type: 3}
   _drawOptionsView: {fileID: 3489873490210749136, guid: 039eee6341351d4438609f28a7da02fa,
+    type: 3}
+  _drawingPlacerView: {fileID: 3489873490210749136, guid: 4b186892b4266ff4bae11ba471b09e7c,
     type: 3}
 --- !u!1 &683931310
 GameObject:

@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="BackButton" src="project://database/Assets/Resources/UI/Common/BackButton.uxml?fileID=9197481963319205126&amp;guid=06b7cf2ba4e21dc448246807f9a635d6&amp;type=3#BackButton" />
+    <ArPaint.UI.Elements.SafeAreaView>
+        <ui:Instance template="BackButton" name="BackButton" />
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column-reverse;">
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="PlaceCommand" text="Place" />
+        </ui:VisualElement>
+    </ArPaint.UI.Elements.SafeAreaView>
+</ui:UXML>

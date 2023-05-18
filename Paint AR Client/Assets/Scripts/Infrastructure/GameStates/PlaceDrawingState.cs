@@ -1,4 +1,6 @@
 ﻿using ArPaint.Services.Draw.Placer;
+using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.Views.DrawingPlacer;
 using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
@@ -6,20 +8,24 @@ namespace ArPaint.Infrastructure.GameStates
     public class PlaceDrawingState : IEnterState, IExitState
     {
         private readonly IDrawingPlacer _placer;
+        private readonly IViewStack _viewStack;
 
-        public PlaceDrawingState(IDrawingPlacer placer)
+        public PlaceDrawingState(IDrawingPlacer placer, IViewStack viewStack)
         {
             _placer = placer;
+            _viewStack = viewStack;
         }
 
         public void OnEnter()
         {
+            _viewStack.PushView<DrawingPlacerView>();
             _placer.StartPlacing();
         }
 
         public void OnExit()
         {
-            _placer.StopPlacing();
+            _viewStack.PopView();
+            _placer?.StopPlacing();
         }
 
         public class Factory : PlaceholderFactory<PlaceDrawingState>

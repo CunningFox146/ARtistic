@@ -10,11 +10,26 @@ namespace ArPaint.Services.Draw.Placer
 {
     public class DrawingPlacer : IDisposable, IUpdateable, IDrawingPlacer
     {
+        public event Action<bool> PlacementValidChanged;
+        
         private readonly IDrawingContainer _container;
         private readonly ARRaycastManager _raycastManager;
         private readonly Camera _mainCamera;
         private readonly IUpdateLoop _updateLoop;
         private readonly List<ARRaycastHit> _raycastHits;
+
+        private bool _isPlacementValid;
+        public bool IsPlacementValid
+        {
+            get => _isPlacementValid;
+            private set
+            {
+                if (_isPlacementValid == value)
+                    return;
+                _isPlacementValid = value;
+                PlacementValidChanged?.Invoke(_isPlacementValid);
+            }
+        }
 
         public DrawingPlacer(IDrawingContainer container, ARRaycastManager raycastManager, Camera mainCamera, IUpdateLoop updateLoop)
         {
@@ -26,6 +41,7 @@ namespace ArPaint.Services.Draw.Placer
             _raycastHits = new();
         }
 
+
         public void StartPlacing()
         {
             _updateLoop.RegisterUpdate(this);
@@ -34,7 +50,8 @@ namespace ArPaint.Services.Draw.Placer
         public void StopPlacing(bool disableContainer = false)
         {
             _updateLoop.UnregisterUpdate(this);
-            _container.Container.gameObject.SetActive(!disableContainer);
+            if (_container != null && _container?.Container)
+                _container?.Container.gameObject.SetActive(!disableContainer);
         }
 
         public void Dispose()
@@ -48,6 +65,7 @@ namespace ArPaint.Services.Draw.Placer
             var screenCenter = _mainCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
             if (!_raycastManager.Raycast(screenCenter, _raycastHits, TrackableType.Planes) || !_raycastHits.Any())
             {
+                IsPlacementValid = false;
                 _container.Container.gameObject.SetActive(false);
                 return;
             }
@@ -59,6 +77,8 @@ namespace ArPaint.Services.Draw.Placer
             
             _container.Container.gameObject.SetActive(true);
             _container.Container.SetPositionAndRotation(pose.position, pose.rotation);
+
+            IsPlacementValid = true;
         }
     }
 }
