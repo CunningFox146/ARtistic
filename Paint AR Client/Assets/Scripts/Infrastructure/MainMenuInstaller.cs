@@ -3,8 +3,11 @@ using ArPaint.Infrastructure.GameStates;
 using ArPaint.Services.Draw.Shapes;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.ViewModels;
+using ArPaint.UI.ViewModels.Discover;
+using ArPaint.UI.ViewModels.DrawingInfo;
 using ArPaint.UI.ViewModels.Home;
 using ArPaint.UI.ViewModels.ProfileView;
+using ArPaint.UI.Views.Discover;
 using ArPaint.UI.Views.DrawingInfo;
 using ArPaint.UI.Views.Home;
 using ArPaint.UI.Views.Profile;
@@ -20,6 +23,7 @@ namespace ArPaint.Infrastructure
         [SerializeField] private Camera _shapesCamera;
         [SerializeField] private GameObject _profileView;
         [SerializeField] private GameObject _homeView;
+        [SerializeField] private GameObject _discoverView;
         [SerializeField] private GameObject _drawingInfoView;
         
         private IPrefabsProvider _prefabsProvider;
@@ -44,6 +48,10 @@ namespace ArPaint.Infrastructure
             
             Container.BindInterfacesAndSelfTo<DrawingInfoViewModel>().AsSingle();
             Container.BindFactory<DrawingInfoView, DrawingInfoView.Factory>()
+                .FromComponentInNewPrefab(_drawingInfoView);
+            
+            Container.BindInterfacesAndSelfTo<DiscoverViewModel>().AsSingle();
+            Container.BindFactory<DiscoverView, DiscoverView.Factory>()
                 .FromComponentInNewPrefab(_drawingInfoView);
 
             Container.BindInterfacesTo<MainMenuViewProvider>().AsSingle();

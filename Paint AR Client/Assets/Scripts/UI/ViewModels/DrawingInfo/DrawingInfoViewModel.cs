@@ -12,7 +12,7 @@ using UnityMvvmToolkit.Core.Interfaces;
 using UnityMvvmToolkit.UniTask;
 using UnityMvvmToolkit.UniTask.Interfaces;
 
-namespace ArPaint.UI.ViewModels
+namespace ArPaint.UI.ViewModels.DrawingInfo
 {
     public class DrawingInfoViewModel : ViewModel, IDisposable
     {

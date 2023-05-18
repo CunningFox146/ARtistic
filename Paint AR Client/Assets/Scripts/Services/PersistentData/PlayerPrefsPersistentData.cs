@@ -33,7 +33,6 @@ namespace Services.PersistentData
 
         public void Clear()
         {
-            Debug.Log("Clear");
             PlayerPrefs.DeleteAll();
             Save();
         }

@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
+    <ui:VisualElement name="bg" class="bg" />
+    <ArPaint.UI.Elements.SafeAreaView>
+        <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column-reverse;">
+            <ui:VisualElement name="tab-bar" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="discover" command="OpenProfileTabCommand" class="tab-bar__button">
+                    <ui:VisualElement name="VisualElement" class="tab-bar__button__icon tab-bar__button__icon--selected" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/MainMenu/Graphics/DiscoverSelected&apos;);" />
+                    <ui:Label tabindex="-1" text="Discover" display-tooltip-when-elided="true" class="tab-bar__button__text" />
+                </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="home" command="OpenHomeTabCommand" class="tab-bar__button">
+                    <ui:VisualElement name="VisualElement" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/MainMenu/Graphics/Home&apos;);" />
+                    <ui:Label tabindex="-1" text="Home" display-tooltip-when-elided="true" class="tab-bar__button__text" />
+                </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="profile" command="OpenProfileTabCommand" class="tab-bar__button">
+                    <ui:VisualElement name="VisualElement" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/MainMenu/Graphics/Profile&apos;);" />
+                    <ui:Label tabindex="-1" text="Profile" display-tooltip-when-elided="true" class="tab-bar__button__text" />
+                </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ArPaint.UI.Elements.SafeAreaView>
+</ui:UXML>

@@ -39,7 +39,6 @@ namespace ArPaint.Services.Draw
         {
             Drawings.Clear();
             var json = _persistentData.GetValue(nameof(Drawings));
-            Debug.Log($"Reload {json}");
             var loaded = !string.IsNullOrEmpty(json)
                 ? JsonConvert.DeserializeObject<ObservableCollection<DrawingData>>(json)
                 : null;
