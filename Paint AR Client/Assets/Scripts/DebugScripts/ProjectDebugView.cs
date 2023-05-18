@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace ArPaint.Debug
+namespace ArPaint.DebugScripts
 {
     public class ProjectDebugView : MonoBehaviour
     {

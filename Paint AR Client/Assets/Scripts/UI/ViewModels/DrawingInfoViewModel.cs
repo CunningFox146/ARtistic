@@ -2,6 +2,7 @@
 using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Draw;
 using Cysharp.Threading.Tasks;
+using Services.PreviewRenderer;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -14,6 +15,7 @@ namespace ArPaint.UI.ViewModels
     {
         private readonly IDrawingsProvider _drawingsProvider;
         private readonly ISceneLoader _sceneLoader;
+        private readonly IPreviewRenderer _previewRenderer;
 
         [Observable(nameof(DrawingName))]
         private readonly IProperty<string> _drawingName;
@@ -40,10 +42,11 @@ namespace ArPaint.UI.ViewModels
             set => _drawingDescription.Value = value;
         }
 
-        public DrawingInfoViewModel(IDrawingsProvider drawingsProvider, ISceneLoader sceneLoader)
+        public DrawingInfoViewModel(IDrawingsProvider drawingsProvider, ISceneLoader sceneLoader, IPreviewRenderer previewRenderer)
         {
             _drawingsProvider = drawingsProvider;
             _sceneLoader = sceneLoader;
+            _previewRenderer = previewRenderer;
 
             _drawingName = new Property<string>();
             _drawingDescription = new Property<string>();
@@ -69,6 +72,11 @@ namespace ArPaint.UI.ViewModels
             _selectedDrawing = drawing;
             DrawingName = _selectedDrawing?.Name;
             DrawingDescription = _selectedDrawing?.Description;
+            
+            if (_selectedDrawing != null)
+                _previewRenderer.RenderDrawing(_selectedDrawing.DrawCommands);
+            else
+                _previewRenderer.Clear();
             
             DeleteCommand.RaiseCanExecuteChanged();
         }
