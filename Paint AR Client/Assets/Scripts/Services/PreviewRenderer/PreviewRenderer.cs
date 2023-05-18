@@ -12,34 +12,39 @@ namespace Services.PreviewRenderer
 {
     public class PreviewRenderer : IPreviewRenderer, IUpdateable, IDisposable
     {
-        private readonly IFactory<IShapeContainer> _shapeContainerFactory;
-        private Transform _container;
-        private readonly Transform _itemRotationContainer; // Transform to rotate
-        private readonly Transform _itemPreviewContainer; // Transform that acts as the center of object
         private readonly Camera _camera;
+        private readonly Transform _itemPreviewContainer; // Transform that acts as the center of object
+        private readonly Transform _itemRotationContainer; // Transform to rotate
+        private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
+        private Transform _container;
 
         public PreviewRenderer(ShapeContainer.Factory shapeContainerFactory, Camera camera, IUpdateLoop updateLoop)
         {
-            _itemRotationContainer = new GameObject { name = "RotationContainer"}.transform;
-            _itemPreviewContainer = new GameObject { name = "PreviewContainer"}.transform;
-            
+            _itemRotationContainer = new GameObject { name = "RotationContainer" }.transform;
+            _itemPreviewContainer = new GameObject { name = "PreviewContainer" }.transform;
+
             _itemPreviewContainer.SetParent(_itemRotationContainer);
-            
+
             _shapeContainerFactory = shapeContainerFactory;
             _camera = camera;
             _updateLoop = updateLoop;
         }
 
+        public void Dispose()
+        {
+            _updateLoop.UnregisterUpdate(this);
+        }
+
         public async void RenderDrawing(IEnumerable<SerializableDrawCommand> commands)
         {
             Clear();
-            
+
             _updateLoop.RegisterUpdate(this);
-            
+
             _itemRotationContainer.localRotation = Quaternion.identity;
             _itemPreviewContainer.position = Vector3.zero;
-            
+
             foreach (var command in commands)
             {
                 var drawCommand = (DrawCommand)command;
@@ -48,7 +53,7 @@ namespace Services.PreviewRenderer
             }
 
             await UniTask.Yield();
-            
+
             var bounds = GetBoundsWithChildren(_container.gameObject);
             _itemPreviewContainer.position = -bounds.center;
 
@@ -57,11 +62,16 @@ namespace Services.PreviewRenderer
 
         public void Clear()
         {
-            if (_container !=null)
+            if (_container != null)
                 Object.Destroy(_container.gameObject);
-            
-            _container = new GameObject { name = "ShapesContainer"}.transform;
+
+            _container = new GameObject { name = "ShapesContainer" }.transform;
             _container.SetParent(_itemPreviewContainer);
+        }
+
+        public void OnUpdate()
+        {
+            _itemRotationContainer.Rotate(Time.deltaTime * 10f * Vector3.up);
         }
 
         private IShapeContainer CreateShapeContainer()
@@ -81,17 +91,6 @@ namespace Services.PreviewRenderer
             camera.transform.LookAt(center);
             camera.gameObject.SetActive(true);
         }
-        
-        private static void FocusOn_OLD(Bounds bounds, float marginPercentage, Camera camera)
-        {
-            var centerAtFront = new Vector3(bounds.center.x, bounds.center.y, bounds.max.z);
-            var centerAtFrontTop = new Vector3(bounds.center.x, bounds.max.y, bounds.max.z);
-            var centerToTopDist = (centerAtFrontTop - centerAtFront).magnitude;
-            var minDistance = centerToTopDist * marginPercentage / Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad);
- 
-            camera.transform.position = new Vector3(bounds.center.x, bounds.center.y, -minDistance);
-            camera.transform.LookAt(bounds.center);
-        }
 
         private static Bounds GetBoundsWithChildren(GameObject gameObject)
         {
@@ -103,18 +102,8 @@ namespace Services.PreviewRenderer
                 if (!renderers[i].enabled) continue;
                 bounds.Encapsulate(renderers[i].bounds);
             }
-            
+
             return bounds;
-        }
-
-        public void OnUpdate()
-        {
-            _itemRotationContainer.Rotate(Time.deltaTime * 10f * Vector3.up);
-        }
-
-        public void Dispose()
-        {
-            _updateLoop.UnregisterUpdate(this);
         }
     }
 }
