@@ -85,8 +85,8 @@ namespace ArPaint.Services.Draw.Shapes
             _lineRenderer.GetPositions(positions);
             return new ShapeData
             {
-                Position = transform.position,
-                Rotation = transform.rotation,
+                Position = transform.localPosition,
+                Rotation = transform.localRotation,
                 IsLooping = IsLooping,
                 LinePositions = positions
             };
@@ -94,8 +94,7 @@ namespace ArPaint.Services.Draw.Shapes
 
         public void Load(ShapeData data)
         {
-            transform.position = data.Position;
-            transform.rotation = data.Rotation;
+            transform.SetLocalPositionAndRotation(data.Position, data.Rotation);
             
             foreach (var position in data.LinePositions)
             {

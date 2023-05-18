@@ -61,6 +61,7 @@ namespace ArPaint.UI.ViewModels
         {
             _drawingsProvider.RemoveData(_selectedDrawing);
             _drawingsProvider.Save();
+            CloseView();
         }
 
         private void OnSelectedDrawingChanged(DrawingData drawing)
@@ -87,6 +88,7 @@ namespace ArPaint.UI.ViewModels
             _selectedDrawing.Description = DrawingDescription;
             _drawingsProvider.SelectDrawing(_selectedDrawing, true);
             _drawingsProvider.Save();
+            CloseView();
         }
 
         private async UniTask Draw(CancellationToken _)

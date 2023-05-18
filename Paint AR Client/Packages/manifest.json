@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.chebanovdd.unitymvvmtoolkit": "1.0.1",
+    "com.chebanovdd.unitymvvmtoolkit": "1.0.2",
     "com.cysharp.unitask": "2.3.3",
     "com.unity.collab-proxy": "2.0.4",
     "com.unity.device-simulator.devices": "1.0.0",

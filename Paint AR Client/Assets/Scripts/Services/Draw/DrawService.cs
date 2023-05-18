@@ -17,7 +17,7 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 namespace ArPaint.Services.Draw
 {
-    public class DrawService : IUpdateable, IDisposable, IDrawService
+    public class DrawService : IUpdateable, IDisposable, IDrawService, IDrawingContainer
     {
         private readonly Dictionary<int, IShapeContainer> _activeShapes = new();
         private readonly IInputSource _inputSource;
@@ -26,8 +26,7 @@ namespace ArPaint.Services.Draw
         private readonly IUpdateLoop _updateLoop;
         private readonly ICommandBuffer _commandBuffer;
         private readonly IDrawingsProvider _drawingsProvider;
-        private readonly Transform _container;
-
+        
         private IShape _shape;
 
         public IShape Shape
@@ -41,12 +40,16 @@ namespace ArPaint.Services.Draw
             }
         }
 
+        
+        public Transform Container { get; }
         public Brush Brush { get; set; } 
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
             IUpdateLoop updateLoop, ICommandBuffer commandBuffer, IStaticDataService staticData, IDrawingsProvider drawingsProvider)
         {
-            _container = new GameObject { name = "Shapes Container"}.transform;
+            Container = new GameObject { name = "Shapes Container"}.transform;
+            Container.gameObject.SetActive(false);
+            
             _mainCamera = mainCamera;
             _inputSource = inputSource;
             _shapeContainerFactory = shapeContainerFactory;
@@ -116,7 +119,7 @@ namespace ArPaint.Services.Draw
         private IShapeContainer CreateShapeContainer()
         {
             var container = _shapeContainerFactory.Create();
-            container.SetParent(_container);
+            container.SetParent(Container);
             return container;
         }
 
