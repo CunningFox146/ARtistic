@@ -22,6 +22,7 @@ namespace ArPaint.UI.ViewModels
         [Observable(nameof(DrawingName))] private readonly IProperty<string> _drawingName;
         
         [Observable] private readonly IProperty<string> _publishButtonText;
+        [Observable] private readonly IProperty<string> _author;
 
         private readonly IDrawingsProvider _drawingsProvider;
         private readonly IPreviewRenderer _previewRenderer;
@@ -62,6 +63,7 @@ namespace ArPaint.UI.ViewModels
             _drawingName = new Property<string>();
             _drawingDescription = new Property<string>();
             _publishButtonText = new Property<string>();
+            _author = new Property<string>();
 
             CloseViewCommand = new Command(CloseView);
             SaveCommand = new AsyncCommand(Save) { DisableOnExecution = true };
@@ -107,6 +109,7 @@ namespace ArPaint.UI.ViewModels
             DrawingName = _selectedDrawing?.Name;
             DrawingDescription = _selectedDrawing?.Description;
             _publishButtonText.Value = _selectedDrawing is { IsPublished: true } ? "Unpublish" : "Publish";
+            _author.Value = (_selectedDrawing == null || _selectedDrawing.IsOwned) ? "You" : _selectedDrawing.AuthorName;
 
             if (_selectedDrawing is { DrawCommands: not null })
                 _previewRenderer.RenderDrawing(_selectedDrawing.DrawCommands);

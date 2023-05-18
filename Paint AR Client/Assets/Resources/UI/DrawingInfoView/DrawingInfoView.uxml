@@ -13,6 +13,10 @@
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="upload" command="PublishCommand">
                 <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" binding-text-path="PublishButtonText" />
             </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
+            <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
+                <ui:Label tabindex="-1" text="Drawing author:" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" name="BindableLabel" binding-text-path="Author" style="color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/RenderTextures/DrawingPreview.renderTexture?fileID=8400000&amp;guid=6830ff28f7b9acc48b54f12e2a87e7e8&amp;type=2#DrawingPreview&apos;); -unity-background-scale-mode: scale-to-fit;" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ScreenshotCommand" text="Export as PNG" />
         </ui:VisualElement>

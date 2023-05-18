@@ -1,9 +1,9 @@
 ﻿using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Systems.Stack;
-using ArPaint.UI.Views.Register;
 using ArPaint.UI.Views.SignIn;
 using Services.Auth;
+using Services.PersistentData;
 using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
@@ -12,19 +12,23 @@ namespace ArPaint.Infrastructure.GameStates
     {
         private readonly IAuthSystem _auth;
         private readonly ILoadingDisplaySystem _loadingDisplay;
-        private readonly IViewStack _viewStack;
+        private readonly IPersistentData _persistentData;
         private readonly ISceneLoader _sceneLoader;
+        private readonly IViewStack _viewStack;
 
-        public AuthState(IAuthSystem auth, ILoadingDisplaySystem loadingDisplay, IViewStack viewStack, ISceneLoader sceneLoader)
+        public AuthState(IAuthSystem auth, ILoadingDisplaySystem loadingDisplay, IViewStack viewStack,
+            ISceneLoader sceneLoader, IPersistentData persistentData)
         {
             _auth = auth;
             _loadingDisplay = loadingDisplay;
             _viewStack = viewStack;
             _sceneLoader = sceneLoader;
+            _persistentData = persistentData;
         }
-        
+
         public void OnEnter()
         {
+            _persistentData.Clear();
             _loadingDisplay.HideLoadingView();
             _viewStack.PushView<SignInView>();
             _auth.AuthStateChange += OnAuthStateChange;
@@ -44,6 +48,8 @@ namespace ArPaint.Infrastructure.GameStates
             }
         }
 
-        public class Factory : PlaceholderFactory<AuthState>{}
+        public class Factory : PlaceholderFactory<AuthState>
+        {
+        }
     }
 }

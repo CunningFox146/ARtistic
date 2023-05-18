@@ -56,6 +56,8 @@ namespace ArPaint.Services.Draw
             {
                 if (Drawings.FirstOrDefault(localDrawing => localDrawing.Id == drawing.Id) == null)
                 {
+                    drawing.IsPublished = true;
+                    drawing.IsOwned = true;
                     drawingsToAdd.Add(drawing);
                 }
             }
@@ -98,6 +100,7 @@ namespace ArPaint.Services.Draw
             var data = new DrawingData
             {
                 Id = Guid.NewGuid().GetHashCode(),
+                IsOwned = true,
                 Author = _auth.User.UserId,
                 AuthorName = _auth.User.DisplayName,
                 CreationDate = DateTime.Today
