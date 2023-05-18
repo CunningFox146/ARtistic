@@ -4,6 +4,7 @@ using ArPaint.Services.Commands;
 
 namespace ArPaint.Services.Draw
 {
+    [Serializable]
     public class DrawingData
     {
         public event Action ItemUpdate;

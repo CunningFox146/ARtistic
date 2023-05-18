@@ -9,7 +9,6 @@ namespace ArPaint.UI.ViewModels.Home
 {
     public class DrawingViewModel : ICollectionItem
     {
-        public int Id { get; }
 
         [Observable(nameof(DrawingName))]
         private readonly IProperty<string> _drawingName;
@@ -17,9 +16,10 @@ namespace ArPaint.UI.ViewModels.Home
         [Observable(nameof(DrawingDescription))]
         private readonly IProperty<string> _drawingDescription;
 
-        private readonly DrawingData _drawing;
         private readonly Action<DrawingData> _selectDrawing;
-        
+
+        public int Id { get; }
+        public DrawingData Drawing { get; }
         public ICommand SelectDrawingCommand { get; }
         
         public string DrawingName
@@ -36,27 +36,27 @@ namespace ArPaint.UI.ViewModels.Home
         
         public DrawingViewModel(DrawingData drawing, Action<DrawingData> selectDrawing)
         {
-            _drawing = drawing;
+            Drawing = drawing;
             _selectDrawing = selectDrawing;
 
-            _drawingName = new Property<string>(_drawing.Name);
-            _drawingDescription = new Property<string>(_drawing.Description);
+            _drawingName = new Property<string>(Drawing.Name);
+            _drawingDescription = new Property<string>(Drawing.Description);
             
             Id = new Guid().GetHashCode();
             SelectDrawingCommand = new Command(SelectDrawing);
 
-            _drawing.ItemUpdate += Update;
+            Drawing.ItemUpdate += Update;
         }
 
         private void Update()
         {
-            DrawingName = _drawing.Name;
-            DrawingDescription = _drawing.Description;
+            DrawingName = Drawing.Name;
+            DrawingDescription = Drawing.Description;
         }
 
         private void SelectDrawing()
         {
-            _selectDrawing?.Invoke(_drawing);
+            _selectDrawing?.Invoke(Drawing);
         }
     }
 }

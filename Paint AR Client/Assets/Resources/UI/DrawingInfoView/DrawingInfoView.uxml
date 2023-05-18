@@ -7,6 +7,7 @@
             <ui:Instance template="BackButton" name="BackButton" />
             <ArPaint.UI.Elements.BindableTextField name="name" keyboard-type="ASCIICapable" auto-correction="true" text-binding-path="DrawingName" />
             <ArPaint.UI.Elements.BindableTextField keyboard-type="ASCIICapable" auto-correction="true" multiline="true" name="desc" text-binding-path="DrawingDescription" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="DeleteCommand" text="Delete" name="delete" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SaveCommand" text="Save" name="save" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="DrawCommand" text="Draw!" name="draw" />
         </ui:VisualElement>

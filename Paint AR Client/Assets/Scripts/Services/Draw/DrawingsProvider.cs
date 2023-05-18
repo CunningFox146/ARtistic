@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Newtonsoft.Json;
 using Services.PersistentData;
 
@@ -18,19 +20,11 @@ namespace ArPaint.Services.Draw
             _persistentData = persistentData;
 
             var json = _persistentData.GetValue(nameof(Drawings));
-            Drawings = json != null
-                ? JsonConvert.DeserializeObject(json) as ObservableCollection<DrawingData>
-                : new ObservableCollection<DrawingData>();
+            var loaded = !string.IsNullOrEmpty(json)
+                ? JsonConvert.DeserializeObject<ObservableCollection<DrawingData>>(json)
+                : null;
 
-            for (int i = 0; i < 5; i++)
-            {
-                Drawings.Add(new()
-                {
-                    Description = $"Item {i}",
-                    Name = $"WOWZA {i}",
-                    DrawCommands = new()
-                });
-            }
+            Drawings = loaded ?? new ObservableCollection<DrawingData>();
         }
 
         public DrawingData CreateNewData()

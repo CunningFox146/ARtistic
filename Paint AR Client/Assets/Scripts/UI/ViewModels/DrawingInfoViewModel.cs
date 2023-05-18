@@ -24,6 +24,7 @@ namespace ArPaint.UI.ViewModels
         private DrawingData _selectedDrawing;
 
         public ICommand SaveCommand { get; }
+        public ICommand DeleteCommand { get; }
         public IAsyncCommand DrawCommand { get; }
         public ICommand CloseViewCommand { get; }
         
@@ -49,20 +50,26 @@ namespace ArPaint.UI.ViewModels
 
             CloseViewCommand = new Command(CloseView);
             SaveCommand = new Command(Save);
+            DeleteCommand = new Command(Delete, () => _selectedDrawing != null);
             DrawCommand = new AsyncCommand(Draw);
 
             _drawingsProvider.SelectedDrawingChanged += OnSelectedDrawingChanged;
             OnSelectedDrawingChanged(_drawingsProvider.SelectedDrawing);
         }
 
+        private void Delete()
+        {
+            _drawingsProvider.RemoveData(_selectedDrawing);
+            _drawingsProvider.Save();
+        }
+
         private void OnSelectedDrawingChanged(DrawingData drawing)
         {
             _selectedDrawing = drawing;
-            if (_selectedDrawing != null)
-            {
-                DrawingName = _selectedDrawing.Name;
-                DrawingDescription = _selectedDrawing.Description;
-            }
+            DrawingName = _selectedDrawing?.Name;
+            DrawingDescription = _selectedDrawing?.Description;
+            
+            DeleteCommand.RaiseCanExecuteChanged();
         }
 
         private void CloseView()
@@ -79,6 +86,7 @@ namespace ArPaint.UI.ViewModels
             _selectedDrawing.Name = DrawingName;
             _selectedDrawing.Description = DrawingDescription;
             _drawingsProvider.SelectDrawing(_selectedDrawing, true);
+            _drawingsProvider.Save();
         }
 
         private async UniTask Draw(CancellationToken _)

@@ -67,6 +67,9 @@ namespace ArPaint.Services.Draw
 
         private void Load(List<SerializableDrawCommand> serializableDrawCommands)
         {
+            if (serializableDrawCommands == null)
+                return;
+            
             foreach (var command in serializableDrawCommands)
             {
                 var drawCommand = (DrawCommand)command;
@@ -80,6 +83,7 @@ namespace ArPaint.Services.Draw
             if (_drawingsProvider.SelectedDrawing != null)
             {
                 _drawingsProvider.SelectedDrawing.DrawCommands = _commandBuffer.SerializeDrawCommands();
+                _drawingsProvider.Save();
             }
         }
 

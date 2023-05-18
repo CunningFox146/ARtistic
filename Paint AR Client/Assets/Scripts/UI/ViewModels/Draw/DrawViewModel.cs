@@ -35,7 +35,7 @@ namespace ArPaint.UI.ViewModels.Draw
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
         public ICommand OpenOptionsCommand { get; }
-        public IAsyncCommand ExitDrawingCommand { get; }
+        public IAsyncCommand CloseViewCommand { get; }
         public ObservableCollection<ShapeViewModel> Shapes => _shapes.Value;
 
         public bool IsShapeSelectVisible
@@ -54,7 +54,7 @@ namespace ArPaint.UI.ViewModels.Draw
             UndoCommand = new Command(Undo);
             RedoCommand = new Command(Redo);
             OpenOptionsCommand = new Command(OpenOptions);
-            ExitDrawingCommand = new AsyncCommand(ExitDrawing) {DisableOnExecution = true};
+            CloseViewCommand = new AsyncCommand(ExitDrawing) {DisableOnExecution = true};
             _isShapeSelectVisible = new Property<bool>(false);
             _shapes = new ReadOnlyProperty<ObservableCollection<ShapeViewModel>>(new());
             
