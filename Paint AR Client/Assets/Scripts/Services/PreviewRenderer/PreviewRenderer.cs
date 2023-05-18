@@ -67,11 +67,14 @@ namespace Services.PreviewRenderer
 
             _container = new GameObject { name = "ShapesContainer" }.transform;
             _container.SetParent(_itemPreviewContainer);
+            
+            _updateLoop.UnregisterUpdate(this);
         }
 
         public void OnUpdate()
         {
-            _itemRotationContainer.Rotate(Time.deltaTime * 10f * Vector3.up);
+            if (_itemRotationContainer)
+                _itemRotationContainer.Rotate(Time.deltaTime * 10f * Vector3.up);
         }
 
         private IShapeContainer CreateShapeContainer()

@@ -10,11 +10,11 @@ namespace ArPaint.Infrastructure.GameStates
 {
     public class ArInitState : IEnterState, IExitState
     {
+        private readonly IDrawingsProvider _drawingsProvider;
         private readonly IGameStateMachine _gameState;
         private readonly ILoadingDisplaySystem _loadingDisplaySystem;
         private readonly ARPlaneManager _planeManager;
         private readonly IViewStack _viewStack;
-        private readonly IDrawingsProvider _drawingsProvider;
 
         [Inject]
         public ArInitState(ARPlaneManager planeManager, IGameStateMachine gameState,
@@ -30,7 +30,7 @@ namespace ArPaint.Infrastructure.GameStates
         public void OnEnter()
         {
             _loadingDisplaySystem.HideLoadingView();
-            
+
 #if UNITY_EDITOR
             _gameState.EnterState<DrawState>();
 #else
@@ -49,8 +49,9 @@ namespace ArPaint.Infrastructure.GameStates
         {
             if (!eventArgs.added.Any())
                 return;
-            
-            if (_drawingsProvider.SelectedDrawing != null)
+
+            if (_drawingsProvider.SelectedDrawing is { DrawCommands: not null } &&
+                _drawingsProvider.SelectedDrawing.DrawCommands.Any())
                 _gameState.EnterState<PlaceDrawingState>();
             else
                 _gameState.EnterState<DrawState>();

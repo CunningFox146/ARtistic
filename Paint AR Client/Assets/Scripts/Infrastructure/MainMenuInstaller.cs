@@ -33,6 +33,7 @@ namespace ArPaint.Infrastructure
         public override void InstallBindings()
         {
             Container.Bind<Camera>().FromInstance(_shapesCamera).AsSingle();
+            Container.Bind<RenderTexture>().FromInstance(_shapesCamera.targetTexture).AsSingle();
             Container.BindInterfacesAndSelfTo<ProfileViewModel>().AsSingle();
             Container.BindFactory<ProfileView, ProfileView.Factory>()
                 .FromComponentInNewPrefab(_profileView);

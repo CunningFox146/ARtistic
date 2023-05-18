@@ -68,12 +68,14 @@ namespace ArPaint.Services.Draw
             }
         }
 
-        private void Load(List<SerializableDrawCommand> serializableDrawCommands)
+        private void Load(IReadOnlyCollection<SerializableDrawCommand> serializableDrawCommands)
         {
             if (serializableDrawCommands == null)
                 return;
-            
-            foreach (var command in serializableDrawCommands)
+
+            var copy = serializableDrawCommands.ToList();
+            copy.Reverse();
+            foreach (var command in copy)
             {
                 var drawCommand = (DrawCommand)command;
                 drawCommand.CreateContainer = CreateShapeContainer;
