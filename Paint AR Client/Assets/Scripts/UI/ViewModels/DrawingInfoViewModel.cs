@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Draw;
 using Cysharp.Threading.Tasks;
@@ -13,7 +14,7 @@ using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace ArPaint.UI.ViewModels
 {
-    public class DrawingInfoViewModel : ViewModel
+    public class DrawingInfoViewModel : ViewModel, IDisposable
     {
         private readonly IDrawingsProvider _drawingsProvider;
         private readonly ISceneLoader _sceneLoader;
@@ -121,6 +122,11 @@ namespace ArPaint.UI.ViewModels
             
             Save();
             await _sceneLoader.LoadScene(SceneIndex.Draw);
+        }
+
+        public void Dispose()
+        {
+            _drawingsProvider.SelectedDrawingChanged -= OnSelectedDrawingChanged;
         }
     }
 }
