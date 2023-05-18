@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ArPaint.UI.ViewModels.MainMenu;
 using Cysharp.Threading.Tasks;
 using Services.Auth;
 using Services.Toast;
@@ -11,7 +12,7 @@ using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace ArPaint.UI.ViewModels.ProfileView
 {
-    public class ProfileViewModel : ViewModel
+    public class ProfileViewModel : MainMenuView
     {
         private readonly IAuthSystem _auth;
         private readonly IToast _toast;

@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using ArPaint.Services.Draw;
 using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.ViewModels.MainMenu;
 using ArPaint.UI.Views.DrawingInfo;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
@@ -9,7 +10,7 @@ using UnityMvvmToolkit.Core.Interfaces;
 
 namespace ArPaint.UI.ViewModels.Home
 {
-    public class HomeViewModel : ViewModel
+    public class HomeViewModel : MainMenuView
     {
         private readonly IDrawingsProvider _drawingsProvider;
 
