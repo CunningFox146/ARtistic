@@ -19,5 +19,6 @@ namespace ArPaint.Services.Draw
         void UpdateDrawing(DrawingData drawing);
         UniTask UploadDrawing(DrawingData drawing);
         UniTask UnUploadDrawing(DrawingData drawing, bool noSave = false);
+        void Reload();
     }
 }

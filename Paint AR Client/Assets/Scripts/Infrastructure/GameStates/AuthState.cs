@@ -1,4 +1,5 @@
 ﻿using ArPaint.Infrastructure.SceneManagement;
+using ArPaint.Services.Draw;
 using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.Views.SignIn;
@@ -13,22 +14,25 @@ namespace ArPaint.Infrastructure.GameStates
         private readonly IAuthSystem _auth;
         private readonly ILoadingDisplaySystem _loadingDisplay;
         private readonly IPersistentData _persistentData;
+        private readonly IDrawingsProvider _drawingsProvider;
         private readonly ISceneLoader _sceneLoader;
         private readonly IViewStack _viewStack;
 
         public AuthState(IAuthSystem auth, ILoadingDisplaySystem loadingDisplay, IViewStack viewStack,
-            ISceneLoader sceneLoader, IPersistentData persistentData)
+            ISceneLoader sceneLoader, IPersistentData persistentData, IDrawingsProvider drawingsProvider)
         {
             _auth = auth;
             _loadingDisplay = loadingDisplay;
             _viewStack = viewStack;
             _sceneLoader = sceneLoader;
             _persistentData = persistentData;
+            _drawingsProvider = drawingsProvider;
         }
 
         public void OnEnter()
         {
             _persistentData.Clear();
+            _drawingsProvider.Reload();
             _loadingDisplay.HideLoadingView();
             _viewStack.PushView<SignInView>();
             _auth.AuthStateChange += OnAuthStateChange;

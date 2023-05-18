@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Services.Auth;
 using Services.PersistentData;
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace ArPaint.Services.Draw
 {
@@ -29,12 +30,22 @@ namespace ArPaint.Services.Draw
             _firestore = firestore;
             _auth = auth;
 
+            Drawings = new();
+            
+            Reload();
+        }
+
+        public void Reload()
+        {
+            Drawings.Clear();
             var json = _persistentData.GetValue(nameof(Drawings));
+            Debug.Log($"Reload {json}");
             var loaded = !string.IsNullOrEmpty(json)
                 ? JsonConvert.DeserializeObject<ObservableCollection<DrawingData>>(json)
                 : null;
 
-            Drawings = loaded ?? new ObservableCollection<DrawingData>();
+            if (loaded != null)
+                Drawings.AddRange(loaded);
         }
 
         public async UniTask UpdateOwnedItems()

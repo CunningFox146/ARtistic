@@ -30,6 +30,7 @@ namespace ArPaint.Services.Draw
         
         private IShape _shape;
 
+
         public IShape Shape
         {
             get => _shape;
@@ -41,7 +42,7 @@ namespace ArPaint.Services.Draw
             }
         }
 
-        
+        public bool IsActive { get; set; }
         public Transform Container { get; }
         public Brush Brush { get; set; } 
 
@@ -95,6 +96,9 @@ namespace ArPaint.Services.Draw
 
         public void OnUpdate()
         {
+            if (!IsActive)
+                return;
+            
             foreach (var touch in _inputSource.Touches)
             {
                 if (touch.IsOverUI() && !_activeShapes.ContainsKey(touch.touchId))

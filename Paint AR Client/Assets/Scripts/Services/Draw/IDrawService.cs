@@ -6,6 +6,7 @@ namespace ArPaint.Services.Draw
 {
     public interface IDrawService
     {
+        bool IsActive { get; set; }
         IShape Shape { get; set; }
         Brush Brush { get; set; }
         UniTask Save();
