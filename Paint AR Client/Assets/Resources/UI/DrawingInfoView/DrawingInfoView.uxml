@@ -10,6 +10,9 @@
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="DeleteCommand" text="Delete" name="delete" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SaveCommand" text="Save" name="save" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="DrawCommand" text="Draw!" name="draw" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="upload" command="PublishCommand">
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" binding-text-path="PublishButtonText" />
+            </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/RenderTextures/DrawingPreview.renderTexture?fileID=8400000&amp;guid=6830ff28f7b9acc48b54f12e2a87e7e8&amp;type=2#DrawingPreview&apos;); -unity-background-scale-mode: scale-to-fit;" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ScreenshotCommand" text="Export as PNG" />
         </ui:VisualElement>

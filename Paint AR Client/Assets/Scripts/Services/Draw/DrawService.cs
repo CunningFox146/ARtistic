@@ -8,6 +8,7 @@ using ArPaint.Services.Draw.Shapes;
 using ArPaint.Services.Input;
 using ArPaint.Services.SaveLoad;
 using ArPaint.Utils;
+using Cysharp.Threading.Tasks;
 using Firebase.Analytics;
 using Services.StaticData;
 using UnityEngine;
@@ -83,12 +84,12 @@ namespace ArPaint.Services.Draw
             }
         }
 
-        public void Save()
+        public async UniTask Save()
         {
             if (_drawingsProvider.SelectedDrawing != null)
             {
                 _drawingsProvider.SelectedDrawing.DrawCommands = _commandBuffer.SerializeDrawCommands();
-                _drawingsProvider.Save();
+                await _drawingsProvider.Save();
             }
         }
 

@@ -12,13 +12,27 @@ namespace ArPaint.Services.Draw
         [FirestoreProperty]
         public int Id { get; set; }
         
+        
+        [FirestoreProperty]
+        public string Author { get; set; }
+        
+        
+        [FirestoreProperty]
+        public string AuthorName { get; set; }
+        
+        
+        [FirestoreProperty]
+        public DateTime CreationDate { get; set; }
+        
         [FirestoreProperty]
         public string Name { get; set; }
         
         [FirestoreProperty]
         public string Description { get; set; }
         
-        
+        public bool IsOwned { get; set; }
+        public bool IsPublished { get; set; }
+
         [FirestoreProperty]
         public List<SerializableDrawCommand> DrawCommands { get; set; }
     }

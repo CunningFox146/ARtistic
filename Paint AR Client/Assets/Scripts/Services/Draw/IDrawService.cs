@@ -1,5 +1,6 @@
 ﻿using ArPaint.Services.Draw.Brushes;
 using ArPaint.Services.Draw.Shapes;
+using Cysharp.Threading.Tasks;
 
 namespace ArPaint.Services.Draw
 {
@@ -7,6 +8,6 @@ namespace ArPaint.Services.Draw
     {
         IShape Shape { get; set; }
         Brush Brush { get; set; }
-        void Save();
+        UniTask Save();
     }
 }

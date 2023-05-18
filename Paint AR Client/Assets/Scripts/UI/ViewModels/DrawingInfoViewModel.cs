@@ -16,24 +16,26 @@ namespace ArPaint.UI.ViewModels
 {
     public class DrawingInfoViewModel : ViewModel, IDisposable
     {
-        private readonly IDrawingsProvider _drawingsProvider;
-        private readonly ISceneLoader _sceneLoader;
-        private readonly IPreviewRenderer _previewRenderer;
-        private readonly IScreenshotService _screenshotService;
-        private readonly RenderTexture _renderTexture;
-
-        [Observable(nameof(DrawingName))]
-        private readonly IProperty<string> _drawingName;
-
         [Observable(nameof(DrawingDescription))]
         private readonly IProperty<string> _drawingDescription;
 
+        [Observable(nameof(DrawingName))] private readonly IProperty<string> _drawingName;
+        
+        [Observable] private readonly IProperty<string> _publishButtonText;
+
+        private readonly IDrawingsProvider _drawingsProvider;
+        private readonly IPreviewRenderer _previewRenderer;
+        private readonly RenderTexture _renderTexture;
+        private readonly ISceneLoader _sceneLoader;
+        private readonly IScreenshotService _screenshotService;
+
         private DrawingData _selectedDrawing;
 
-        public ICommand SaveCommand { get; }
-        public ICommand DeleteCommand { get; }
         public ICommand CloseViewCommand { get; }
+        public IAsyncCommand SaveCommand { get; }
+        public IAsyncCommand DeleteCommand { get; }
         public IAsyncCommand ScreenshotCommand { get; }
+        public IAsyncCommand PublishCommand { get; }
         public IAsyncCommand DrawCommand { get; }
 
         public string DrawingName
@@ -41,14 +43,15 @@ namespace ArPaint.UI.ViewModels
             get => _drawingName.Value;
             set => _drawingName.Value = value;
         }
-        
+
         public string DrawingDescription
         {
             get => _drawingDescription.Value;
             set => _drawingDescription.Value = value;
         }
 
-        public DrawingInfoViewModel(IDrawingsProvider drawingsProvider, ISceneLoader sceneLoader, IPreviewRenderer previewRenderer, IScreenshotService screenshotService, RenderTexture renderTexture)
+        public DrawingInfoViewModel(IDrawingsProvider drawingsProvider, ISceneLoader sceneLoader,
+            IPreviewRenderer previewRenderer, IScreenshotService screenshotService, RenderTexture renderTexture)
         {
             _drawingsProvider = drawingsProvider;
             _sceneLoader = sceneLoader;
@@ -58,15 +61,32 @@ namespace ArPaint.UI.ViewModels
 
             _drawingName = new Property<string>();
             _drawingDescription = new Property<string>();
+            _publishButtonText = new Property<string>();
 
             CloseViewCommand = new Command(CloseView);
-            SaveCommand = new Command(Save);
-            DeleteCommand = new Command(Delete, () => _selectedDrawing != null);
-            ScreenshotCommand = new AsyncCommand(Screenshot, ()=> _selectedDrawing is { DrawCommands: not null }) {DisableOnExecution = true};
-            DrawCommand = new AsyncCommand(Draw) {DisableOnExecution = true};
+            SaveCommand = new AsyncCommand(Save) { DisableOnExecution = true };
+            DeleteCommand = new AsyncCommand(Delete, () => _selectedDrawing != null) { DisableOnExecution = true };
+            ScreenshotCommand = new AsyncCommand(Screenshot, () => _selectedDrawing is { DrawCommands: not null })
+                { DisableOnExecution = true };
+            DrawCommand = new AsyncCommand(Draw) { DisableOnExecution = true };
+            PublishCommand = new AsyncCommand(Publish, () => _selectedDrawing != null) { DisableOnExecution = true };
 
             _drawingsProvider.SelectedDrawingChanged += OnSelectedDrawingChanged;
             OnSelectedDrawingChanged(_drawingsProvider.SelectedDrawing);
+        }
+
+        private async UniTask Publish(CancellationToken _)
+        {
+            if (_selectedDrawing.IsPublished)
+                await _drawingsProvider.UnUploadDrawing(_selectedDrawing);
+            else
+                await _drawingsProvider.UploadDrawing(_selectedDrawing);
+            _publishButtonText.Value = _selectedDrawing.IsPublished ? "Unpublish" : "Publish";
+        }
+
+        public void Dispose()
+        {
+            _drawingsProvider.SelectedDrawingChanged -= OnSelectedDrawingChanged;
         }
 
         private async UniTask Screenshot(CancellationToken cancellationToken)
@@ -74,10 +94,10 @@ namespace ArPaint.UI.ViewModels
             await _screenshotService.Screenshot(_renderTexture, cancellationToken);
         }
 
-        private void Delete()
+        private async UniTask Delete(CancellationToken cancellationToken)
         {
-            _drawingsProvider.RemoveData(_selectedDrawing);
-            _drawingsProvider.Save();
+            await _drawingsProvider.RemoveData(_selectedDrawing);
+            await _drawingsProvider.Save();
             CloseView();
         }
 
@@ -86,14 +106,16 @@ namespace ArPaint.UI.ViewModels
             _selectedDrawing = drawing;
             DrawingName = _selectedDrawing?.Name;
             DrawingDescription = _selectedDrawing?.Description;
-            
+            _publishButtonText.Value = _selectedDrawing is { IsPublished: true } ? "Unpublish" : "Publish";
+
             if (_selectedDrawing is { DrawCommands: not null })
                 _previewRenderer.RenderDrawing(_selectedDrawing.DrawCommands);
             else
                 _previewRenderer.Clear();
-            
+
             DeleteCommand.RaiseCanExecuteChanged();
             ScreenshotCommand.RaiseCanExecuteChanged();
+            PublishCommand.RaiseCanExecuteChanged();
         }
 
         private void CloseView()
@@ -101,32 +123,27 @@ namespace ArPaint.UI.ViewModels
             ViewStack.PopView();
         }
 
-        private void Save()
+        private async UniTask Save(CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(DrawingName))
                 return;
-            
+
             _selectedDrawing ??= _drawingsProvider.CreateNewData();
             _selectedDrawing.Name = DrawingName;
             _selectedDrawing.Description = DrawingDescription;
             _drawingsProvider.UpdateDrawing(_selectedDrawing);
             _drawingsProvider.SelectDrawing(_selectedDrawing, true);
-            _drawingsProvider.Save();
+            await _drawingsProvider.Save();
             CloseView();
         }
 
-        private async UniTask Draw(CancellationToken _)
+        private async UniTask Draw(CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(DrawingName))
                 return;
-            
-            Save();
-            await _sceneLoader.LoadScene(SceneIndex.Draw);
-        }
 
-        public void Dispose()
-        {
-            _drawingsProvider.SelectedDrawingChanged -= OnSelectedDrawingChanged;
+            await Save(cancellationToken);
+            await _sceneLoader.LoadScene(SceneIndex.Draw);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace ArPaint.UI.ViewModels.Draw
 
         private async UniTask ExitDrawing(CancellationToken _)
         {
-            _drawService.Save();
+            await _drawService.Save();
             await _sceneLoader.LoadScene(SceneIndex.MainMenu);
         }
 

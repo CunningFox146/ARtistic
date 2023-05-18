@@ -1,28 +1,54 @@
-﻿using ArPaint.UI.Systems.LoadingDisplay;
+﻿using System;
+using ArPaint.Services.Draw;
+using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.Views.Home;
-using ArPaint.UI.Views.Profile;
+using Services.PersistentData;
+using Services.Toast;
 using Zenject;
 
 namespace ArPaint.Infrastructure.GameStates
 {
-    public class MainMenuState : IEnterState
+    public class MainMenuState : IEnterState, IExitState
     {
+        private readonly IDrawingsProvider _drawingsProvider;
         private readonly ILoadingDisplaySystem _loadingDisplay;
+        private readonly IPersistentData _persistentData;
+        private readonly IToast _toast;
         private readonly IViewStack _viewStack;
 
-        public MainMenuState(ILoadingDisplaySystem loadingDisplay, IViewStack viewStack)
+        public MainMenuState(ILoadingDisplaySystem loadingDisplay, IViewStack viewStack,
+            IDrawingsProvider drawingsProvider, IToast toast, IPersistentData persistentData)
         {
             _loadingDisplay = loadingDisplay;
             _viewStack = viewStack;
+            _drawingsProvider = drawingsProvider;
+            _toast = toast;
+            _persistentData = persistentData;
         }
-        
-        public void OnEnter()
+
+        public async void OnEnter()
         {
+            try
+            {
+                await _drawingsProvider.UpdateOwnedItems();
+            }
+            catch (Exception exception)
+            {
+                _toast.ShowError(exception);
+            }
+
             _loadingDisplay.HideLoadingView();
             _viewStack.PushView<HomeView>();
         }
-        
-        public class Factory : PlaceholderFactory<MainMenuState> { }
+
+        public void OnExit()
+        {
+            _persistentData.Save();
+        }
+
+        public class Factory : PlaceholderFactory<MainMenuState>
+        {
+        }
     }
 }
