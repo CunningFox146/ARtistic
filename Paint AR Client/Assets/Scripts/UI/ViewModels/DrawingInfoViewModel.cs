@@ -108,6 +108,7 @@ namespace ArPaint.UI.ViewModels
             _selectedDrawing ??= _drawingsProvider.CreateNewData();
             _selectedDrawing.Name = DrawingName;
             _selectedDrawing.Description = DrawingDescription;
+            _drawingsProvider.UpdateDrawing(_selectedDrawing);
             _drawingsProvider.SelectDrawing(_selectedDrawing, true);
             _drawingsProvider.Save();
             CloseView();

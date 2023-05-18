@@ -44,8 +44,7 @@ namespace ArPaint.UI.ViewModels.Home
             
             Id = new Guid().GetHashCode();
             SelectDrawingCommand = new Command(SelectDrawing);
-
-            Drawing.ItemUpdate += Update;
+            Update();
         }
 
         private void Update()

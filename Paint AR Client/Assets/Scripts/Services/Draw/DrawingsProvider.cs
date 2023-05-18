@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using ArPaint.Utils;
 using Newtonsoft.Json;
 using Services.PersistentData;
 
@@ -50,6 +51,11 @@ namespace ArPaint.Services.Draw
         {
             var json = JsonConvert.SerializeObject(Drawings);
             _persistentData.SetValue(nameof(Drawings), json);
+        }
+
+        public void UpdateDrawing(DrawingData drawing)
+        {
+            Drawings.Update(drawing);
         }
     }
 }

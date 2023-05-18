@@ -12,5 +12,6 @@ namespace ArPaint.Services.Draw
         void RemoveData(DrawingData data);
         void SelectDrawing(DrawingData drawingData, bool noNotify = false);
         void Save();
+        void UpdateDrawing(DrawingData drawing);
     }
 }

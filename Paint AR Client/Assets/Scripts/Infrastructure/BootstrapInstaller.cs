@@ -8,6 +8,7 @@ using ArPaint.UI.ViewModels.Loading;
 using ArPaint.UI.Views.Loading;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Firestore;
 using Services.Auth;
 using Services.PersistentData;
 using Services.Screenshot;
@@ -44,6 +45,7 @@ namespace ArPaint.Infrastructure
             
             Container.Bind<FirebaseApp>().FromMethod(_ => FirebaseApp.DefaultInstance);
             Container.Bind<FirebaseAuth>().FromMethod(_ => FirebaseAuth.DefaultInstance);
+            Container.Bind<FirebaseFirestore>().FromMethod(_ => FirebaseFirestore.DefaultInstance);
             
             Container.BindFactory<LoadingView, LoadingView.Factory>()
                 .FromComponentInNewPrefab(_loadingView);
