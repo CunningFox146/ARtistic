@@ -5,7 +5,7 @@
     <ArPaint.UI.Elements.SafeAreaView picking-mode="Ignore">
         <ui:Instance template="BackButton" name="BackButton" style="position: absolute;" />
         <ui:VisualElement name="root" picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 100%; width: 100%; flex-direction: column-reverse;">
-            <ui:VisualElement name="tab-bar" picking-mode="Ignore" class="tab-bar" style="flex-grow: 0; flex-direction: row; align-items: flex-end; position: absolute; justify-content: space-around;">
+            <ArPaint.UI.Elements.BindableVisibilityView name="tab-bar" picking-mode="Ignore" binding-visibility-path="IsDrawPanelVisible" class="tab-bar" style="flex-grow: 0; flex-direction: row; align-items: flex-end; position: absolute; justify-content: space-around;">
                 <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="OpenOptionsCommand" class="tab-bar__button">
                     <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/OptionsIcon&apos;);" />
                     <ui:Label tabindex="-1" text="Options" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
@@ -22,7 +22,7 @@
                     <ui:VisualElement name="icon" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/DrawView/Graphics/ShapesIcon&apos;);" />
                     <ui:Label tabindex="-1" text="Shapes" display-tooltip-when-elided="true" name="label" class="tab-bar__button__text caption-label" />
                 </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
-            </ui:VisualElement>
+            </ArPaint.UI.Elements.BindableVisibilityView>
             <ArPaint.UI.Elements.BindableVisibilityView picking-mode="Ignore" binding-visibility-path="IsShapeSelectVisible" style="position: absolute; flex-grow: 1; width: 25%; height: 100%; align-self: flex-end; bottom: 12%;">
                 <ArPaint.UI.Views.Draw.ShapeListView focusable="false" binding-items-source-path="Shapes" name="shapes" virtualization-method="DynamicHeight" picking-mode="Ignore" show-border="false" style="position: relative; height: 100%; width: 100%; align-self: flex-end; flex-direction: column-reverse; flex-grow: 1; display: flex; visibility: visible;" />
             </ArPaint.UI.Elements.BindableVisibilityView>

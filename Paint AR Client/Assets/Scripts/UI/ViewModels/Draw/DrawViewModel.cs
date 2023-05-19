@@ -9,6 +9,7 @@ using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.Views.DrawOptions;
 using Cysharp.Threading.Tasks;
 using Services.StaticData;
+using UnityEngine;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -31,6 +32,9 @@ namespace ArPaint.UI.ViewModels.Draw
         [Observable(nameof(IsShapeSelectVisible))]
         private readonly IProperty<bool> _isShapeSelectVisible;
 
+        [Observable] private readonly IProperty<bool> _isDrawPanelVisible;
+
+
         public ICommand ToggleShapeSelectCommand { get; }
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
@@ -44,7 +48,7 @@ namespace ArPaint.UI.ViewModels.Draw
             set => _isShapeSelectVisible.Value = value;
         }
 
-        public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, IDrawService drawService, ISceneLoader sceneLoader)
+        public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, IDrawService drawService, ISceneLoader sceneLoader, IDrawingsProvider drawingsProvider)
         {
             _commandBuffer = commandBuffer;
             _drawService = drawService;
@@ -56,6 +60,7 @@ namespace ArPaint.UI.ViewModels.Draw
             OpenOptionsCommand = new Command(OpenOptions);
             CloseViewCommand = new AsyncCommand(ExitDrawing) {DisableOnExecution = true};
             _isShapeSelectVisible = new Property<bool>(false);
+            _isDrawPanelVisible = new Property<bool>(drawingsProvider.SelectedDrawing == null || drawingsProvider.SelectedDrawing.IsOwned);
             _shapes = new ReadOnlyProperty<ObservableCollection<ShapeViewModel>>(new());
             
             InitShapes(staticData.Shapes.ShapesList);
