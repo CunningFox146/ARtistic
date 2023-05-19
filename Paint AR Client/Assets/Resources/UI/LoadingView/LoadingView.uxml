@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
-    <ui:VisualElement name="bg" focusable="true" style="flex-grow: 1; background-color: rgb(255, 255, 255); width: 100%; height: 100%;">
+    <ui:VisualElement name="bg" focusable="true" class="loading-bg">
         <ArPaint.UI.Elements.SafeAreaView>
             <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: flex-end;">
-                <ArPaint.UI.Elements.LoadingIconView sprites-binding-path="LoadingSprites" style="width: 256px; height: 256px; align-self: flex-end; margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px;" />
+                <ArPaint.UI.Elements.LoadingIconView sprites-binding-path="LoadingSprites" style="width: 128px; height: 128px; align-self: flex-end; margin-left: 25px; margin-right: 25px; margin-top: 25px; margin-bottom: 25px;" />
             </ui:VisualElement>
         </ArPaint.UI.Elements.SafeAreaView>
     </ui:VisualElement>
