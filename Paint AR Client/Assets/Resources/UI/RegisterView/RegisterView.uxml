@@ -1,7 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ArPaint.UI.Elements.BindableTextField name="user-name" asdasdvalue-binding-path="Login" text-binding-path="UserName" keyboard-type="ASCIICapable" />
-    <ArPaint.UI.Elements.BindableTextField name="email" asdasdvalue-binding-path="Login" text-binding-path="Email" keyboard-type="EmailAddress" />
-    <ArPaint.UI.Elements.BindableTextField name="password" asdasdvalue-binding-path="Password" text-binding-path="Password" password="true" />
-    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Register" name="register-button" command="RegisterCommand" />
-    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="sign-in" command="OpenSignInViewCommand" text="Back to Sign In" />
+    <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
+    <ui:VisualElement name="bg" class="bg" style="flex-grow: 1;" />
+    <ArPaint.UI.Elements.SafeAreaView>
+        <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <ArPaint.UI.Elements.BindableTextField name="user-name" asdasdvalue-binding-path="Login" text-binding-path="UserName" keyboard-type="ASCIICapable" />
+            <ArPaint.UI.Elements.BindableTextField name="email" asdasdvalue-binding-path="Login" text-binding-path="Email" keyboard-type="EmailAddress" />
+            <ArPaint.UI.Elements.BindableTextField name="password" asdasdvalue-binding-path="Password" text-binding-path="Password" password="true" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Register" name="register-button" command="RegisterCommand" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="sign-in" command="OpenSignInViewCommand" text="Back to Sign In" />
+        </ui:VisualElement>
+    </ArPaint.UI.Elements.SafeAreaView>
 </ui:UXML>
