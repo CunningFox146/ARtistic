@@ -2,12 +2,17 @@
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <ui:VisualElement name="bg" class="bg" style="flex-grow: 1;" />
     <ArPaint.UI.Elements.SafeAreaView>
-        <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-            <ArPaint.UI.Elements.BindableTextField name="user-name" asdasdvalue-binding-path="Login" text-binding-path="UserName" keyboard-type="ASCIICapable" />
-            <ArPaint.UI.Elements.BindableTextField name="email" asdasdvalue-binding-path="Login" text-binding-path="Email" keyboard-type="EmailAddress" />
-            <ArPaint.UI.Elements.BindableTextField name="password" asdasdvalue-binding-path="Password" text-binding-path="Password" password="true" />
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Register" name="register-button" command="RegisterCommand" />
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="sign-in" command="OpenSignInViewCommand" text="Back to Sign In" />
+        <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <ui:Label tabindex="-1" text="Register" display-tooltip-when-elided="true" class="header-text" />
+            <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); height: 300px; background-image: resource(&apos;UI/LoginView/Graphics/Login&apos;); -unity-background-scale-mode: scale-to-fit;" />
+            <ui:Label tabindex="-1" text="User Name" display-tooltip-when-elided="true" class="caption-label" style="margin-top: 20px; margin-bottom: 20px;" />
+            <ArPaint.UI.Elements.BindableTextField name="user-name" asdasdvalue-binding-path="Login" text-binding-path="UserName" keyboard-type="ASCIICapable" class="input" />
+            <ui:Label tabindex="-1" text="Email" display-tooltip-when-elided="true" class="caption-label" style="margin-top: 20px; margin-bottom: 20px;" />
+            <ArPaint.UI.Elements.BindableTextField name="email" asdasdvalue-binding-path="Login" text-binding-path="Email" keyboard-type="EmailAddress" class="input" />
+            <ui:Label tabindex="-1" text="Password" display-tooltip-when-elided="true" class="caption-label" style="padding-top: 0; margin-top: 20px; margin-bottom: 20px;" />
+            <ArPaint.UI.Elements.BindableTextField name="password" asdasdvalue-binding-path="Password" text-binding-path="Password" password="true" class="input" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Register" name="register-button" command="RegisterCommand" class="default-button" style="margin-top: 20px; margin-bottom: 20px;" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="sign-in" command="OpenSignInViewCommand" text="Back to Sign In" class="default-button" />
         </ui:VisualElement>
     </ArPaint.UI.Elements.SafeAreaView>
 </ui:UXML>

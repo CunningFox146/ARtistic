@@ -4,7 +4,7 @@
     <ArPaint.UI.Elements.SafeAreaView>
         <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
             <ui:Label tabindex="-1" text="Sign in" display-tooltip-when-elided="true" name="header" class="header-text" style="margin-left: 0;" />
-            <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/LoginView/Graphics/Login&apos;); -unity-background-scale-mode: scale-to-fit; height: 500px;" />
+            <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/LoginView/Graphics/Login&apos;); -unity-background-scale-mode: scale-to-fit; height: 300px;" />
             <ui:Label tabindex="-1" text="Email" display-tooltip-when-elided="true" class="caption-label" style="margin-top: 20px; margin-bottom: 20px;" />
             <ArPaint.UI.Elements.BindableTextField text-binding-path="Email" name="Email" keyboard-type="EmailAddress" class="input" />
             <ui:Label tabindex="-1" text="Password" display-tooltip-when-elided="true" class="caption-label" style="margin-top: 20px; margin-bottom: 20px;" />
