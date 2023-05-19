@@ -5,11 +5,9 @@ using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
-using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.Views.DrawOptions;
 using Cysharp.Threading.Tasks;
 using Services.StaticData;
-using UnityEngine;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -20,21 +18,18 @@ using ICommand = UnityMvvmToolkit.Core.Interfaces.ICommand;
 
 namespace ArPaint.UI.ViewModels.Draw
 {
-    public class DrawViewModel : ViewModel
+    public class DrawViewModel : ViewModel, INotifyViewActive
     {
         private readonly ICommandBuffer _commandBuffer;
         private readonly IDrawService _drawService;
         private readonly ISceneLoader _sceneLoader;
-
-        [Observable(nameof(Shapes))]
-        private readonly IReadOnlyProperty<ObservableCollection<ShapeViewModel>> _shapes;
-        
-        [Observable(nameof(IsShapeSelectVisible))]
-        private readonly IProperty<bool> _isShapeSelectVisible;
+        private readonly IDrawingsProvider _drawingsProvider;
 
         [Observable] private readonly IProperty<bool> _isDrawPanelVisible;
-
-
+        [Observable(nameof(Shapes))] private readonly IReadOnlyProperty<ObservableCollection<ShapeViewModel>> _shapes;
+        [Observable(nameof(IsShapeSelectVisible))]
+        private readonly IProperty<bool> _isShapeSelectVisible;
+        
         public ICommand ToggleShapeSelectCommand { get; }
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
@@ -48,21 +43,24 @@ namespace ArPaint.UI.ViewModels.Draw
             set => _isShapeSelectVisible.Value = value;
         }
 
-        public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, IDrawService drawService, ISceneLoader sceneLoader, IDrawingsProvider drawingsProvider)
+        public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, IDrawService drawService,
+            ISceneLoader sceneLoader, IDrawingsProvider drawingsProvider)
         {
             _commandBuffer = commandBuffer;
             _drawService = drawService;
             _sceneLoader = sceneLoader;
+            _drawingsProvider = drawingsProvider;
 
             ToggleShapeSelectCommand = new Command(ToggleShapeSelect);
             UndoCommand = new Command(Undo);
             RedoCommand = new Command(Redo);
             OpenOptionsCommand = new Command(OpenOptions);
-            CloseViewCommand = new AsyncCommand(ExitDrawing) {DisableOnExecution = true};
+            CloseViewCommand = new AsyncCommand(ExitDrawing) { DisableOnExecution = true };
             _isShapeSelectVisible = new Property<bool>(false);
-            _isDrawPanelVisible = new Property<bool>(drawingsProvider.SelectedDrawing == null || drawingsProvider.SelectedDrawing.IsOwned);
-            _shapes = new ReadOnlyProperty<ObservableCollection<ShapeViewModel>>(new());
-            
+            _isDrawPanelVisible = new Property<bool>();
+            _shapes = new ReadOnlyProperty<ObservableCollection<ShapeViewModel>>(
+                new ObservableCollection<ShapeViewModel>());
+
             InitShapes(staticData.Shapes.ShapesList);
         }
 
@@ -100,13 +98,16 @@ namespace ArPaint.UI.ViewModels.Draw
 
         private void OnShapeSelected(Shape shape)
         {
-            foreach (var shapeViewModel in Shapes)
-            {
-                shapeViewModel.IsSelected = shapeViewModel.Shape == shape;
-            }
+            foreach (var shapeViewModel in Shapes) shapeViewModel.IsSelected = shapeViewModel.Shape == shape;
 
             _drawService.Shape = shape;
             IsShapeSelectVisible = false;
+        }
+
+        public void OnViewActive()
+        {
+            _isDrawPanelVisible.Value = _drawingsProvider.SelectedDrawing == null ||
+                                        _drawingsProvider.SelectedDrawing.IsOwned;
         }
     }
 }

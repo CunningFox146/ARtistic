@@ -28,7 +28,9 @@ namespace ArPaint.UI.Views
             
             // TODO: Refactor
             RootVisualElement.Query<VisualElement>().Where(element => element is IViewShownHandler).ForEach(
-                element => { ((IViewShownHandler)element).OnViewShown(this); });   
+                element => { ((IViewShownHandler)element).OnViewShown(this); });
+            
+            (_viewModel as INotifyViewActive)?.OnViewActive();
         }
 
         public virtual void Hide()

@@ -17,7 +17,7 @@
                     <ui:Label tabindex="-1" text="Profile" display-tooltip-when-elided="true" class="tab-bar__button__text" />
                 </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
             </ui:VisualElement>
-            <ArPaint.UI.Views.Home.DrawingsListView focusable="true" virtualization-method="DynamicHeight" binding-items-source-path="Drawings" style="flex-grow: 1;" />
+            <ArPaint.UI.Views.Home.DrawingsListView focusable="true" virtualization-method="FixedHeight" binding-items-source-path="Drawings" fixed-item-height="80" name="DrawingsListView" style="flex-grow: 1;" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="refresh" text="Refresh" command="UpdateDrawingsCommand" />
             <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                 <ArPaint.UI.Elements.BindableTextField text-binding-path="SearchText" style="flex-grow: 1;" />

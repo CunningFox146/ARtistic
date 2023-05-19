@@ -8,6 +8,7 @@ using ArPaint.UI.ViewModels.MainMenu;
 using ArPaint.UI.Views.DrawingInfo;
 using Cysharp.Threading.Tasks;
 using Services.Auth;
+using UnityEngine;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -53,11 +54,13 @@ namespace ArPaint.UI.ViewModels.Discover
         private async Task UpdateDrawingsInternal(string search)
         {
             _drawings.Value.Clear();
+            Debug.Log($"Search: {string.IsNullOrWhiteSpace(search)} {search}");
             var drawings = await _drawingsProvider.GetPublishedDrawings();
-            var sortedDrawings = drawings.Where(drawing =>
-                drawing.Author != _authSystem.User.UserId && (string.IsNullOrEmpty(search) ||
-                                                              drawing.Name.ToLower()
-                                                                  .Contains(search.ToLower())));
+            var foundDrawings = drawings.Where(drawing => drawing.Author != _authSystem.User.UserId);
+            var sortedDrawings = string.IsNullOrWhiteSpace(search)
+                ? foundDrawings
+                : foundDrawings.Where(drawing =>
+                    drawing.Name.ToLower().Contains(search.ToLower()));
             
             foreach (var drawing in sortedDrawings)
                 _drawings.Value.Add(new DrawingViewModel(drawing, SelectDrawing));

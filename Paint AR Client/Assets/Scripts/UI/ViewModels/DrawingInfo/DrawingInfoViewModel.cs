@@ -112,7 +112,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             DrawingDescription = _selectedDrawing?.Description;
             _publishButtonText.Value = _selectedDrawing is { IsPublished: true } ? "Unpublish" : "Publish";
             _author.Value = _selectedDrawing == null || _selectedDrawing.IsOwned ? "You" : _selectedDrawing.AuthorName;
-            _isOwned.Value = _selectedDrawing is { IsOwned: true };
+            _isOwned.Value = _selectedDrawing == null || _selectedDrawing.IsOwned;
 
             if (_selectedDrawing is { DrawCommands: not null })
                 _previewRenderer.RenderDrawing(_selectedDrawing.DrawCommands);

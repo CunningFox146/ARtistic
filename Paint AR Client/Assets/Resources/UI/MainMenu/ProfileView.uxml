@@ -4,7 +4,7 @@
     <ArPaint.UI.Elements.SafeAreaView>
         <ui:VisualElement name="root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column-reverse;">
             <ui:VisualElement name="tab-bar" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
-                <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="discover" command="OpenProfileTabCommand" class="tab-bar__button">
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="discover" command="OpenDiscoverTabCommand" class="tab-bar__button">
                     <ui:VisualElement name="VisualElement" class="tab-bar__button__icon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;UI/MainMenu/Graphics/Discover&apos;);" />
                     <ui:Label tabindex="-1" text="Discover" display-tooltip-when-elided="true" class="tab-bar__button__text" />
                 </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
