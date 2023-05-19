@@ -2,14 +2,28 @@
     --text-color: rgb(255, 255, 255);
     --primary-color: rgb(47, 105, 255);
     --bg-opacity: 0.15;
+    --default-height: 75px;
     --bg-color: rgb(20, 20, 22);
+    --neutral: rgb(255, 255, 255);
+}
+
+.unity-text-element {
+    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Poppins-Regular.ttf?fileID=12800000&guid=c5973a18b44adae479ce54f5c571fd17&type=3#Poppins-Regular');
+    color: var(--text-color);
 }
 
 .caption-label {
-    -unity-font: url('project://database/Assets/UI%20Toolkit/Fonts/Poppins-Regular.ttf?fileID=12800000&guid=c5973a18b44adae479ce54f5c571fd17&type=3#Poppins-Regular');
     -unity-font-style: normal;
     font-size: 24px;
     white-space: normal;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .shape-select-button {
@@ -332,4 +346,54 @@
     flex-grow: 1;
     background-color: var(--bg-color);
     background-image: resource('UI/MainMenu/Graphics/BlurBg');
+}
+
+.input {
+    color: var(--text-color);
+    height: var(--default-height);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.input .unity-base-text-field__input {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: var(--neutral);
+    border-left-color: rgba(255, 255, 255, 0.2);
+    border-right-color: rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-size: 24px;
+}
+
+.default-button {
+    background-color: var(--primary-color);
+    height: var(--default-height);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-font-style: bold;
+    font-size: 24px;
 }
