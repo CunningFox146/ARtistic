@@ -10,7 +10,7 @@ using UnityMvvmToolkit.Core.Interfaces;
 
 namespace ArPaint.UI.ViewModels.Home
 {
-    public class HomeViewModel : MainMenuView
+    public class HomeViewModelModel : MainMenuViewModel
     {
         private readonly IDrawingsProvider _drawingsProvider;
 
@@ -21,7 +21,7 @@ namespace ArPaint.UI.ViewModels.Home
         
         public ICommand CreateDrawingCommand { get; }
 
-        public HomeViewModel(IDrawingsProvider drawingsProvider)
+        public HomeViewModelModel(IDrawingsProvider drawingsProvider)
         {
             _drawingsProvider = drawingsProvider;
 

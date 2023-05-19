@@ -12,7 +12,7 @@ using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace ArPaint.UI.ViewModels.ProfileView
 {
-    public class ProfileViewModel : MainMenuView
+    public class ProfileViewModelModel : MainMenuViewModel
     {
         private readonly IAuthSystem _auth;
         private readonly IToast _toast;
@@ -31,7 +31,7 @@ namespace ArPaint.UI.ViewModels.ProfileView
             set => _username.Value = value;
         }
 
-        public ProfileViewModel(IAuthSystem auth, IToast toast)
+        public ProfileViewModelModel(IAuthSystem auth, IToast toast)
         {
             _auth = auth;
             _toast = toast;

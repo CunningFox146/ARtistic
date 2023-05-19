@@ -62,3 +62,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc53df4cc5c4147919e0107e753828e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _drawingListViewAsset: {fileID: 9197481963319205126, guid: 5d66875987b8572438c2dad418fb4ba0,
+    type: 3}

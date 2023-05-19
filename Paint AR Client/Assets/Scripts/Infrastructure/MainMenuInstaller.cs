@@ -38,11 +38,11 @@ namespace ArPaint.Infrastructure
         {
             Container.Bind<Camera>().FromInstance(_shapesCamera).AsSingle();
             Container.Bind<RenderTexture>().FromInstance(_shapesCamera.targetTexture).AsSingle();
-            Container.BindInterfacesAndSelfTo<ProfileViewModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProfileViewModelModel>().AsSingle();
             Container.BindFactory<ProfileView, ProfileView.Factory>()
                 .FromComponentInNewPrefab(_profileView);
             
-            Container.BindInterfacesAndSelfTo<HomeViewModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<HomeViewModelModel>().AsSingle();
             Container.BindFactory<HomeView, HomeView.Factory>()
                 .FromComponentInNewPrefab(_homeView);
             
@@ -52,7 +52,7 @@ namespace ArPaint.Infrastructure
             
             Container.BindInterfacesAndSelfTo<DiscoverViewModel>().AsSingle();
             Container.BindFactory<DiscoverView, DiscoverView.Factory>()
-                .FromComponentInNewPrefab(_drawingInfoView);
+                .FromComponentInNewPrefab(_discoverView);
 
             Container.BindInterfacesTo<MainMenuViewProvider>().AsSingle();
             Container.BindInterfacesTo<ViewStack>().AsSingle();

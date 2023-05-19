@@ -1,16 +1,17 @@
-﻿using ArPaint.UI.Views.Home;
+﻿using ArPaint.UI.Views.Discover;
+using ArPaint.UI.Views.Home;
 using UnityMvvmToolkit.Core;
 using ICommand = UnityMvvmToolkit.Core.Interfaces.ICommand;
 
 namespace ArPaint.UI.ViewModels.MainMenu
 {
-    public class MainMenuView : ViewModel
+    public class MainMenuViewModel : ViewModel
     {
         public ICommand OpenProfileTabCommand { get; }
         public ICommand OpenHomeTabCommand { get; }
         public ICommand OpenDiscoverTabCommand { get; }
 
-        public MainMenuView()
+        public MainMenuViewModel()
         {
             OpenProfileTabCommand = new Command(OpenProfileTab);
             OpenHomeTabCommand = new Command(OpenHomeTab);
@@ -31,7 +32,8 @@ namespace ArPaint.UI.ViewModels.MainMenu
 
         private void OpenDiscoverTab()
         {
-            throw new System.NotImplementedException();
+            ViewStack.PopView();
+            ViewStack.PushView<DiscoverView>();
         }
     }
 }

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace ArPaint.UI.Views.Home
 {
-    public class HomeView : View<HomeViewModel>
+    public class HomeView : View<HomeViewModelModel>
     {
         [SerializeField] private VisualTreeAsset _drawingListViewAsset;
 

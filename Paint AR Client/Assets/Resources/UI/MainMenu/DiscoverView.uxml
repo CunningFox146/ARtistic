@@ -17,6 +17,7 @@
                     <ui:Label tabindex="-1" text="Profile" display-tooltip-when-elided="true" class="tab-bar__button__text" />
                 </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
             </ui:VisualElement>
+            <ArPaint.UI.Views.Home.DrawingsListView focusable="true" virtualization-method="DynamicHeight" binding-items-source-path="Drawings" style="flex-grow: 1;" />
         </ui:VisualElement>
     </ArPaint.UI.Elements.SafeAreaView>
 </ui:UXML>
