@@ -2,9 +2,10 @@
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <ui:VisualElement name="bg" class="bg" />
     <ArPaint.UI.Elements.SafeAreaView>
-        <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column-reverse;">
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Add new" command="CreateDrawingCommand" class="default-button" />
+        <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
+            <ui:Label tabindex="-1" text="Home" display-tooltip-when-elided="true" name="header" class="header-text" style="margin-bottom: 20px;" />
             <ArPaint.UI.Views.Home.DrawingsListView focusable="true" fixed-item-height="40" binding-items-source-path="Drawings" virtualization-method="FixedHeight" style="flex-grow: 1;" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Add new" command="CreateDrawingCommand" class="default-button" />
         </ui:VisualElement>
         <ui:VisualElement name="tab-bar" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="discover" command="OpenDiscoverTabCommand" class="tab-bar__button">

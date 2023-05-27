@@ -2,17 +2,18 @@
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <ui:VisualElement name="bg" class="bg" />
     <ArPaint.UI.Elements.SafeAreaView>
-        <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column-reverse;">
-            <ArPaint.UI.Views.Home.DrawingsListView focusable="true" virtualization-method="FixedHeight" binding-items-source-path="Drawings" fixed-item-height="80" name="DrawingsListView" style="flex-grow: 1;" />
+        <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
+            <ui:Label tabindex="-1" text="Discover" display-tooltip-when-elided="true" class="header-text" style="margin-bottom: 20px;" />
             <ui:VisualElement name="search" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
                 <ui:VisualElement name="search-bar" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; border-left-color: rgba(255, 255, 255, 0.2); border-right-color: rgba(255, 255, 255, 0.2); border-top-color: rgba(255, 255, 255, 0.2); border-bottom-color: rgba(255, 255, 255, 0.2); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-top-left-radius: 15px; border-bottom-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <ArPaint.UI.Elements.BindableTextField text-binding-path="SearchText" name="search-text" class="input__hidden input" style="flex-grow: 1; margin-top: 5px; margin-bottom: 5px;" />
+                    <ArPaint.UI.Elements.BindableTextField text-binding-path="SearchText" name="search-text" class="input__hidden input" style="flex-grow: 1;" />
                     <ArPaint.UI.Elements.BindableVisibilityView binding-visibility-path="SearchText" name="search-clear" is-inverted="true" style="margin-left: 10px; margin-right: 20px; width: 35px; min-width: 35px; min-height: 35px;">
                         <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ClearSearchCommand" name="search-button" class="icon-button" style="background-image: resource(&apos;UI/MainMenu/Graphics/Cancel&apos;); width: 100%; height: 100%;" />
                     </ArPaint.UI.Elements.BindableVisibilityView>
                 </ui:VisualElement>
                 <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SearchDrawingsCommand" name="search-button" class="icon-button" style="background-image: resource(&apos;UI/MainMenu/Graphics/Search&apos;); min-width: 35px; min-height: 45px; margin-left: 10px; width: 35px;" />
             </ui:VisualElement>
+            <ArPaint.UI.Views.Home.DrawingsListView focusable="true" virtualization-method="FixedHeight" binding-items-source-path="Drawings" fixed-item-height="80" name="DrawingsListView" style="flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="tab-bar" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="discover" command="OpenProfileTabCommand" class="tab-bar__button">

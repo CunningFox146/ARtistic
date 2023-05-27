@@ -25,7 +25,7 @@
                     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ChangeUsernameCommand" text="Change User Name" name="change-name-button" class="default-button" style="margin-top: 20px; margin-bottom: 20px;" />
                     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ForgotPasswordCommand" text="Forgot Password" name="forgot-password-button" class="default-button" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); margin-bottom: 20px;">
+                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
                     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="sign-out-button" command="SignOutCommand" text="Sign Out" class="default-button button__danger" style="margin-top: 20px; margin-bottom: 20px;" />
                     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="DeleteUserCommand" name="delete" text="Delete Profile" class="default-button button__danger" />
                 </ui:VisualElement>
