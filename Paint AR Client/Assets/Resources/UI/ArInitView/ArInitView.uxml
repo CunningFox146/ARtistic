@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="BackButton" src="project://database/Assets/Resources/UI/Common/BackButton.uxml?fileID=9197481963319205126&amp;guid=06b7cf2ba4e21dc448246807f9a635d6&amp;type=3#BackButton" />
     <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
     <ArPaint.UI.Elements.SafeAreaView>
+        <ui:Instance template="BackButton" name="BackButton" />
         <ui:VisualElement name="root" style="flex-grow: 1; justify-content: center; align-items: center;">
             <ui:VisualElement name="circles-container" usage-hints="DynamicTransform" class="ar_anim__circle-container" style="width: 350px; height: 350px;">
                 <ui:VisualElement name="circle" class="ar-anim__circle" />
