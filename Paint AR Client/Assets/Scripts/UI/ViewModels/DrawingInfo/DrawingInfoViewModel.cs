@@ -5,6 +5,7 @@ using ArPaint.Services.Draw;
 using Cysharp.Threading.Tasks;
 using Services.PreviewRenderer;
 using Services.Screenshot;
+using Services.Toast;
 using UnityEngine;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
@@ -28,6 +29,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         private readonly IDrawingsProvider _drawingsProvider;
         private readonly IPreviewRenderer _previewRenderer;
         private readonly RenderTexture _renderTexture;
+        private readonly IToast _toast;
         private readonly ISceneLoader _sceneLoader;
         private readonly IScreenshotService _screenshotService;
 
@@ -53,13 +55,14 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         }
 
         public DrawingInfoViewModel(IDrawingsProvider drawingsProvider, ISceneLoader sceneLoader,
-            IPreviewRenderer previewRenderer, IScreenshotService screenshotService, RenderTexture renderTexture)
+            IPreviewRenderer previewRenderer, IScreenshotService screenshotService, RenderTexture renderTexture, IToast toast)
         {
             _drawingsProvider = drawingsProvider;
             _sceneLoader = sceneLoader;
             _previewRenderer = previewRenderer;
             _screenshotService = screenshotService;
             _renderTexture = renderTexture;
+            _toast = toast;
 
             _drawingName = new Property<string>();
             _drawingDescription = new Property<string>();
@@ -132,7 +135,10 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         private async UniTask Save(CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(DrawingName))
+            {
+                _toast.ShowMessage("Enter valid name");
                 return;
+            }
 
             _selectedDrawing ??= _drawingsProvider.CreateNewData();
             _selectedDrawing.Name = DrawingName;
@@ -146,7 +152,10 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         private async UniTask Draw(CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(DrawingName))
+            {
+                _toast.ShowMessage("Enter valid name");
                 return;
+            }
 
             await Save(cancellationToken);
             await _sceneLoader.LoadScene(SceneIndex.Draw);

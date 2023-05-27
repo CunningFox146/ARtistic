@@ -3,6 +3,7 @@ using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Infrastructure.GameStates;
 using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Draw;
+using ArPaint.UI.Converters;
 using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.ViewModels.Loading;
 using ArPaint.UI.Views.Loading;
@@ -15,6 +16,7 @@ using Services.Screenshot;
 using Services.StaticData;
 using Services.Toast;
 using UnityEngine;
+using UnityMvvmToolkit.Core.Interfaces;
 using Zenject;
 
 namespace ArPaint.Infrastructure
@@ -51,6 +53,11 @@ namespace ArPaint.Infrastructure
                 .FromComponentInNewPrefab(_loadingView);
             Container.BindInterfacesAndSelfTo<LoadingViewModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<LoadingDisplaySystem>().AsSingle();
+
+            Container.Bind<IValueConverter[]>().FromInstance(new IValueConverter[]
+            {
+                new StringToBoolConverter()
+            });
 
             Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle().NonLazy();
         }

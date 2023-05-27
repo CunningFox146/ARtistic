@@ -10,6 +10,8 @@ namespace ArPaint.UI.Elements
     {
         private PropertyBindingData _visibilityPathBindingData;
         private IProperty<bool> _visibilityProperty;
+        
+        private bool IsInverted { get; set; }
 
         public string BindingVisibilityPath { get; private set; }
         
@@ -42,6 +44,9 @@ namespace ArPaint.UI.Elements
 
         private void SetVisible(bool newValue)
         {
+            if (IsInverted)
+                newValue = !newValue;
+            
             if (newValue)
                 this.Show();
             else
@@ -50,13 +55,17 @@ namespace ArPaint.UI.Elements
 
         public new class UxmlTraits : VisualElement.UxmlTraits
         {
+            private readonly UxmlBoolAttributeDescription _isInverted = new()
+                { name = "is-inverted", defaultValue = default };
             private readonly UxmlStringAttributeDescription _bindingImageAttribute = new()
                 { name = "binding-visibility-path", defaultValue = string.Empty };
 
             public override void Init(VisualElement visualElement, IUxmlAttributes bag, CreationContext context)
             {
                 base.Init(visualElement, bag, context);
-                ((BindableVisibilityView) visualElement).BindingVisibilityPath = _bindingImageAttribute.GetValueFromBag(bag, context);
+                var element = (BindableVisibilityView)visualElement; 
+                element.IsInverted = _isInverted.GetValueFromBag(bag, context);
+                element.BindingVisibilityPath = _bindingImageAttribute.GetValueFromBag(bag, context);
             }
         }
 

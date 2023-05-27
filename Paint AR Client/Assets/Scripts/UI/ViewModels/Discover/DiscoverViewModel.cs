@@ -25,8 +25,8 @@ namespace ArPaint.UI.ViewModels.Discover
         private readonly IAuthSystem _authSystem;
         private readonly IDrawingsProvider _drawingsProvider;
 
-        public IAsyncCommand UpdateDrawingsCommand {get;}
-        public IAsyncCommand SearchDrawingsCommand {get;}
+        public IAsyncCommand ClearSearchCommand { get; }
+        public IAsyncCommand SearchDrawingsCommand { get; }
 
         public DiscoverViewModel(IDrawingsProvider drawingsProvider, IAuthSystem authSystem)
         {
@@ -36,25 +36,26 @@ namespace ArPaint.UI.ViewModels.Discover
             _searchText = new Property<string>();
             _drawings = new ReadOnlyProperty<ObservableCollection<DrawingViewModel>>(
                 new ObservableCollection<DrawingViewModel>());
-            UpdateDrawingsCommand = new AsyncCommand(UpdateDrawings) { DisableOnExecution = true };
+
+            ClearSearchCommand = new AsyncCommand(ClearSearch) { DisableOnExecution = true };
             SearchDrawingsCommand = new AsyncCommand(SearchDrawings) { DisableOnExecution = true };
-            UpdateDrawingsCommand.ExecuteAsync();
+            SearchDrawingsCommand.ExecuteAsync();
+        }
+
+        private async UniTask ClearSearch(CancellationToken cancellationToken)
+        {
+            _searchText.Value = string.Empty;
+            await SearchDrawings(default);
         }
 
         private async UniTask SearchDrawings(CancellationToken _)
         {
-            await UpdateDrawingsInternal(_searchText.Value);
+            await SearchDrawingsInternal(_searchText.Value);
         }
 
-        private async UniTask UpdateDrawings(CancellationToken _)
-        {
-            await UpdateDrawingsInternal(null);
-        }
-
-        private async Task UpdateDrawingsInternal(string search)
+        private async Task SearchDrawingsInternal(string search)
         {
             _drawings.Value.Clear();
-            Debug.Log($"Search: {string.IsNullOrWhiteSpace(search)} {search}");
             var drawings = await _drawingsProvider.GetPublishedDrawings();
             var foundDrawings = drawings.Where(drawing => drawing.Author != _authSystem.User.UserId);
             var sortedDrawings = string.IsNullOrWhiteSpace(search)

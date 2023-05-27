@@ -358,6 +358,9 @@
     margin-bottom: 0;
 }
 
+.input__hidden {
+}
+
 .input .unity-base-text-field__input {
     background-color: rgba(0, 0, 0, 0);
     border-color: var(--neutral);
@@ -374,6 +377,13 @@
     padding-top: 16px;
     padding-bottom: 16px;
     font-size: 24px;
+}
+
+.input__hidden .unity-base-text-field__input {
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }
 
 .default-button {
@@ -406,6 +416,23 @@
     height: 100%;
 }
 
-.button__danger{
+.button__danger {
     background-color: var(--danger-color);
+}
+
+.icon-button {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(255, 255, 255, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
 }
