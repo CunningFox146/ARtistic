@@ -20,11 +20,13 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         [Observable(nameof(DrawingDescription))]
         private readonly IProperty<string> _drawingDescription;
 
-        [Observable(nameof(DrawingName))] private readonly IProperty<string> _drawingName;
+        [Observable(nameof(DrawingName))]
+        private readonly IProperty<string> _drawingName;
         
         [Observable] private readonly IProperty<string> _publishButtonText;
         [Observable] private readonly IProperty<string> _author;
         [Observable] private readonly IProperty<bool> _isOwned;
+        [Observable] private readonly IProperty<Quaternion> _previewRotation;
 
         private readonly IDrawingsProvider _drawingsProvider;
         private readonly IPreviewRenderer _previewRenderer;
@@ -63,12 +65,14 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             _screenshotService = screenshotService;
             _renderTexture = renderTexture;
             _toast = toast;
-
+            
             _drawingName = new Property<string>();
             _drawingDescription = new Property<string>();
             _publishButtonText = new Property<string>();
             _author = new Property<string>();
             _isOwned = new Property<bool>();
+            _previewRotation = new Property<Quaternion>(new());
+            _previewRenderer.SetRotationGetter(() => _previewRotation.Value);
 
             CloseViewCommand = new Command(CloseView);
             SaveCommand = new AsyncCommand(Save) { DisableOnExecution = true };

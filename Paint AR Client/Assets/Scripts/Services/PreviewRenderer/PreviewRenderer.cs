@@ -18,6 +18,7 @@ namespace Services.PreviewRenderer
         private readonly IFactory<IShapeContainer> _shapeContainerFactory;
         private readonly IUpdateLoop _updateLoop;
         private Transform _container;
+        private Func<Quaternion> _targetRotation;
 
         public PreviewRenderer(ShapeContainer.Factory shapeContainerFactory, Camera camera, IUpdateLoop updateLoop)
         {
@@ -34,6 +35,11 @@ namespace Services.PreviewRenderer
         public void Dispose()
         {
             _updateLoop.UnregisterUpdate(this);
+        }
+
+        public void SetRotationGetter(Func<Quaternion> rotation)
+        {
+            _targetRotation = rotation;
         }
 
         public async void RenderDrawing(IEnumerable<SerializableDrawCommand> commands)
@@ -67,14 +73,17 @@ namespace Services.PreviewRenderer
 
             _container = new GameObject { name = "ShapesContainer" }.transform;
             _container.SetParent(_itemPreviewContainer);
-            
+
             _updateLoop.UnregisterUpdate(this);
         }
 
         public void OnUpdate()
         {
-            if (_itemRotationContainer)
-                _itemRotationContainer.Rotate(Time.deltaTime * 10f * Vector3.up);
+            if (!_itemRotationContainer || _targetRotation == null)
+                return;
+
+            _itemRotationContainer.rotation =
+                Quaternion.Slerp(_itemRotationContainer.rotation, _targetRotation(), 0.5f);
         }
 
         private IShapeContainer CreateShapeContainer()
