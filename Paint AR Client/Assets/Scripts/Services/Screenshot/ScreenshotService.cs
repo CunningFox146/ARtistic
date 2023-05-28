@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ArPaint.Utils;
 using Cysharp.Threading.Tasks;
 using Services.Toast;
 using Unity.Collections;
@@ -20,31 +21,18 @@ namespace Services.Screenshot
         public async UniTask Screenshot(RenderTexture texture, CancellationToken cancellationToken = default)
         {
             NativeGallery.CheckPermission(NativeGallery.PermissionType.Write, NativeGallery.MediaType.Image);
-            
-            var width = texture.width;
-            var height = texture.height;
-            var nativeArray = new NativeArray<byte>(width * height * 16, Allocator.Persistent,
-                NativeArrayOptions.UninitializedMemory);
 
-            var request = AsyncGPUReadback.RequestIntoNativeArray(ref nativeArray, texture, 0);
+            var bytes = await texture.ToBytesArray(cancellationToken: cancellationToken);
 
-            await request.ToUniTask(cancellationToken: cancellationToken);
-            
-            if (!request.hasError)
+            if (bytes != null)
             {
-                var encoded = ImageConversion.EncodeNativeArrayToPNG(nativeArray, texture.graphicsFormat,
-                    (uint)width, (uint)height);
-
-                NativeGallery.SaveImageToGallery(encoded.ToArray(), "ARtistic",
+                NativeGallery.SaveImageToGallery(bytes, "ARtistic",
                     $"Drawing {DateTime.Now.ToLongDateString()}.png",
                     (success, path) =>
                     {
                         _toast.ShowMessage(!success ? "Failed to save. Check permissions." : $"Saved to {path}");
                     });
-                encoded.Dispose();
             }
-
-            nativeArray.Dispose();
         }
     }
 }

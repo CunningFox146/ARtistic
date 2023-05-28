@@ -10,7 +10,9 @@ using ArPaint.UI.Views.Loading;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Firestore;
+using Firebase.Storage;
 using Services.Auth;
+using Services.ImageProvider;
 using Services.PersistentData;
 using Services.Screenshot;
 using Services.StaticData;
@@ -33,6 +35,11 @@ namespace ArPaint.Infrastructure
             Container.Bind<IToast>().To<ToastAndroid>().AsSingle();
 #endif
             
+            Container.Bind<FirebaseApp>().FromMethod(_ => FirebaseApp.DefaultInstance);
+            Container.Bind<FirebaseAuth>().FromMethod(_ => FirebaseAuth.DefaultInstance);
+            Container.Bind<FirebaseFirestore>().FromMethod(_ => FirebaseFirestore.DefaultInstance);
+            Container.Bind<FirebaseStorage>().FromMethod(_ => FirebaseStorage.DefaultInstance);
+            
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
             Container.Bind<IAssetProvider>().To<ResourcesAssetProvider>().AsSingle();
@@ -42,12 +49,9 @@ namespace ArPaint.Infrastructure
             Container.Bind<IPersistentData>().To<PlayerPrefsPersistentData>().AsSingle();
             Container.Bind<IDrawingsProvider>().To<DrawingsProvider>().AsSingle();
             Container.Bind<IScreenshotService>().To<ScreenshotService>().AsSingle();
+            Container.Bind<IImageProvider>().To<ImageProvider>().AsSingle();
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
             Container.BindFactory<BootstrapState, BootstrapState.Factory>();
-            
-            Container.Bind<FirebaseApp>().FromMethod(_ => FirebaseApp.DefaultInstance);
-            Container.Bind<FirebaseAuth>().FromMethod(_ => FirebaseAuth.DefaultInstance);
-            Container.Bind<FirebaseFirestore>().FromMethod(_ => FirebaseFirestore.DefaultInstance);
             
             Container.BindFactory<LoadingView, LoadingView.Factory>()
                 .FromComponentInNewPrefab(_loadingView);

@@ -1,5 +1,8 @@
 ﻿using System;
 using ArPaint.Services.Draw;
+using Cysharp.Threading.Tasks;
+using Services.ImageProvider;
+using UnityEngine;
 using UnityMvvmToolkit.Common.Interfaces;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
@@ -15,8 +18,12 @@ namespace ArPaint.UI.ViewModels.Home
 
         [Observable(nameof(DrawingDescription))]
         private readonly IProperty<string> _drawingDescription;
+        
+        [Observable]
+        private readonly IProperty<Texture2D> _preview;
 
         private readonly Action<DrawingData> _selectDrawing;
+        private readonly IImageProvider _imageProvider;
 
         public int Id { get; }
         public DrawingData Drawing { get; }
@@ -34,24 +41,34 @@ namespace ArPaint.UI.ViewModels.Home
             set => _drawingDescription.Value = value;
         }
         
-        public DrawingViewModel(DrawingData drawing, Action<DrawingData> selectDrawing)
+        public DrawingViewModel(DrawingData drawing, Action<DrawingData> selectDrawing, IImageProvider imageProvider)
         {
             Drawing = drawing;
             Id = Drawing.Id;
             
             _selectDrawing = selectDrawing;
+            _imageProvider = imageProvider;
 
+            _preview = new Property<Texture2D>();
             _drawingName = new Property<string>(Drawing.Name);
             _drawingDescription = new Property<string>(Drawing.Description);
 
             SelectDrawingCommand = new Command(SelectDrawing);
-            Update();
+            _ = Update();
         }
 
-        private void Update()
+        private async UniTask Update()
         {
             DrawingName = Drawing.Name;
             DrawingDescription = Drawing.Description;
+            try
+            {
+                _preview.Value = await _imageProvider.LoadImage(Id.ToString());
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception);
+            }
         }
 
         private void SelectDrawing()

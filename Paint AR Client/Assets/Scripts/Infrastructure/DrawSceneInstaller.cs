@@ -14,6 +14,7 @@ using ArPaint.UI.Views.ArInit;
 using ArPaint.UI.Views.Draw;
 using ArPaint.UI.Views.DrawingPlacer;
 using ArPaint.UI.Views.DrawOptions;
+using Services.PreviewRenderer;
 using UI.Systems.ViewProvider;
 using Unity.XR.CoreUtils;
 using UnityEngine;
@@ -29,7 +30,6 @@ namespace ArPaint.Infrastructure
         [SerializeField] private GameObject _drawOptionsView;
         [SerializeField] private GameObject _drawingPlacerView;
 
-        
         private IPrefabsProvider _prefabsProvider;
 
         [Inject]
@@ -47,6 +47,7 @@ namespace ArPaint.Infrastructure
             Container.BindInterfacesAndSelfTo<InputSource>().AsSingle();
             Container.BindInterfacesAndSelfTo<DrawService>().AsSingle();
             Container.BindInterfacesAndSelfTo<DrawingPlacer>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PreviewRenderer>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<ArInitViewModel>().AsSingle();
             Container.BindFactory<ArInitView, ArInitView.Factory>()

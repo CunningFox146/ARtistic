@@ -10,6 +10,8 @@ using ArPaint.Services.SaveLoad;
 using ArPaint.Utils;
 using Cysharp.Threading.Tasks;
 using Firebase.Analytics;
+using Services.ImageProvider;
+using Services.PreviewRenderer;
 using Services.StaticData;
 using UnityEngine;
 using Zenject;
@@ -27,7 +29,9 @@ namespace ArPaint.Services.Draw
         private readonly IUpdateLoop _updateLoop;
         private readonly ICommandBuffer _commandBuffer;
         private readonly IDrawingsProvider _drawingsProvider;
-        
+        private readonly IPreviewRenderer _previewRenderer;
+        private readonly IImageProvider _imageProvider;
+
         private IShape _shape;
 
 
@@ -47,7 +51,7 @@ namespace ArPaint.Services.Draw
         public Brush Brush { get; set; } 
 
         public DrawService(Camera mainCamera, IInputSource inputSource, ShapeContainer.Factory shapeContainerFactory,
-            IUpdateLoop updateLoop, ICommandBuffer commandBuffer, IStaticDataService staticData, IDrawingsProvider drawingsProvider)
+            IUpdateLoop updateLoop, ICommandBuffer commandBuffer, IStaticDataService staticData, IDrawingsProvider drawingsProvider, IPreviewRenderer previewRenderer, IImageProvider imageProvider)
         {
             Container = new GameObject { name = "Shapes Container"}.transform;
             Container.gameObject.SetActive(false);
@@ -58,7 +62,9 @@ namespace ArPaint.Services.Draw
             _updateLoop = updateLoop;
             _commandBuffer = commandBuffer;
             _drawingsProvider = drawingsProvider;
-            
+            _previewRenderer = previewRenderer;
+            _imageProvider = imageProvider;
+
             Shape = staticData.Shapes.ShapesList.FirstOrDefault();
             Brush = Brush.Default;
 
@@ -87,11 +93,18 @@ namespace ArPaint.Services.Draw
 
         public async UniTask Save()
         {
-            if (_drawingsProvider.SelectedDrawing != null)
+            var drawing = _drawingsProvider.SelectedDrawing;
+            if (drawing != null)
             {
-                _drawingsProvider.SelectedDrawing.DrawCommands = _commandBuffer.SerializeDrawCommands();
+                var commands = _commandBuffer.SerializeDrawCommands();
+                drawing.DrawCommands = commands;
+                
                 await _drawingsProvider.Save();
+                await _previewRenderer.RenderDrawing(commands);
+                if (drawing.IsPublished)
+                    await _imageProvider.UploadImage(drawing.Id.ToString(), _previewRenderer.RenderTexture);
             }
+            
         }
 
         public void OnUpdate()

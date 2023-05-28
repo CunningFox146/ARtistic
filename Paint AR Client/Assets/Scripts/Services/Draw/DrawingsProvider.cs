@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using Firebase.Firestore;
 using Newtonsoft.Json;
 using Services.Auth;
+using Services.ImageProvider;
 using Services.PersistentData;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,14 +22,16 @@ namespace ArPaint.Services.Draw
         private readonly IPersistentData _persistentData;
         private readonly FirebaseFirestore _firestore;
         private readonly IAuthSystem _auth;
+        private readonly IImageProvider _imageProvider;
         public DrawingData SelectedDrawing { get; private set; }
         public ObservableCollection<DrawingData> Drawings { get; }
 
-        public DrawingsProvider(IPersistentData persistentData, FirebaseFirestore firestore, IAuthSystem auth)
+        public DrawingsProvider(IPersistentData persistentData, FirebaseFirestore firestore, IAuthSystem auth, IImageProvider imageProvider)
         {
             _persistentData = persistentData;
             _firestore = firestore;
             _auth = auth;
+            _imageProvider = imageProvider;
 
             Drawings = new();
             
@@ -85,6 +88,7 @@ namespace ArPaint.Services.Draw
         {
             drawing.IsPublished = false;
             await _firestore.Document($"{CollectionName}/drawing_{drawing.Id}").DeleteAsync();
+            await _imageProvider.DeleteImage(drawing.Id.ToString());
             
             if (!noSave)
                 await Save();

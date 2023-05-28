@@ -20,15 +20,20 @@ namespace Services.PreviewRenderer
         private Transform _container;
         private Func<Quaternion> _targetRotation;
 
-        public PreviewRenderer(ShapeContainer.Factory shapeContainerFactory, Camera camera, IUpdateLoop updateLoop)
+        public RenderTexture RenderTexture => _camera.targetTexture;
+
+        public PreviewRenderer(ShapeContainer.Factory shapeContainerFactory, IUpdateLoop updateLoop)
         {
             _itemRotationContainer = new GameObject { name = "RotationContainer" }.transform;
             _itemPreviewContainer = new GameObject { name = "PreviewContainer" }.transform;
 
             _itemPreviewContainer.SetParent(_itemRotationContainer);
 
+            var cameraObject = new GameObject("PreviewRendererCamera", typeof(Camera));
+            _camera = cameraObject.GetComponent<Camera>();
+            _camera.enabled = false;
+            
             _shapeContainerFactory = shapeContainerFactory;
-            _camera = camera;
             _updateLoop = updateLoop;
         }
 
@@ -42,7 +47,7 @@ namespace Services.PreviewRenderer
             _targetRotation = rotation;
         }
 
-        public async void RenderDrawing(IEnumerable<SerializableDrawCommand> commands)
+        public async UniTask RenderDrawing(IEnumerable<SerializableDrawCommand> commands)
         {
             Clear();
 
@@ -60,6 +65,8 @@ namespace Services.PreviewRenderer
 
             await UniTask.Yield();
 
+            _camera.enabled = true;
+            
             var bounds = GetBoundsWithChildren(_container.gameObject);
             _itemPreviewContainer.position = -bounds.center;
 

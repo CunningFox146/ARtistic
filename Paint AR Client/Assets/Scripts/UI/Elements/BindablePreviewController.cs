@@ -10,8 +10,6 @@ namespace ArPaint.UI.Elements
     {
         private PropertyBindingData _previewRotationPathData;
         private IProperty<Quaternion> _previewRotation;
-
-        private bool _isRotating;
         
         private float Sensitivity { get; set; }
         private string BindingPreviewRotationPath { get; set; }
@@ -23,16 +21,11 @@ namespace ArPaint.UI.Elements
 
         public BindablePreviewController()
         {
-            RegisterCallback<MouseDownEvent>(_ => _isRotating = true);
-            RegisterCallback<MouseUpEvent>(_ => _isRotating = true);
             RegisterCallback<MouseMoveEvent>(OnMouseMove);
         }
 
         private void OnMouseMove(MouseMoveEvent evt)
         {
-            if (!_isRotating)
-                return;
-
             var delta = -evt.mouseDelta.x;
             Rotation = Mathf.Approximately(Rotation.eulerAngles.magnitude, 0f) ?
                 Quaternion.Euler(delta * Sensitivity * Vector3.up) :

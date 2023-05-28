@@ -4,6 +4,7 @@ using ArPaint.Services.Draw;
 using ArPaint.UI.Systems.Stack;
 using ArPaint.UI.ViewModels.MainMenu;
 using ArPaint.UI.Views.DrawingInfo;
+using Services.ImageProvider;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
 using UnityMvvmToolkit.Core.Interfaces;
@@ -13,6 +14,7 @@ namespace ArPaint.UI.ViewModels.Home
     public class HomeViewModelModel : MainMenuViewModel
     {
         private readonly IDrawingsProvider _drawingsProvider;
+        private readonly IImageProvider _imageProvider;
 
         [Observable(nameof(Drawings))]
         private readonly IReadOnlyProperty<ObservableCollection<DrawingViewModel>> _drawings;
@@ -21,9 +23,10 @@ namespace ArPaint.UI.ViewModels.Home
         
         public ICommand CreateDrawingCommand { get; }
 
-        public HomeViewModelModel(IDrawingsProvider drawingsProvider)
+        public HomeViewModelModel(IDrawingsProvider drawingsProvider, IImageProvider imageProvider)
         {
             _drawingsProvider = drawingsProvider;
+            _imageProvider = imageProvider;
 
             CreateDrawingCommand = new Command(CreateDrawing);
             
@@ -42,7 +45,7 @@ namespace ArPaint.UI.ViewModels.Home
             Drawings.Clear();
             foreach (var drawing in _drawingsProvider.Drawings)
             {
-                Drawings.Add(new DrawingViewModel(drawing, SelectDrawing));
+                Drawings.Add(new DrawingViewModel(drawing, SelectDrawing, _imageProvider));
             }
         }
 

@@ -8,6 +8,7 @@ using ArPaint.UI.ViewModels.MainMenu;
 using ArPaint.UI.Views.DrawingInfo;
 using Cysharp.Threading.Tasks;
 using Services.Auth;
+using Services.ImageProvider;
 using UnityEngine;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
@@ -23,15 +24,17 @@ namespace ArPaint.UI.ViewModels.Discover
         [Observable] private readonly IProperty<string> _searchText;
 
         private readonly IAuthSystem _authSystem;
+        private readonly IImageProvider _imageProvider;
         private readonly IDrawingsProvider _drawingsProvider;
 
         public IAsyncCommand ClearSearchCommand { get; }
         public IAsyncCommand SearchDrawingsCommand { get; }
 
-        public DiscoverViewModel(IDrawingsProvider drawingsProvider, IAuthSystem authSystem)
+        public DiscoverViewModel(IDrawingsProvider drawingsProvider, IAuthSystem authSystem, IImageProvider imageProvider)
         {
             _drawingsProvider = drawingsProvider;
             _authSystem = authSystem;
+            _imageProvider = imageProvider;
 
             _searchText = new Property<string>();
             _drawings = new ReadOnlyProperty<ObservableCollection<DrawingViewModel>>(
@@ -64,7 +67,7 @@ namespace ArPaint.UI.ViewModels.Discover
                     drawing.Name.ToLower().Contains(search.ToLower()));
             
             foreach (var drawing in sortedDrawings)
-                _drawings.Value.Add(new DrawingViewModel(drawing, SelectDrawing));
+                _drawings.Value.Add(new DrawingViewModel(drawing, SelectDrawing, _imageProvider));
         }
 
         private void SelectDrawing(DrawingData drawing)

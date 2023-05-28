@@ -10,6 +10,11 @@ namespace ArPaint.UI.Elements
             style.backgroundImage = new StyleBackground(image);
         }
         
+        public void SetImage(Texture2D image)
+        {
+            style.backgroundImage = new StyleBackground(image);
+        }
+        
         public void SetImage(VectorImage image)
         {
             style.backgroundImage = new StyleBackground(image);
