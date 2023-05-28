@@ -179,6 +179,12 @@ namespace ArPaint.Services.Draw
             var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
             (Shape as IShapeEnd)?.OnDrawEnd(container, container.TransformPoint(touchPosition));
 
+            if (container.PositionsCount < 2)
+            {
+                container.Destroy();
+                return;
+            }
+            
             var command = new DrawCommand
             {
                 Brush = Brush,

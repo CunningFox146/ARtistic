@@ -16,6 +16,8 @@ namespace ArPaint.Services.Draw.Shapes
         [SerializeField] private List<ShapeMaterial> _materials;
         private Vector3 _lastPosition;
 
+        public int PositionsCount => _lineRenderer.positionCount;
+
         public bool IsLooping
         {
             get => _lineRenderer.loop;
