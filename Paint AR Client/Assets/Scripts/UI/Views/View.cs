@@ -42,6 +42,8 @@ namespace ArPaint.UI.Views
             RootVisualElement.Query<VisualElement>().Where(element => element is IViewHiddenHandler).ForEach(
                 element => { ((IViewHiddenHandler)element).OnViewHidden(this); });
             RootVisualElement.visible = false;
+            
+            (_viewModel as INotifyViewInactive)?.OnViewInactive();
         }
 
         public virtual void Destroy()

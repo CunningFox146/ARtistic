@@ -15,7 +15,7 @@ using UnityMvvmToolkit.UniTask.Interfaces;
 
 namespace ArPaint.UI.ViewModels.DrawingInfo
 {
-    public class DrawingInfoViewModel : ViewModel, IDisposable
+    public class DrawingInfoViewModel : ViewModel, IDisposable, INotifyViewInactive
     {
         [Observable(nameof(DrawingDescription))]
         private readonly IProperty<string> _drawingDescription;
@@ -124,7 +124,10 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             _isOwned.Value = _selectedDrawing == null || _selectedDrawing.IsOwned;
 
             if (_selectedDrawing is { DrawCommands: not null })
+            {
+                _previewRotation.Value = Quaternion.identity;
                 _previewRenderer.RenderDrawing(_selectedDrawing.DrawCommands);
+            }
             else
                 _previewRenderer.Clear();
 
@@ -165,6 +168,11 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
 
             await Save(cancellationToken);
             await _sceneLoader.LoadScene(SceneIndex.Draw);
+        }
+
+        public void OnViewInactive()
+        {
+            _previewRenderer.Clear();
         }
     }
 }

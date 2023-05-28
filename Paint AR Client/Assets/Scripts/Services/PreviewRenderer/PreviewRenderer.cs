@@ -55,13 +55,9 @@ namespace Services.PreviewRenderer
 
         public async UniTask RenderDrawing(IEnumerable<SerializableDrawCommand> commands)
         {
-            Clear();
+            ClearInternal(false);
 
             _camera.enabled = true;
-            _updateLoop.RegisterUpdate(this);
-
-            _itemRotationContainer.localRotation = Quaternion.identity;
-            _itemPreviewContainer.position = Vector3.zero;
 
             foreach (var command in commands)
             {
@@ -78,14 +74,28 @@ namespace Services.PreviewRenderer
             _itemPreviewContainer.position = -bounds.center;
 
             FocusOn(1.1f, _camera);
+            
+            _updateLoop.RegisterUpdate(this);
+            
             await UniTask.Yield();
         }
 
         public void Clear()
         {
+            ClearInternal(true);
+        }
+
+        private void ClearInternal(bool disableCamera)
+        {
+            _camera.enabled = !disableCamera;
+
             if (_container != null)
                 Object.Destroy(_container.gameObject);
 
+            
+            _itemRotationContainer.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            _itemPreviewContainer.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            
             _container = new GameObject { name = "ShapesContainer" }.transform;
             _container.SetParent(_itemPreviewContainer);
 
