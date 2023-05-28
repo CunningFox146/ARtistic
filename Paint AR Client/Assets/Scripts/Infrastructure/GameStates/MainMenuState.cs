@@ -12,12 +12,12 @@ namespace ArPaint.Infrastructure.GameStates
     public class MainMenuState : IEnterState, IExitState
     {
         private readonly IDrawingsProvider _drawingsProvider;
-        private readonly ILoadingDisplaySystem _loadingDisplay;
+        private readonly ILoadingDisplay _loadingDisplay;
         private readonly IPersistentData _persistentData;
         private readonly IToast _toast;
         private readonly IViewStack _viewStack;
 
-        public MainMenuState(ILoadingDisplaySystem loadingDisplay, IViewStack viewStack,
+        public MainMenuState(ILoadingDisplay loadingDisplay, IViewStack viewStack,
             IDrawingsProvider drawingsProvider, IToast toast, IPersistentData persistentData)
         {
             _loadingDisplay = loadingDisplay;

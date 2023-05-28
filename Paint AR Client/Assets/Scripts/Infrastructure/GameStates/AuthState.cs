@@ -12,13 +12,13 @@ namespace ArPaint.Infrastructure.GameStates
     public class AuthState : IEnterState, IExitState
     {
         private readonly IAuthSystem _auth;
-        private readonly ILoadingDisplaySystem _loadingDisplay;
+        private readonly ILoadingDisplay _loadingDisplay;
         private readonly IPersistentData _persistentData;
         private readonly IDrawingsProvider _drawingsProvider;
         private readonly ISceneLoader _sceneLoader;
         private readonly IViewStack _viewStack;
 
-        public AuthState(IAuthSystem auth, ILoadingDisplaySystem loadingDisplay, IViewStack viewStack,
+        public AuthState(IAuthSystem auth, ILoadingDisplay loadingDisplay, IViewStack viewStack,
             ISceneLoader sceneLoader, IPersistentData persistentData, IDrawingsProvider drawingsProvider)
         {
             _auth = auth;

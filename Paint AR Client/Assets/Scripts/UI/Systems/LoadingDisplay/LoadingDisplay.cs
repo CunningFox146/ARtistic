@@ -4,11 +4,11 @@ using Object = UnityEngine.Object;
 
 namespace ArPaint.UI.Systems.LoadingDisplay
 {
-    public class LoadingDisplaySystem : ILoadingDisplaySystem, IDisposable
+    public class LoadingDisplay : ILoadingDisplay, IDisposable
     {
         private readonly LoadingView _loadingView;
 
-        public LoadingDisplaySystem(LoadingView.Factory loadingViewFactory)
+        public LoadingDisplay(LoadingView.Factory loadingViewFactory)
         {
             _loadingView = loadingViewFactory.Create();
             Object.DontDestroyOnLoad(_loadingView.gameObject);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Commands;
@@ -97,14 +98,16 @@ namespace ArPaint.Services.Draw
             if (drawing != null)
             {
                 var commands = _commandBuffer.SerializeDrawCommands();
-                drawing.DrawCommands = commands;
+                drawing.DrawCommands = commands; 
                 
-                await _drawingsProvider.Save();
                 await _previewRenderer.RenderDrawing(commands);
+                drawing.Preview = await _previewRenderer.RenderTexture.ToBytesArray(128, 128);
+                
+                
                 if (drawing.IsPublished)
-                    await _imageProvider.UploadImage(drawing.Id.ToString(), _previewRenderer.RenderTexture);
+                    await _imageProvider.UploadImage(drawing.Id.ToString(), drawing.Preview);
+                await _drawingsProvider.Save();
             }
-            
         }
 
         public void OnUpdate()

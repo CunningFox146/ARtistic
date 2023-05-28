@@ -7,16 +7,16 @@ namespace ArPaint.Infrastructure.SceneManagement
 {
     public class SceneLoader : ISceneLoader
     {
-        private readonly ILoadingDisplaySystem _loadingDisplaySystem;
+        private readonly ILoadingDisplay loadingDisplay;
 
-        public SceneLoader(ILoadingDisplaySystem loadingDisplaySystem)
+        public SceneLoader(ILoadingDisplay loadingDisplay)
         {
-            _loadingDisplaySystem = loadingDisplaySystem;
+            this.loadingDisplay = loadingDisplay;
         }
         
         public async UniTask LoadScene(SceneIndex scene, Action callback = null)
         {
-            _loadingDisplaySystem.ShowLoadingView();
+            loadingDisplay.ShowLoadingView();
             await SceneManager.LoadSceneAsync((int)scene, LoadSceneMode.Single);
             callback?.Invoke();
         }

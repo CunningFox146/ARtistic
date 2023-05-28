@@ -12,15 +12,15 @@ namespace ArPaint.Infrastructure.GameStates
     {
         private readonly IDrawingsProvider _drawingsProvider;
         private readonly IGameStateMachine _gameState;
-        private readonly ILoadingDisplaySystem _loadingDisplaySystem;
+        private readonly ILoadingDisplay loadingDisplay;
         private readonly ARPlaneManager _planeManager;
         private readonly IViewStack _viewStack;
 
         [Inject]
         public ArInitState(ARPlaneManager planeManager, IGameStateMachine gameState,
-            ILoadingDisplaySystem loadingDisplaySystem, IViewStack viewStack, IDrawingsProvider drawingsProvider)
+            ILoadingDisplay loadingDisplay, IViewStack viewStack, IDrawingsProvider drawingsProvider)
         {
-            _loadingDisplaySystem = loadingDisplaySystem;
+            this.loadingDisplay = loadingDisplay;
             _viewStack = viewStack;
             _drawingsProvider = drawingsProvider;
             _planeManager = planeManager;
@@ -29,7 +29,7 @@ namespace ArPaint.Infrastructure.GameStates
 
         public void OnEnter()
         {
-            _loadingDisplaySystem.HideLoadingView();
+            loadingDisplay.HideLoadingView();
 
 #if UNITY_EDITOR
             _gameState.EnterState<DrawState>();

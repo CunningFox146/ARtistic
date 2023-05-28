@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using ArPaint.Infrastructure.GameLoop;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw.Shapes;
+using ArPaint.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 using Zenject;
 using Object = UnityEngine.Object;
 
@@ -22,7 +24,7 @@ namespace Services.PreviewRenderer
 
         public RenderTexture RenderTexture => _camera.targetTexture;
 
-        public PreviewRenderer(ShapeContainer.Factory shapeContainerFactory, IUpdateLoop updateLoop)
+        public PreviewRenderer(ShapeContainer.Factory shapeContainerFactory, IUpdateLoop updateLoop, RenderTexture renderTexture)
         {
             _itemRotationContainer = new GameObject { name = "RotationContainer" }.transform;
             _itemPreviewContainer = new GameObject { name = "PreviewContainer" }.transform;
@@ -31,6 +33,10 @@ namespace Services.PreviewRenderer
 
             var cameraObject = new GameObject("PreviewRendererCamera", typeof(Camera));
             _camera = cameraObject.GetComponent<Camera>();
+            _camera.targetTexture = renderTexture;
+            _camera.backgroundColor = new Color(0f, 0f, 0f, 0f);
+            _camera.clearFlags = CameraClearFlags.Color;
+            _camera.cullingMask = 1 << (int)Layers.Preview;
             _camera.enabled = false;
             
             _shapeContainerFactory = shapeContainerFactory;
@@ -51,6 +57,7 @@ namespace Services.PreviewRenderer
         {
             Clear();
 
+            _camera.enabled = true;
             _updateLoop.RegisterUpdate(this);
 
             _itemRotationContainer.localRotation = Quaternion.identity;
@@ -62,15 +69,16 @@ namespace Services.PreviewRenderer
                 drawCommand.CreateContainer = CreateShapeContainer;
                 drawCommand.Perform();
             }
+            
+            _itemRotationContainer.SetLayerRecursively((int)Layers.Preview);
 
             await UniTask.Yield();
 
-            _camera.enabled = true;
-            
             var bounds = GetBoundsWithChildren(_container.gameObject);
             _itemPreviewContainer.position = -bounds.center;
 
             FocusOn(1.1f, _camera);
+            await UniTask.Yield();
         }
 
         public void Clear()

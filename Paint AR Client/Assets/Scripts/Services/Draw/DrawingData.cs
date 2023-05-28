@@ -30,10 +30,12 @@ namespace ArPaint.Services.Draw
         [FirestoreProperty]
         public string Description { get; set; }
         
-        public bool IsOwned { get; set; }
-        public bool IsPublished { get; set; }
-
         [FirestoreProperty]
         public List<SerializableDrawCommand> DrawCommands { get; set; }
+        
+        public bool IsOwned { get; set; }
+        public bool IsPublished { get; set; }
+        public byte[] Preview { get; set; }
+
     }
 }

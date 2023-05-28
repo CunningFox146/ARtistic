@@ -7,6 +7,7 @@ namespace Services.ImageProvider
     {
         UniTask<Texture2D> LoadImage(string path, int maxDownloadSize = 512 * 512);
         UniTask UploadImage(string path, Texture texture);
+        UniTask UploadImage(string path, byte[] bytes);
         UniTask DeleteImage(string path);
     }
 }

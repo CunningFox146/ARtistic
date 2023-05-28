@@ -1,5 +1,6 @@
 ﻿using System;
 using ArPaint.Services.Draw;
+using ArPaint.Utils;
 using Cysharp.Threading.Tasks;
 using Services.ImageProvider;
 using UnityEngine;
@@ -61,6 +62,13 @@ namespace ArPaint.UI.ViewModels.Home
         {
             DrawingName = Drawing.Name;
             DrawingDescription = Drawing.Description;
+
+            if (Drawing.Preview != null)
+            {
+                _preview.Value = Drawing.Preview.ToTexture2D(); 
+                return;
+            }
+            
             try
             {
                 _preview.Value = await _imageProvider.LoadImage(Id.ToString());

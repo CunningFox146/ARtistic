@@ -3,7 +3,6 @@ using System.Threading;
 using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Draw;
 using Cysharp.Threading.Tasks;
-using Services.ImageProvider;
 using Services.PreviewRenderer;
 using Services.Screenshot;
 using Services.Toast;
@@ -33,7 +32,6 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         private readonly IPreviewRenderer _previewRenderer;
         private readonly RenderTexture _renderTexture;
         private readonly IToast _toast;
-        private readonly IImageProvider _imageProvider;
         private readonly ISceneLoader _sceneLoader;
         private readonly IScreenshotService _screenshotService;
 
@@ -59,15 +57,13 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         }
 
         public DrawingInfoViewModel(IDrawingsProvider drawingsProvider, ISceneLoader sceneLoader,
-            IPreviewRenderer previewRenderer, IScreenshotService screenshotService, RenderTexture renderTexture, IToast toast, IImageProvider imageProvider)
+            IPreviewRenderer previewRenderer, IScreenshotService screenshotService, IToast toast)
         {
             _drawingsProvider = drawingsProvider;
             _sceneLoader = sceneLoader;
             _previewRenderer = previewRenderer;
             _screenshotService = screenshotService;
-            _renderTexture = renderTexture;
             _toast = toast;
-            _imageProvider = imageProvider;
 
             _drawingName = new Property<string>();
             _drawingDescription = new Property<string>();
@@ -96,7 +92,6 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             else
             {
                 await _drawingsProvider.UploadDrawing(_selectedDrawing);
-                await _imageProvider.UploadImage(_selectedDrawing.Id.ToString(), _renderTexture);
             }
 
             _publishButtonText.Value = _selectedDrawing.IsPublished ? "Unpublish" : "Publish";

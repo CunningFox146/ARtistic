@@ -28,22 +28,26 @@ namespace Services.ImageProvider
             
             var storageReference = _storage.GetReference(ImagePath(path));
             var bytes = await storageReference.GetBytesAsync(maxDownloadSize);
-            var texture = new Texture2D(1, 1);
-            texture.LoadImage(bytes);
+            var texture = bytes.ToTexture2D();
             _cache[path] = texture;
             return texture;
         }
 
         public async UniTask UploadImage(string path, Texture texture)
         {
-            var bytes = await texture.ToBytesArray(widthOverride: (uint)PreviewSize.x, heightOverride: (uint)PreviewSize.y);
+            var bytes = await texture.ToBytesArray(PreviewSize.x, PreviewSize.y);
+            await UploadImage(path, bytes);
+        }
+
+        public async UniTask UploadImage(string path, byte[] bytes)
+        {
             if (bytes != null)
             {
                 var storageReference = _storage.RootReference.Child(ImagePath(path));
                 await storageReference.PutBytesAsync(bytes);
             }
         }
-        
+
         public async UniTask DeleteImage(string path)
         {
             var storageReference = _storage.GetReference(ImagePath(path));

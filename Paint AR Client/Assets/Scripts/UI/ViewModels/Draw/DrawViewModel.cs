@@ -5,6 +5,7 @@ using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
+using ArPaint.UI.Systems.LoadingDisplay;
 using ArPaint.UI.Views.DrawOptions;
 using Cysharp.Threading.Tasks;
 using Services.StaticData;
@@ -24,6 +25,7 @@ namespace ArPaint.UI.ViewModels.Draw
         private readonly IDrawService _drawService;
         private readonly ISceneLoader _sceneLoader;
         private readonly IDrawingsProvider _drawingsProvider;
+        private readonly ILoadingDisplay _loadingDisplay;
 
         [Observable] private readonly IProperty<bool> _isDrawPanelVisible;
         [Observable(nameof(Shapes))] private readonly IReadOnlyProperty<ObservableCollection<ShapeViewModel>> _shapes;
@@ -44,12 +46,13 @@ namespace ArPaint.UI.ViewModels.Draw
         }
 
         public DrawViewModel(IStaticDataService staticData, ICommandBuffer commandBuffer, IDrawService drawService,
-            ISceneLoader sceneLoader, IDrawingsProvider drawingsProvider)
+            ISceneLoader sceneLoader, IDrawingsProvider drawingsProvider, ILoadingDisplay loadingDisplay)
         {
             _commandBuffer = commandBuffer;
             _drawService = drawService;
             _sceneLoader = sceneLoader;
             _drawingsProvider = drawingsProvider;
+            _loadingDisplay = loadingDisplay;
 
             ToggleShapeSelectCommand = new Command(ToggleShapeSelect);
             UndoCommand = new Command(Undo);
@@ -66,6 +69,7 @@ namespace ArPaint.UI.ViewModels.Draw
 
         private async UniTask ExitDrawing(CancellationToken _)
         {
+            _loadingDisplay.ShowLoadingView();
             await _drawService.Save();
             await _sceneLoader.LoadScene(SceneIndex.MainMenu);
         }

@@ -1,6 +1,6 @@
 ﻿namespace ArPaint.UI.Systems.LoadingDisplay
 {
-    public interface ILoadingDisplaySystem
+    public interface ILoadingDisplay
     {
         void ShowLoadingView();
         void HideLoadingView();

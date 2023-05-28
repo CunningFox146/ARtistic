@@ -26,6 +26,7 @@ namespace ArPaint.Infrastructure
     public class BootstrapInstaller : MonoInstaller
     {
         [SerializeField] private GameObject _loadingView;
+        [SerializeField] private RenderTexture _renderTexture;
 
         public override void InstallBindings()
         {
@@ -50,13 +51,14 @@ namespace ArPaint.Infrastructure
             Container.Bind<IDrawingsProvider>().To<DrawingsProvider>().AsSingle();
             Container.Bind<IScreenshotService>().To<ScreenshotService>().AsSingle();
             Container.Bind<IImageProvider>().To<ImageProvider>().AsSingle();
+            Container.Bind<RenderTexture>().FromInstance(_renderTexture).AsSingle();
             Container.BindInterfacesTo<UpdateLoop>().FromComponentInHierarchy().AsSingle();
             Container.BindFactory<BootstrapState, BootstrapState.Factory>();
             
             Container.BindFactory<LoadingView, LoadingView.Factory>()
                 .FromComponentInNewPrefab(_loadingView);
             Container.BindInterfacesAndSelfTo<LoadingViewModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<LoadingDisplaySystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LoadingDisplay>().AsSingle();
 
             Container.Bind<IValueConverter[]>().FromInstance(new IValueConverter[]
             {

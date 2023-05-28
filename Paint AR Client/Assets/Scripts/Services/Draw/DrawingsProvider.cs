@@ -81,6 +81,7 @@ namespace ArPaint.Services.Draw
         public async UniTask UploadDrawing(DrawingData drawing)
         {
             drawing.IsPublished = true;
+            await _imageProvider.UploadImage(drawing.Id.ToString(), drawing.Preview);
             await Save();
         }
 
@@ -128,7 +129,8 @@ namespace ArPaint.Services.Draw
         public async UniTask RemoveData(DrawingData data)
         {
             Drawings.Remove(data);
-            await UnUploadDrawing(data, true);
+            if (data.IsPublished)
+                await UnUploadDrawing(data, true);
         }
 
         public void SelectDrawing(DrawingData drawingData, bool noNotify = false)
