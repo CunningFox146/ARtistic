@@ -1,9 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SelectDrawingCommand" style="min-height: 25px; flex-direction: row;">
-        <ArPaint.UI.Elements.BindableImage binding-image-path="Preview" name="preview" style="width: 128px; height: 128px;" />
+    <Style src="project://database/Assets/Resources/UI/Common.uss?fileID=7433441132597879392&amp;guid=73b8dad78532204418ede5177ae46c9a&amp;type=3#Common" />
+    <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SelectDrawingCommand" class="drawing-list-item" style="min-height: 128px; flex-direction: row; margin-top: 20px; margin-bottom: 20px;">
+        <ArPaint.UI.Elements.BindableImage binding-image-path="Preview" name="preview" style="width: 128px; height: 128px; background-image: url(&apos;project://database/Assets/Plugins/TextMesh%20Pro/Sprites/EmojiOne.png?fileID=2800000&amp;guid=dffef66376be4fa480fb02b19edbe903&amp;type=3#EmojiOne&apos;); margin-right: 20px;" />
         <ui:VisualElement name="info" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" name="name" picking-mode="Ignore" binding-text-path="DrawingName" style="-unity-text-align: middle-left;" />
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" name="description" picking-mode="Ignore" binding-text-path="DrawingDescription" style="-unity-text-align: middle-left;" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" name="name" picking-mode="Ignore" binding-text-path="DrawingName" text="Item name" class="header-text" style="-unity-text-align: middle-left; flex-shrink: 1; flex-grow: 1;" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" name="description" picking-mode="Ignore" binding-text-path="DrawingDescription" text="Item description" class="caption-label" style="-unity-text-align: middle-left; flex-shrink: 1; flex-grow: 1;" />
         </ui:VisualElement>
     </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
 </ui:UXML>

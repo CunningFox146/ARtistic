@@ -26,6 +26,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         [Observable] private readonly IProperty<string> _publishButtonText;
         [Observable] private readonly IProperty<string> _author;
         [Observable] private readonly IProperty<bool> _isOwned;
+        [Observable] private readonly IProperty<bool> _hasDrawing;
         [Observable] private readonly IProperty<Quaternion> _previewRotation;
 
         private readonly IDrawingsProvider _drawingsProvider;
@@ -70,6 +71,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             _publishButtonText = new Property<string>();
             _author = new Property<string>();
             _isOwned = new Property<bool>();
+            _hasDrawing = new Property<bool>();
             _previewRotation = new Property<Quaternion>(new());
             _previewRenderer.SetRotationGetter(() => _previewRotation.Value);
 
@@ -120,6 +122,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             DrawingName = _selectedDrawing?.Name;
             DrawingDescription = _selectedDrawing?.Description;
             _publishButtonText.Value = _selectedDrawing is { IsPublished: true } ? "Unpublish" : "Publish";
+            _hasDrawing.Value = _selectedDrawing != null; 
             _author.Value = _selectedDrawing == null || _selectedDrawing.IsOwned ? "You" : _selectedDrawing.AuthorName;
             _isOwned.Value = _selectedDrawing == null || _selectedDrawing.IsOwned;
 

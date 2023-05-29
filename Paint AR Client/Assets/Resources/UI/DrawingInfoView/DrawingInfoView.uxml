@@ -21,8 +21,10 @@
                 </UnityMvvmToolkit.UITK.BindableUIElements.BindableButton>
             </ArPaint.UI.Elements.BindableVisibilityView>
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="DrawCommand" text="Draw!" name="draw" class="default-button" style="margin-top: 0; margin-bottom: 0;" />
-            <ArPaint.UI.Elements.BindablePreviewController binding-preview-rotation-path="PreviewRotation" style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/RenderTextures/DrawingPreview.renderTexture?fileID=8400000&amp;guid=6830ff28f7b9acc48b54f12e2a87e7e8&amp;type=2#DrawingPreview&apos;);" />
-            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ScreenshotCommand" text="Export as PNG" class="default-button" style="margin-bottom: 20px;" />
+            <ArPaint.UI.Elements.BindableVisibilityView name="preview" binding-visibility-path="HasDrawing" style="flex-grow: 1;">
+                <ArPaint.UI.Elements.BindablePreviewController binding-preview-rotation-path="PreviewRotation" style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-image: url(&apos;project://database/Assets/RenderTextures/DrawingPreview.renderTexture?fileID=8400000&amp;guid=6830ff28f7b9acc48b54f12e2a87e7e8&amp;type=2#DrawingPreview&apos;);" />
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ScreenshotCommand" text="Export as PNG" name="export-button" class="default-button" style="margin-bottom: 20px;" />
+            </ArPaint.UI.Elements.BindableVisibilityView>
         </ui:VisualElement>
     </ArPaint.UI.Elements.SafeAreaView>
 </ui:UXML>
