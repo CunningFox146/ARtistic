@@ -36,6 +36,5 @@ namespace ArPaint.Services.Draw
         public bool IsOwned { get; set; }
         public bool IsPublished { get; set; }
         public byte[] Preview { get; set; }
-
     }
 }

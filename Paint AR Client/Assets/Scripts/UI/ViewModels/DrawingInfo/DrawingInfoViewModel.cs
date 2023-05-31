@@ -76,7 +76,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             _previewRenderer.SetRotationGetter(() => _previewRotation.Value);
 
             CloseViewCommand = new Command(CloseView);
-            SaveCommand = new AsyncCommand(Save) { DisableOnExecution = true };
+            SaveCommand = new AsyncCommand(Save, () => _selectedDrawing != null) { DisableOnExecution = true };
             DeleteCommand = new AsyncCommand(Delete, () => _selectedDrawing != null) { DisableOnExecution = true };
             ScreenshotCommand = new AsyncCommand(Screenshot, () => _selectedDrawing is { DrawCommands: not null })
                 { DisableOnExecution = true };
@@ -134,6 +134,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             else
                 _previewRenderer.Clear();
 
+            SaveCommand.RaiseCanExecuteChanged();
             DeleteCommand.RaiseCanExecuteChanged();
             ScreenshotCommand.RaiseCanExecuteChanged();
             PublishCommand.RaiseCanExecuteChanged();

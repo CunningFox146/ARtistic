@@ -1,7 +1,7 @@
 ﻿using ArPaint.Infrastructure.AssetProvider;
 using ArPaint.Infrastructure.GameStates;
 using ArPaint.Services.Draw.Shapes;
-using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.Services.Stack;
 using ArPaint.UI.ViewModels;
 using ArPaint.UI.ViewModels.Discover;
 using ArPaint.UI.ViewModels.DrawingInfo;
@@ -35,7 +35,7 @@ namespace ArPaint.Infrastructure
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ProfileViewModelModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ProfileViewModel>().AsSingle();
             Container.BindFactory<ProfileView, ProfileView.Factory>()
                 .FromComponentInNewPrefab(_profileView);
             

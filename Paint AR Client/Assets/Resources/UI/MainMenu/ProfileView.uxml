@@ -21,7 +21,7 @@
                 <ui:VisualElement name="profile" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
                     <ui:Label tabindex="-1" text="Profile settings" display-tooltip-when-elided="true" class="header-text" />
                     <ui:Label tabindex="-1" text="User name" display-tooltip-when-elided="true" name="username-header" class="caption-label" style="color: rgb(255, 255, 255); font-size: 24px; padding-top: 20px; padding-bottom: 20px;" />
-                    <ArPaint.UI.Elements.BindableTextField name="username" text-binding-path="Username" class="input" />
+                    <ArPaint.UI.Elements.BindableTextField name="username" text-binding-path="Username" value="123123123123" class="input" />
                     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ChangeUsernameCommand" text="Change User Name" name="change-name-button" class="default-button" style="margin-top: 20px; margin-bottom: 20px;" />
                     <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="ForgotPasswordCommand" text="Forgot Password" name="forgot-password-button" class="default-button" />
                 </ui:VisualElement>

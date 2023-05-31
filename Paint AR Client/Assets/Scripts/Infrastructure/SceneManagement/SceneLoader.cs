@@ -1,5 +1,5 @@
 ﻿using System;
-using ArPaint.UI.Systems.LoadingDisplay;
+using ArPaint.UI.Services.LoadingDisplay;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 

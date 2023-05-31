@@ -3,7 +3,7 @@ using Zenject;
 
 namespace ArPaint.UI.Views.Profile
 {
-    public class ProfileView : View<ProfileViewModelModel>
+    public class ProfileView : View<ProfileViewModel>
     {
         public class Factory : PlaceholderFactory<ProfileView>
         {

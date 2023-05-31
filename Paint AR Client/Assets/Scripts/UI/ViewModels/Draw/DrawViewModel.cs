@@ -5,7 +5,7 @@ using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Commands;
 using ArPaint.Services.Draw;
 using ArPaint.Services.Draw.Shapes;
-using ArPaint.UI.Systems.LoadingDisplay;
+using ArPaint.UI.Services.LoadingDisplay;
 using ArPaint.UI.Views.DrawOptions;
 using Cysharp.Threading.Tasks;
 using Services.StaticData;

@@ -1,7 +1,7 @@
 ﻿using ArPaint.Infrastructure.SceneManagement;
 using ArPaint.Services.Draw;
-using ArPaint.UI.Systems.LoadingDisplay;
-using ArPaint.UI.Systems.Stack;
+using ArPaint.UI.Services.LoadingDisplay;
+using ArPaint.UI.Services.Stack;
 using ArPaint.UI.Views.SignIn;
 using Services.Auth;
 using Services.PersistentData;
