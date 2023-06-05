@@ -13,7 +13,7 @@
                 </ui:VisualElement>
                 <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SearchDrawingsCommand" name="search-button" class="icon-button" style="background-image: resource(&apos;UI/MainMenu/Graphics/Search&apos;); min-width: 35px; min-height: 45px; margin-left: 10px; width: 35px;" />
             </ui:VisualElement>
-            <ArPaint.UI.Views.Home.DrawingsListView focusable="false" virtualization-method="DynamicHeight" binding-items-source-path="Drawings" name="DrawingsListView" show-bound-collection-size="false" style="flex-grow: 1;" />
+            <ArPaint.UI.Views.Home.DrawingsListView focusable="false" virtualization-method="DynamicHeight" binding-items-source-path="Drawings" name="DrawingsListView" show-bound-collection-size="false" class="scroll-view" style="flex-grow: 1;" />
         </ui:VisualElement>
         <ui:VisualElement name="tab-bar" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="discover" command="OpenProfileTabCommand" class="tab-bar__button">

@@ -45,7 +45,7 @@ namespace ArPaint.UI.ViewModels.Home
         public DrawingViewModel(DrawingData drawing, Action<DrawingData> selectDrawing, IImageProvider imageProvider)
         {
             Drawing = drawing;
-            Id = Drawing.Id;
+            Id = Guid.NewGuid().GetHashCode();
             
             _selectDrawing = selectDrawing;
             _imageProvider = imageProvider;
@@ -71,7 +71,7 @@ namespace ArPaint.UI.ViewModels.Home
             
             try
             {
-                _preview.Value = await _imageProvider.LoadImage(Id.ToString());
+                _preview.Value = await _imageProvider.LoadImage(Drawing.Id.ToString());
             }
             catch (Exception exception)
             {

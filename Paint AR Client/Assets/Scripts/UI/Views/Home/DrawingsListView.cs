@@ -5,7 +5,7 @@ using UnityMvvmToolkit.UITK.BindableUIElements;
 
 namespace ArPaint.UI.Views.Home
 {
-    public class DrawingsListView : BindableListView<DrawingViewModel>
+    public class DrawingsListView : BindableScrollView<DrawingViewModel>
     {
         public new class UxmlFactory : UxmlFactory<DrawingsListView, UxmlTraits>
         {

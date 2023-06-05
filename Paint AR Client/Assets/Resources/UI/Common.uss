@@ -501,3 +501,10 @@
     color: var(--primary-color);
     -unity-font-style: bold;
 }
+
+.scroll-view {
+    flex-wrap: wrap;
+    max-height: 775px;
+    flex-grow: 1;
+    overflow: hidden;
+}

@@ -4,7 +4,7 @@
     <ArPaint.UI.Elements.SafeAreaView>
         <ui:VisualElement name="root" class="view-root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
             <ui:Label tabindex="-1" text="Home" display-tooltip-when-elided="true" name="header" class="header-text" style="margin-bottom: 20px;" />
-            <ArPaint.UI.Views.Home.DrawingsListView focusable="false" binding-items-source-path="Drawings" virtualization-method="DynamicHeight" show-bound-collection-size="false" style="flex-grow: 1;" />
+            <ArPaint.UI.Views.Home.DrawingsListView focusable="false" binding-items-source-path="Drawings" virtualization-method="DynamicHeight" show-bound-collection-size="false" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="scroll-view" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton text="Add new" command="CreateDrawingCommand" class="default-button" />
         </ui:VisualElement>
         <ui:VisualElement name="tab-bar" class="tab-bar" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0);">
