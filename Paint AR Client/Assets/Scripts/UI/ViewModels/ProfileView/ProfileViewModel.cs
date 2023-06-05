@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ArPaint.Services.Draw;
 using ArPaint.UI.ViewModels.MainMenu;
 using Cysharp.Threading.Tasks;
 using Services.Auth;
@@ -16,6 +17,7 @@ namespace ArPaint.UI.ViewModels.ProfileView
     {
         private readonly IAuthSystem _auth;
         private readonly IToast _toast;
+        private readonly IDrawingsProvider _drawingsProvider;
 
         [Observable(nameof(Username))]
         private readonly IProperty<string> _username;
@@ -31,10 +33,11 @@ namespace ArPaint.UI.ViewModels.ProfileView
             set => _username.Value = value;
         }
 
-        public ProfileViewModel(IAuthSystem auth, IToast toast)
+        public ProfileViewModel(IAuthSystem auth, IToast toast, IDrawingsProvider drawingsProvider)
         {
             _auth = auth;
             _toast = toast;
+            _drawingsProvider = drawingsProvider;
             _username = new Property<string>();
 
             ChangeUsernameCommand = new AsyncCommand(ChangeUsername) { DisableOnExecution = true };
@@ -80,6 +83,7 @@ namespace ArPaint.UI.ViewModels.ProfileView
             try
             {
                 await _auth.ChangeUserName(Username);
+                await _drawingsProvider.Save();
             }
             catch (Exception exception)
             {

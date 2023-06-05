@@ -89,11 +89,14 @@ namespace Services.Auth
 
         public async UniTask SendResetPasswordEmail()
         {
+            await SendResetPasswordEmail(_auth.CurrentUser.Email);
+        }
+        
+        public async UniTask SendResetPasswordEmail(string email)
+        {
+            await _auth.SendPasswordResetEmailAsync(email);
             if (IsSignedIn)
-            {
-                await _auth.SendPasswordResetEmailAsync(_auth.CurrentUser.Email);
                 SignOut();
-            }
         }
 
         public async UniTask ChangeUserName(string username)

@@ -24,6 +24,7 @@ namespace ArPaint.UI.ViewModels.Register
 
         public IAsyncCommand SignInCommand { get; }
         public IAsyncCommand GoogleSignInCommand { get; }
+        public IAsyncCommand ResetPasswordCommand { get; }
         public ICommand OpenRegisterViewCommand { get; }
 
         public string Email
@@ -47,7 +48,27 @@ namespace ArPaint.UI.ViewModels.Register
 
             SignInCommand = new AsyncCommand(SignIn) { DisableOnExecution = true };
             GoogleSignInCommand = new AsyncCommand(GoogleSignIn) { DisableOnExecution = true };
+            ResetPasswordCommand = new AsyncCommand(ResetPassword) { DisableOnExecution = true };
             OpenRegisterViewCommand = new Command(OpenRegisterView);
+        }
+
+        private async UniTask ResetPassword(CancellationToken arg)
+        {
+            if (string.IsNullOrWhiteSpace(Email))
+            {
+                _toast.ShowMessage("Enter valid email");
+                return;
+            }
+            
+            try
+            {
+                await _auth.SendResetPasswordEmail(Email);
+                _toast.ShowMessage("Email reset message was sent!");
+            }
+            catch (Exception exception)
+            {
+                _toast.ShowError(exception);
+            }
         }
 
         private void OpenRegisterView()

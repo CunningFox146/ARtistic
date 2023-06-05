@@ -14,6 +14,7 @@ namespace Services.Auth
         UniTask SingInWithGoogle();
         UniTask Register(string email, string username, string password);
         UniTask SendResetPasswordEmail();
+        UniTask SendResetPasswordEmail(string email);
         UniTask ChangeUserName(string username);
         UniTask DeleteProfile();
         void SignOut();

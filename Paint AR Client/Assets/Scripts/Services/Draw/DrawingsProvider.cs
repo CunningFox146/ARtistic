@@ -142,6 +142,10 @@ namespace ArPaint.Services.Draw
 
         public async UniTask Save()
         {
+            foreach (var drawing in Drawings)
+            {
+                drawing.AuthorName = _auth.User.DisplayName;
+            }
             var json = JsonConvert.SerializeObject(Drawings);
             _persistentData.SetValue(nameof(Drawings), json);
 

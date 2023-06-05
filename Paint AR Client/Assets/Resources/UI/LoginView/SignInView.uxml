@@ -9,6 +9,7 @@
             <ArPaint.UI.Elements.BindableTextField text-binding-path="Email" name="Email" keyboard-type="EmailAddress" class="input" />
             <ui:Label tabindex="-1" text="Password" display-tooltip-when-elided="true" class="caption-label" style="margin-top: 20px; margin-bottom: 20px;" />
             <ArPaint.UI.Elements.BindableTextField password="true" name="Password" text-binding-path="Password" class="input" />
+            <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="forgot-password" command="ResetPasswordCommand" text="Forgot password?" class="text-button caption-label" style="margin-top: 20px; margin-bottom: 20px;" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton command="SignInCommand" text="Sign in" name="sign-in-button" class="default-button" style="margin-top: 20px; margin-bottom: 20px;" />
             <UnityMvvmToolkit.UITK.BindableUIElements.BindableButton name="Register" command="OpenRegisterViewCommand" text="Register" class="default-button" />
         </ui:VisualElement>
