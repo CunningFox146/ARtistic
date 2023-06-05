@@ -25,13 +25,12 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
         
         [Observable] private readonly IProperty<string> _publishButtonText;
         [Observable] private readonly IProperty<string> _author;
-        [Observable] private readonly IProperty<bool> _isOwned;
+        [Observable] private readonly IProperty<bool> _actionsAvailable;
         [Observable] private readonly IProperty<bool> _hasDrawing;
         [Observable] private readonly IProperty<Quaternion> _previewRotation;
 
         private readonly IDrawingsProvider _drawingsProvider;
         private readonly IPreviewRenderer _previewRenderer;
-        private readonly RenderTexture _renderTexture;
         private readonly IToast _toast;
         private readonly ISceneLoader _sceneLoader;
         private readonly IScreenshotService _screenshotService;
@@ -70,7 +69,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             _drawingDescription = new Property<string>();
             _publishButtonText = new Property<string>();
             _author = new Property<string>();
-            _isOwned = new Property<bool>();
+            _actionsAvailable = new Property<bool>();
             _hasDrawing = new Property<bool>();
             _previewRotation = new Property<Quaternion>(new());
             _previewRenderer.SetRotationGetter(() => _previewRotation.Value);
@@ -78,7 +77,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             CloseViewCommand = new Command(CloseView);
             SaveCommand = new AsyncCommand(Save, () => _selectedDrawing != null) { DisableOnExecution = true };
             DeleteCommand = new AsyncCommand(Delete, () => _selectedDrawing != null) { DisableOnExecution = true };
-            ScreenshotCommand = new AsyncCommand(Screenshot, () => _selectedDrawing is { DrawCommands: not null })
+            ScreenshotCommand = new AsyncCommand(Screenshot)
                 { DisableOnExecution = true };
             DrawCommand = new AsyncCommand(Draw) { DisableOnExecution = true };
             PublishCommand = new AsyncCommand(Publish, () => _selectedDrawing != null) { DisableOnExecution = true };
@@ -106,7 +105,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
 
         private async UniTask Screenshot(CancellationToken cancellationToken)
         {
-            await _screenshotService.Screenshot(_renderTexture, cancellationToken);
+            await _screenshotService.Screenshot(_previewRenderer.RenderTexture, cancellationToken);
         }
 
         private async UniTask Delete(CancellationToken cancellationToken)
@@ -124,7 +123,7 @@ namespace ArPaint.UI.ViewModels.DrawingInfo
             _publishButtonText.Value = _selectedDrawing is { IsPublished: true } ? "Unpublish" : "Publish";
             _hasDrawing.Value = _selectedDrawing != null; 
             _author.Value = _selectedDrawing == null || _selectedDrawing.IsOwned ? "You" : _selectedDrawing.AuthorName;
-            _isOwned.Value = _selectedDrawing == null || _selectedDrawing.IsOwned;
+            _actionsAvailable.Value = _selectedDrawing is { IsOwned: true };
 
             if (_selectedDrawing is { DrawCommands: not null })
             {
