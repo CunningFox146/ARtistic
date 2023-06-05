@@ -10,13 +10,19 @@
                 <ui:Label tabindex="-1" text="Brush settings" display-tooltip-when-elided="true" name="header" class="header-text" />
             </ui:VisualElement>
             <ui:Label tabindex="-1" text="Color" display-tooltip-when-elided="true" name="color-header" class="subheader-text" style="margin-top: 20px;" />
-            <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" name="color-picker" style="height: 250px;" />
+            <ArPaint.UI.Elements.BindableColorPicker binding-color-path="ShapeColor" name="color-picker" style="height: 200px;" />
             <ui:VisualElement name="separator" class="separator" />
             <ui:Label tabindex="-1" text="Size" display-tooltip-when-elided="true" name="size-header" class="subheader-text" />
             <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Size" low-value="0.5" high-value="5" style="margin-top: 20px; margin-bottom: 20px;" />
             <ui:VisualElement name="separator" class="separator" />
             <ui:Label tabindex="-1" text="Smoothness" display-tooltip-when-elided="true" name="size-header" class="subheader-text" />
             <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Smoothness" high-value="10" style="margin-top: 20px; margin-bottom: 20px;" />
+            <ui:VisualElement name="separator" class="separator" />
+            <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:Label tabindex="-1" text="Draw Distance" display-tooltip-when-elided="true" name="distance-header" class="subheader-text" />
+                <UnityMvvmToolkit.UITK.BindableUIElements.BindableLabel tabindex="-1" binding-text-path="Distance, DistanceConverter" class="subheader-text" style="margin-left: 14px;" />
+            </ui:VisualElement>
+            <ArPaint.UI.Elements.BindableSlider name="BindableSlider" value-binding-path="Distance" high-value="2" value="1" low-value="0.05" style="margin-top: 20px; margin-bottom: 20px;" />
             <ui:VisualElement name="separator" class="separator" />
             <ui:VisualElement name="is-dotted" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between;">
                 <ui:Label tabindex="-1" text="Is dotted" display-tooltip-when-elided="true" class="subheader-text" />

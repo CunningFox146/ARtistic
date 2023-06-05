@@ -1,4 +1,5 @@
 ﻿using ArPaint.Services.Draw;
+using ArPaint.Services.Draw.Brushes;
 using UnityEngine;
 using UnityMvvmToolkit.Core;
 using UnityMvvmToolkit.Core.Attributes;
@@ -19,6 +20,9 @@ namespace ArPaint.UI.ViewModels.DrawOptions
         
         [Observable(nameof(Smoothness))]
         private readonly IProperty<float> _smoothness;
+        
+        [Observable(nameof(Distance))]
+        private readonly IProperty<float> _distance;
         
         [Observable(nameof(IsDotted))]
         private readonly IProperty<bool> _isDotted;
@@ -43,6 +47,12 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             set => _smoothness.Value = value;
         }
         
+        public float Distance
+        {
+            get => _distance.Value;
+            set => _distance.Value = value;
+        }
+        
         public bool IsDotted
         {
             get => _isDotted.Value;
@@ -56,11 +66,13 @@ namespace ArPaint.UI.ViewModels.DrawOptions
             _shapeColor = new Property<Color>();
             _size = new Property<float>();
             _smoothness = new Property<float>();
+            _distance = new Property<float>();
             _isDotted = new Property<bool>();
             
             ShapeColor = drawService.Brush.Color;
             Size = drawService.Brush.Size;
             Smoothness = drawService.Brush.Smoothness;
+            Distance = drawService.Brush.Distance;
             IsDotted = drawService.Brush.IsDotted;
 
             CloseViewCommand = new Command(CloseView);
@@ -68,11 +80,12 @@ namespace ArPaint.UI.ViewModels.DrawOptions
 
         private void CloseView()
         {
-            _drawService.Brush = new()
+            _drawService.Brush = new Brush
             {
                 Color = ShapeColor,
                 Size = Size,
                 Smoothness = Mathf.FloorToInt(Smoothness),
+                Distance = Distance,
                 IsDotted = IsDotted,
             };
             ViewStack.PopView();

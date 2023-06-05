@@ -152,7 +152,7 @@ namespace ArPaint.Services.Draw
                 return;
 
             var container = CreateShapeContainer();
-            var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
+            var touchPosition = touch.GetWorldPosition(_mainCamera, Brush.Distance);
 
             container.SetBrush(Brush);
             container.InitTransform(touchPosition, _mainCamera.transform.rotation);
@@ -167,7 +167,7 @@ namespace ArPaint.Services.Draw
             if (!touch.valid || !_activeShapes.TryGetValue(touch.touchId, out var container))
                 return;
 
-            var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
+            var touchPosition = touch.GetWorldPosition(_mainCamera, Brush.Distance);
             Shape.OnDrawMove(container, container.TransformPoint(touchPosition));
         }
 
@@ -176,7 +176,7 @@ namespace ArPaint.Services.Draw
             if (!touch.valid || !_activeShapes.Remove(touch.touchId, out var container))
                 return;
 
-            var touchPosition = touch.GetWorldPosition(_mainCamera, 1f);
+            var touchPosition = touch.GetWorldPosition(_mainCamera, Brush.Distance);
             (Shape as IShapeEnd)?.OnDrawEnd(container, container.TransformPoint(touchPosition));
 
             if (container.PositionsCount < 2)

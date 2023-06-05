@@ -13,13 +13,17 @@ namespace ArPaint.Services.Draw.Brushes
         public float Size { get; set; }
         public int Smoothness { get; set; }
         
+        public float Distance { get; set; }
+        
         public static Brush Default => new()
         {
             Color = Color.white,
             IsDotted = false,
             Size= 1f,
             Smoothness = 0,
-        }; 
+            Distance = 1f
+        };
+
     }
 
     [FirestoreData]

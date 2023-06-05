@@ -62,7 +62,8 @@ namespace ArPaint.Infrastructure
 
             Container.Bind<IValueConverter[]>().FromInstance(new IValueConverter[]
             {
-                new StringToBoolConverter()
+                new StringToBoolConverter(),
+                new DistanceConverter(),
             });
 
             Container.BindInterfacesAndSelfTo<GameBootstrap>().AsSingle().NonLazy();
